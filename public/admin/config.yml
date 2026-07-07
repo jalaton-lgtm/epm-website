@@ -1,7 +1,7 @@
 backend:
   name: github
   # TODO (Phase 2/4): replace with your actual GitHub repo, e.g. "epmattila/website"
-  repo: OWNER/REPO
+  repo: jalaton-lgtm/epm-website
   branch: main
 
 media_folder: "public/uploads/blog"
