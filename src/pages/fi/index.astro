@@ -14,7 +14,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
   <!-- HERO -->
   <section class="hero">
     <div class="hero-photo">
-      <PhotoSlot src="/images/hero.jpg" alt="Esa-Pekka Mattila lähtöviivalla" placeholder="LISÄÄ KANSIKUVA" showLabel={false} />
+      <PhotoSlot src="/images/hero.jpg" alt="Esa-Pekka Mattila lähtöviivalla" placeholder="LISÄÄ KANSIKUVA" showLabel={false} objectPosition="50% 22%" />
     </div>
     <div class="hero-inner wrap">
       <p class="kicker">Pyörätuolikelaus · 100m T54 · FIN</p>
@@ -134,8 +134,12 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
   .hero-name {
     font-size: var(--text-hero);
   }
-  .accent-text {
+.accent-text {
     color: var(--accent);
+  }
+  .hero-name .accent-text {
+    text-shadow: 0 4px 28px rgba(14, 13, 12, 0.75);
+  }
   }
   .hero-meta {
     display: flex;
