@@ -2,14 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 
-// HUOM — luonnosteksti, katso avoimet kohdat profile.astro:n kommentista
-// (syntymävuosi, seura, kotikaupunki).
+// HUOM — luonnosteksti. Syntymävuosi, seura ja kotikaupunki nyt vahvistettu
+// (1989, Espoon Tapiot, Espoo). Valokuvat lisätään seuraavassa erässä.
 
 const stats = [
   { label: 'HE · 100m', value: '14.08', unit: 's', accent: true },
   { label: 'LUOKKA', value: 'T54', unit: '' },
   { label: 'KANSALLISUUS', value: 'FIN', unit: '' },
   { label: 'HANDLE', value: '@mattilae', unit: '' },
+  { label: 'SEURA', value: 'Espoon Tapiot', unit: '', href: 'https://espoontapiot.fi/' },
+  { label: 'KOTIPAIKKA', value: 'Espoo', unit: '' },
 ];
 ---
 
@@ -24,7 +26,7 @@ const stats = [
   <section class="profile-body">
     <div class="wrap profile-grid">
       <div class="profile-photo reveal">
-        <PhotoSlot placeholder="LISÄÄ MUOTOKUVA" aspect="4/5" />
+        <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="LISÄÄ MUOTOKUVA" aspect="4/5" />
       </div>
       <div class="bio reveal">
         <p class="lead">
@@ -33,10 +35,10 @@ const stats = [
         </p>
         <div class="rule-accent"></div>
         <p>
-          Esa-Pekka Mattila kilpailee pyörätuolikelauksessa, luokka T54,
-          MM- ja paralympiatasolla. Henkilökohtainen ennätys 100
-          metrillä on 14,08 sekuntia. Valmentajana toimii Leo-Pekka
-          Tähti.
+          Esa-Pekka Mattila (s. 1989) kilpailee pyörätuolikelauksessa,
+          luokka T54, MM- ja paralympiatasolla. Kotipaikka Espoo, edustaa
+          Espoon Tapiotia. Henkilökohtainen ennätys 100 metrillä on
+          14,08 sekuntia. Valmentajana toimii Leo-Pekka Tähti.
         </p>
         <p>
           Kilpaurheilun ohella hän toimii suomalaisen olympia- ja
@@ -54,7 +56,9 @@ const stats = [
           {stats.map((s) => (
             <div class="stat-block">
               <div class="k mono">{s.label}</div>
-              <div class={`stat-value ${s.accent ? 'accent-text' : ''}`}>{s.value}{s.unit}</div>
+              <div class={`stat-value ${s.accent ? 'accent-text' : ''}`}>
+                {s.href ? <a href={s.href} target="_blank" rel="noopener">{s.value}{s.unit}</a> : `${s.value}${s.unit}`}
+              </div>
             </div>
           ))}
         </div>
