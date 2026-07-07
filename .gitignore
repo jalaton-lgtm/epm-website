@@ -1,0 +1,17 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment
+.env
+.env.production
+
+# editor / OS
+.DS_Store
+.vscode/
+
+# Decap CMS local auth (if you ever run a local backend proxy)
+.netlify/
