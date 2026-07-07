@@ -14,7 +14,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
   <!-- HERO -->
   <section class="hero">
     <div class="hero-photo">
-      <PhotoSlot placeholder="DROP A HERO PHOTO" />
+      <PhotoSlot placeholder="DROP A HERO PHOTO" showLabel={false} />
     </div>
     <div class="hero-inner wrap">
       <p class="kicker">Wheelchair Racing · 100m T54 · FIN</p>
