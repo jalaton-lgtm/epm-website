@@ -21,7 +21,7 @@
   --surface: #161413;
   --ink: #F4F1EC;
   --muted: #8E8A85;
-  --rule: rgba(244, 241, 236, 0.08);
+  --rule: rgba(244, 241, 236, 0.14);
 
   /* ---- Category accent colors (ported 1:1 from brand-tokens.jsx) ---- */
   --accent-competition: #C8392E; /* Crimson */
