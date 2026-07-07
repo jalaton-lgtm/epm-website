@@ -4,8 +4,13 @@ export interface Props {
   alt?: string;
   placeholder: string; // shown when no src provided, e.g. "DROP A HERO PHOTO"
   aspect?: string; // CSS aspect-ratio value, e.g. "4/5", "16/10"
+  showLabel?: boolean; // false hides the visible text hint — use where large
+                        // overlapping content (e.g. hero headline) would
+                        // collide with a centered label; the diagonal
+                        // stripe pattern alone still reads as an
+                        // intentional dark texture rather than "missing"
 }
-const { src, alt = '', placeholder, aspect } = Astro.props;
+const { src, alt = '', placeholder, aspect, showLabel = true } = Astro.props;
 ---
 
 <div class="photo-slot" style={aspect ? `aspect-ratio: ${aspect};` : ''}>
@@ -13,7 +18,7 @@ const { src, alt = '', placeholder, aspect } = Astro.props;
     <img src={src} alt={alt} />
   ) : (
     <div class="stripe" role="img" aria-label={placeholder}>
-      <span class="mono">{placeholder}</span>
+      {showLabel && <span class="mono">{placeholder}</span>}
     </div>
   )}
 </div>
