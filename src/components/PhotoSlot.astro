@@ -9,13 +9,17 @@ export interface Props {
                         // collide with a centered label; the diagonal
                         // stripe pattern alone still reads as an
                         // intentional dark texture rather than "missing"
+  objectPosition?: string; // CSS object-position, default "50% 50%" (center).
+                            // Lower Y values (e.g. "50% 25%") show more of
+                            // the top of the source image — useful when a
+                            // subject's head is getting cropped off.
 }
-const { src, alt = '', placeholder, aspect, showLabel = true } = Astro.props;
+const { src, alt = '', placeholder, aspect, showLabel = true, objectPosition = '50% 50%' } = Astro.props;
 ---
 
 <div class="photo-slot" style={aspect ? `aspect-ratio: ${aspect};` : ''}>
   {src ? (
-    <img src={src} alt={alt} />
+    <img src={src} alt={alt} style={`object-position: ${objectPosition};`} />
   ) : (
     <div class="stripe" role="img" aria-label={placeholder}>
       {showLabel && <span class="mono">{placeholder}</span>}
