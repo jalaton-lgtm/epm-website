@@ -5,20 +5,18 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 // NOTE — draft copy, written in your usual register (factual, no
 // motivational language). Review before publishing.
 //
-// Deliberately NOT included pending your confirmation:
-//   - Birth year (source file lists 1990, flagged "confirm exact year";
-//     also appeared baked into a monogram in the later mockup as "·90" —
-//     dropped that too until you actually confirm it)
-//   - Club affiliation (marked TODO in the source file)
-//   - Personal motto (source placeholder was explicitly not yours)
-//   - Specific home city (source says Espoo; a different location is on
-//     record elsewhere — left as "Finland" until you confirm which)
+// Confirmed by EP: born 1989, club Espoon Tapiot (espoontapiot.fi),
+// home city Espoo (resolves the earlier Espoo-vs-elsewhere discrepancy
+// in the brand file in favor of Espoo). Photos still pending — added
+// in a follow-up once EP sends them.
 
 const stats = [
   { label: 'PB · 100M', value: '14.08', unit: 's', accent: true },
   { label: 'CLASSIFICATION', value: 'T54', unit: '' },
   { label: 'NATIONALITY', value: 'FIN', unit: '' },
   { label: 'HANDLE', value: '@mattilae', unit: '' },
+  { label: 'CLUB', value: 'Espoon Tapiot', unit: '', href: 'https://espoontapiot.fi/' },
+  { label: 'BASED', value: 'Espoo, FIN', unit: '' },
 ];
 ---
 
@@ -33,7 +31,7 @@ const stats = [
   <section class="profile-body">
     <div class="wrap profile-grid">
       <div class="profile-photo reveal">
-        <PhotoSlot placeholder="DROP A PORTRAIT" aspect="4/5" />
+        <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="DROP A PORTRAIT" aspect="4/5" />
       </div>
       <div class="bio reveal">
         <p class="lead">
@@ -42,10 +40,11 @@ const stats = [
         </p>
         <div class="rule-accent"></div>
         <p>
-          Esa-Pekka Mattila competes in wheelchair racing, classification
-          T54, at World Championship and Paralympic level. His personal
-          best over 100m is 14.08 seconds. He trains under coach
-          Leo-Pekka Tähti.
+          Esa-Pekka Mattila (b. 1989) competes in wheelchair racing,
+          classification T54, at World Championship and Paralympic
+          level. Based in Espoo, Finland, racing for Espoon Tapiot. His
+          personal best over 100m is 14.08 seconds. He trains under
+          coach Leo-Pekka Tähti.
         </p>
         <p>
           Alongside competing, he holds governance roles within Finnish
@@ -63,7 +62,9 @@ const stats = [
           {stats.map((s) => (
             <div class="stat-block">
               <div class="k mono">{s.label}</div>
-              <div class={`stat-value ${s.accent ? 'accent-text' : ''}`}>{s.value}{s.unit}</div>
+              <div class={`stat-value ${s.accent ? 'accent-text' : ''}`}>
+                {s.href ? <a href={s.href} target="_blank" rel="noopener">{s.value}{s.unit}</a> : `${s.value}${s.unit}`}
+              </div>
             </div>
           ))}
         </div>
