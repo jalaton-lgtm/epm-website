@@ -1,0 +1,71 @@
+backend:
+  name: github
+  # TODO (Phase 2/4): replace with your actual GitHub repo, e.g. "epmattila/website"
+  repo: OWNER/REPO
+  branch: main
+
+media_folder: "public/uploads/blog"
+public_folder: "/uploads/blog"
+
+publish_mode: simple
+
+collections:
+  - name: "blog_en"
+    label: "Blog — English"
+    folder: "src/content/blog/en"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Language", name: "lang", widget: "hidden", default: "en" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Competition", value: "competition" }
+          - { label: "Race Day", value: "raceday" }
+          - { label: "Training", value: "training" }
+          - { label: "Commercial", value: "commercial" }
+          - { label: "Personal", value: "personal" }
+      - label: "Photo post?"
+        name: "photo"
+        widget: "boolean"
+        default: false
+        hint: "Turn on for photography-forward posts. Keeps the category's color — doesn't go neutral."
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Resize photos to ~2000px on the long edge before uploading — keeps the repo light long-term."
+
+  - name: "blog_fi"
+    label: "Blogi — suomi"
+    folder: "src/content/blog/fi"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Otsikko", name: "title", widget: "string" }
+      - { label: "Päivämäärä", name: "date", widget: "datetime" }
+      - { label: "Kieli", name: "lang", widget: "hidden", default: "fi" }
+      - label: "Kategoria"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Kilpailu", value: "competition" }
+          - { label: "Kilpapäivä", value: "raceday" }
+          - { label: "Harjoittelu", value: "training" }
+          - { label: "Yhteistyö", value: "commercial" }
+          - { label: "Henkilökohtainen", value: "personal" }
+      - label: "Kuvajulkaisu?"
+        name: "photo"
+        widget: "boolean"
+        default: false
+        hint: "Päällä kuvavetoisille julkaisuille. Säilyttää kategorian värin."
+      - { label: "Tiivistelmä", name: "summary", widget: "text", required: false }
+      - { label: "Luonnos", name: "draft", widget: "boolean", default: false }
+      - label: "Sisältö"
+        name: "body"
+        widget: "markdown"
+        hint: "Skaalaa kuvat n. 2000px pitkälle sivulle ennen lataamista."
