@@ -1,0 +1,159 @@
+---
+export interface Props {
+  lang: 'en' | 'fi';
+}
+const { lang } = Astro.props;
+
+const path = Astro.url.pathname;
+const canonical = path.replace(/^\/fi\/?/, '/').replace(/\/+$/, '') || '/';
+const otherLangPath = lang === 'en'
+  ? (canonical === '/' ? '/fi/' : `/fi${canonical}`)
+  : canonical;
+
+const nav = {
+  en: [
+    { href: '/', label: 'Home' },
+    { href: '/profile', label: 'Profile' },
+    { href: '/blog', label: 'Blog' },
+  ],
+  fi: [
+    { href: '/fi/', label: 'Etusivu' },
+    { href: '/fi/profile', label: 'Profiili' },
+    { href: '/fi/blog', label: 'Blogi' },
+  ],
+};
+---
+
+<header class="nav" id="site-nav">
+  <a href={lang === 'en' ? '/' : '/fi/'} class="brandmark">EPM</a>
+  <button class="navtoggle" id="navtoggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="links" id="navlinks" aria-label="Primary">
+    {nav[lang].map((item) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+    <a href={otherLangPath} class="lang-switch" hreflang={lang === 'en' ? 'fi' : 'en'}>
+      {lang === 'en' ? 'FI' : 'EN'}
+    </a>
+    <a href="mailto:jalaton@gmail.com" class="cta">{lang === 'en' ? 'Contact' : 'Yhteystiedot'}</a>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px var(--gutter);
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s, border-color 0.3s, padding 0.3s;
+  }
+  .nav.scrolled {
+    background: rgba(14, 13, 12, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: var(--rule);
+    padding-block: 13px;
+  }
+  .brandmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 8px 14px;
+  }
+  .links a:hover {
+    color: var(--ink);
+  }
+  .links a.cta {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .links a.cta:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .navtoggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .navtoggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    margin: 4px 0;
+    transition: 0.2s;
+  }
+
+  @media (max-width: 860px) {
+    .links {
+      position: fixed;
+      inset: 0 0 0 auto;
+      width: min(78vw, 320px);
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      background: var(--surface);
+      padding: 40px;
+      transform: translateX(100%);
+      transition: transform 0.3s;
+      z-index: 99;
+    }
+    .links.open {
+      transform: none;
+    }
+    .links a {
+      font-size: 0.9375rem;
+      padding: 12px 0;
+    }
+    .navtoggle {
+      display: block;
+    }
+    .navtoggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .navtoggle.open span:nth-child(2) { opacity: 0; }
+    .navtoggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const onScroll = () => nav?.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const toggle = document.getElementById('navtoggle');
+  const links = document.getElementById('navlinks');
+  toggle?.addEventListener('click', () => {
+    const open = links?.classList.toggle('open');
+    toggle.classList.toggle('open', !!open);
+    toggle.setAttribute('aria-expanded', String(!!open));
+  });
+  links?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle?.classList.remove('open');
+    })
+  );
+</script>

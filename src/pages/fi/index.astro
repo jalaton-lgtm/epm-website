@@ -1,0 +1,307 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
+import CategoryBadge from '../../components/CategoryBadge.astro';
+import { getCollection } from 'astro:content';
+import { cleanSlug } from '../../lib/slug';
+
+const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Esa-Pekka Mattila" lang="fi" description="Esa-Pekka Mattila — T54-luokan pyörätuolikelaaja, 100m. Profiili, tulokset ja blogi.">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-photo">
+      <PhotoSlot placeholder="LISÄÄ KANSIKUVA" />
+    </div>
+    <div class="hero-inner wrap">
+      <p class="kicker">Pyörätuolikelaus · 100m T54 · FIN</p>
+      <h1 class="hero-name">Esa-Pekka<br /><span class="accent-text">Mattila.</span></h1>
+      <div class="hero-meta">
+        <span>LUOKKA <b>T54</b></span>
+        <span>HE 100M <b>14.08s</b></span>
+        <span>IG <b>@mattilae</b></span>
+      </div>
+    </div>
+    <div class="scrollcue">
+      <span class="mono">SCROLL</span>
+      <span class="line"></span>
+    </div>
+  </section>
+
+  <!-- PROFILE PREVIEW -->
+  <section id="profile-preview">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">01</span><h2>Profiili</h2></div>
+      <div class="profile-grid">
+        <div class="profile-photo reveal">
+          <PhotoSlot placeholder="LISÄÄ MUOTOKUVA" aspect="4/5" />
+        </div>
+        <div class="bio reveal">
+          <p class="lead">T54-luokan pyörätuolikelaaja, kilpailee MM- ja paralympiatasolla.</p>
+          <div class="rule-accent"></div>
+          <p>
+            Kilpailee 100 metrillä, luokka T54. Kilpaurheilun ohella hän
+            toimii suomalaisen olympia- ja yleisurheiluhallinnon
+            luottamustehtävissä.
+          </p>
+          <div class="statgrid">
+            <div class="stat-block"><div class="k mono">HE · 100m</div><div class="stat-value accent-text">14.08s</div></div>
+            <div class="stat-block"><div class="k mono">Luokka</div><div class="stat-value">T54</div></div>
+            <div class="stat-block"><div class="k mono">Kansallisuus</div><div class="stat-value">FIN</div></div>
+            <div class="stat-block"><div class="k mono">Handle</div><div class="stat-value">@mattilae</div></div>
+          </div>
+          <a href="/fi/profile" class="more">Koko profiili →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PREVIEW -->
+  <section id="blog-preview">
+    <div class="wrap">
+      <div class="sec-head blog-head reveal">
+        <div class="idx-row"><span class="idx mono">02</span><h2>Blogi</h2></div>
+        <span class="mono">Kirjoituksia &amp; kuvia</span>
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="posts">
+          {posts.map((post) => (
+            <a href={`/fi/blog/${cleanSlug(post.slug)}`} class="post reveal">
+              <div class="post-thumb">
+                <PhotoSlot placeholder="JULKAISUN KUVA" aspect="16/10" />
+                <CategoryBadge category={post.data.category} photo={post.data.photo} lang="fi" variant="chip" />
+              </div>
+              <div class="post-body">
+                <span class="mono post-date">{post.data.date.toISOString().slice(0, 10)}</span>
+                <h3>{post.data.title}</h3>
+                {post.data.summary && <p>{post.data.summary}</p>}
+                <span class="more">Lue →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="mono">Ei julkaisuja vielä.</p>
+      )}
+
+      <p class="more all-posts"><a href="/fi/blog">Kaikki julkaisut →</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-photo :global(.photo-slot) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(14,13,12,0.55) 0%, rgba(14,13,12,0) 30%, rgba(14,13,12,0) 45%, rgba(14,13,12,0.78) 82%, rgba(14,13,12,1) 100%),
+      linear-gradient(90deg, rgba(14,13,12,0.65) 0%, rgba(14,13,12,0) 55%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-bottom: clamp(64px, 12vh, 130px);
+    padding-top: 140px;
+  }
+  .hero .kicker {
+    margin-bottom: 22px;
+  }
+  .hero-name {
+    font-size: var(--text-hero);
+  }
+  .accent-text {
+    color: var(--accent);
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+  }
+  .hero-meta b {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .scrollcue {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .scrollcue .mono {
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+  }
+  .scrollcue .line {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(var(--muted), transparent);
+    animation: cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 52px;
+  }
+  .sec-head .idx {
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  #profile-preview {
+    border-top: 1px solid var(--rule);
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 6vw, 84px);
+    align-items: start;
+  }
+  .bio p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+    margin-bottom: var(--space-2);
+    max-width: 34rem;
+  }
+  .bio p.lead {
+    font-size: var(--text-lead);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    max-width: none;
+  }
+  .bio .rule-accent {
+    margin: var(--space-3) 0;
+  }
+  .statgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin: var(--space-2) 0 var(--space-3);
+    max-width: 26rem;
+  }
+  .stat-block {
+    background: var(--bg);
+    padding: 20px 20px 18px;
+  }
+  .more {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  #blog-preview {
+    border-top: 1px solid var(--rule);
+  }
+  .blog-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .idx-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .post {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.22s ease, border-color 0.22s ease;
+    color: var(--ink);
+  }
+  .post:hover {
+    transform: translateY(-5px);
+    border-color: rgba(226, 94, 31, 0.5);
+  }
+  .post-thumb {
+    position: relative;
+  }
+  .post-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+  }
+  .post-body h3 {
+    margin: 0;
+  }
+  .post-body p {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    flex: 1;
+  }
+  .post .more {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: gap 0.2s;
+  }
+  .post:hover .more {
+    gap: 12px;
+  }
+  .all-posts {
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 860px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .posts { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .statgrid { grid-template-columns: 1fr; }
+    .hero-meta { gap: 8px 18px; }
+  }
+</style>

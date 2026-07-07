@@ -1,0 +1,83 @@
+---
+export interface Props {
+  lang: 'en' | 'fi';
+}
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+
+const copy = {
+  en: { talk1: "Let's", talk2: 'talk', backTop: 'Back to top ↑' },
+  fi: { talk1: 'Ollaan', talk2: 'yhteydessä', backTop: 'Ylös ↑' },
+};
+const c = copy[lang];
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-mono reveal">{c.talk1}<br />{c.talk2}<span class="dot">.</span></div>
+      <div class="foot-links reveal">
+        <a href="mailto:jalaton@gmail.com">jalaton@gmail.com</a>
+        <a href="https://instagram.com/mattilae" target="_blank" rel="noopener me">Instagram · @mattilae</a>
+        <a href="https://x.com/epmattila" target="_blank" rel="noopener me">X · @epmattila</a>
+        <a href="#top" class="back">{c.backTop}</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>Esa-Pekka Mattila · Wheelchair Racing · FIN</span>
+      <span>&copy; {year} EPM</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    padding-block: var(--space-6);
+  }
+  .foot-grid {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .foot-mono {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+  .foot-mono .dot {
+    color: var(--accent);
+  }
+  .foot-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    text-align: right;
+  }
+  .foot-links a {
+    color: var(--muted);
+  }
+  .foot-links a:hover {
+    color: var(--accent);
+  }
+  .foot-base {
+    margin-top: var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+</style>

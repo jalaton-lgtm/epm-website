@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryBadge from '../../components/CategoryBadge.astro';
+import { getCollection } from 'astro:content';
+import { cleanSlug } from '../../lib/slug';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
+  return posts.map((post) => ({
+    params: { slug: cleanSlug(post.slug) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} lang="en" description={post.data.summary}>
+  <article>
+    <div class="wrap post-header">
+      <p class="kicker">Blog</p>
+      <div class="post-meta">
+        <CategoryBadge category={post.data.category} photo={post.data.photo} lang="en" variant="inline" />
+        <span class="mono">{post.data.date.toISOString().slice(0, 10)}</span>
+      </div>
+      <h1>{post.data.title}</h1>
+    </div>
+    <div class="wrap content">
+      <Content />
+      <p class="back"><a href="/blog">← All posts</a></p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-header {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+    max-width: var(--maxw);
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: var(--space-2) 0;
+  }
+  .post-header h1 {
+    font-size: var(--text-h1);
+  }
+  .content {
+    max-width: var(--maxw);
+    padding-block: var(--space-4) var(--space-5);
+  }
+  .content :global(p) {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin: 0 0 var(--space-2);
+  }
+  .content :global(img) {
+    margin: var(--space-3) 0;
+  }
+  .content :global(h2) {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-h2);
+  }
+  .back {
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

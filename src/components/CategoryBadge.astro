@@ -1,0 +1,58 @@
+---
+import { getCategory } from '../lib/categories';
+
+export interface Props {
+  category: string;
+  photo?: boolean;
+  lang: 'en' | 'fi';
+  variant?: 'chip' | 'inline';
+}
+const { category, photo, lang, variant = 'inline' } = Astro.props;
+const meta = getCategory(category);
+const label = lang === 'fi' ? meta.labelFi : meta.label;
+const photoLabel = lang === 'fi' ? 'KUVA' : 'PHOTO';
+const chipTextColor = meta.chipTextOnColor === 'dark' ? 'var(--bg)' : '#fff';
+---
+
+{variant === 'chip' ? (
+  <span class="chip" style={`background:var(${meta.cssVar}); color:${chipTextColor}`}>
+    {label}{photo && ` · ${photoLabel}`}
+  </span>
+) : (
+  <span class="badge">
+    <span class="dot" style={`background:var(${meta.dotVar})`}></span>
+    <span class="mono">{label}</span>
+    {photo && <span class="mono photo-tag">{photoLabel}</span>}
+  </span>
+)}
+
+<style>
+  .chip {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .photo-tag {
+    padding-left: 0.4rem;
+    border-left: 1px solid var(--rule);
+    opacity: 0.8;
+  }
+</style>

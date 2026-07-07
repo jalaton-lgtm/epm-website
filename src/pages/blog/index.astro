@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
+import CategoryBadge from '../../components/CategoryBadge.astro';
+import { getCollection } from 'astro:content';
+import { cleanSlug } from '../../lib/slug';
+
+const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Blog" lang="en" description="Writing and photography from Esa-Pekka Mattila.">
+  <section class="blog-hero">
+    <div class="wrap">
+      <p class="kicker">Blog</p>
+      <h1>Writing &amp; photography</h1>
+    </div>
+  </section>
+
+  <section class="blog-body">
+    <div class="wrap">
+      {posts.length > 0 ? (
+        <div class="posts">
+          {posts.map((post) => (
+            <a href={`/blog/${cleanSlug(post.slug)}`} class="post reveal">
+              <div class="post-thumb">
+                <PhotoSlot placeholder="POST IMAGE" aspect="16/10" />
+                <CategoryBadge category={post.data.category} photo={post.data.photo} lang="en" variant="chip" />
+              </div>
+              <div class="post-body">
+                <span class="mono post-date">{post.data.date.toISOString().slice(0, 10)}</span>
+                <h3>{post.data.title}</h3>
+                {post.data.summary && <p>{post.data.summary}</p>}
+                <span class="more">Read →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="mono">No posts yet.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-4);
+  }
+  .blog-hero h1 {
+    margin-top: var(--space-2);
+  }
+  .blog-body {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--rule);
+  }
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .post {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.22s ease, border-color 0.22s ease;
+    color: var(--ink);
+  }
+  .post:hover {
+    transform: translateY(-5px);
+    border-color: rgba(226, 94, 31, 0.5);
+  }
+  .post-thumb {
+    position: relative;
+  }
+  .post-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+  }
+  .post-body h3 {
+    margin: 0;
+  }
+  .post-body p {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    flex: 1;
+  }
+  .post .more {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: gap 0.2s;
+  }
+  .post:hover .more {
+    gap: 12px;
+  }
+
+  @media (max-width: 860px) {
+    .posts { grid-template-columns: 1fr; }
+  }
+</style>
