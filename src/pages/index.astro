@@ -14,7 +14,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
   <!-- HERO -->
   <section class="hero">
     <div class="hero-photo">
-      <PhotoSlot src="/images/hero.jpg" alt="Esa-Pekka Mattila at the start line" placeholder="DROP A HERO PHOTO" showLabel={false} />
+     <PhotoSlot src="/images/hero.jpg" alt="Esa-Pekka Mattila at the start line" placeholder="DROP A HERO PHOTO" showLabel={false} objectPosition="50% 22%" />
     </div>
     <div class="hero-inner wrap">
       <p class="kicker">Wheelchair Racing · 100m T54 · FIN</p>
@@ -135,8 +135,12 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
   .hero-name {
     font-size: var(--text-hero);
   }
-  .accent-text {
+.accent-text {
     color: var(--accent);
+  }
+  .hero-name .accent-text {
+    text-shadow: 0 4px 28px rgba(14, 13, 12, 0.75);
+  }
   }
   .hero-meta {
     display: flex;
