@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Single 404 for the whole site — Cloudflare Workers static assets
+// (not_found_handling: "404-page") serves dist/404.html for every
+// unmatched path, so this page carries both languages: EN primary,
+// FI block below. Old-WordPress URLs are handled upstream by
+// public/_redirects; anything landing here is genuinely gone.
+---
+
+<BaseLayout title="404" lang="en" description="Page not found.">
+  <section class="nf">
+    <div class="wrap">
+      <p class="kicker">Error</p>
+      <h1 class="nf-code">404</h1>
+      <p class="nf-lead">
+        Page not found. The site was rebuilt in 2026 — the address may
+        be outdated.
+      </p>
+      <div class="rule-accent"></div>
+      <nav class="nf-links" aria-label="404 navigation">
+        <a href="/">Home</a>
+        <a href="/profile">Profile</a>
+        <a href="/blog">Blog</a>
+      </nav>
+
+      <div class="nf-fi">
+        <p class="nf-lead">
+          Sivua ei löytynyt. Sivusto on uudistettu vuonna 2026 — osoite
+          voi olla vanhentunut.
+        </p>
+        <nav class="nf-links" aria-label="404-navigaatio">
+          <a href="/fi/">Etusivu</a>
+          <a href="/fi/profile">Profiili</a>
+          <a href="/fi/blog">Blogi</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .nf-code {
+    font-size: var(--text-hero);
+    margin-top: var(--space-2);
+  }
+
+  .nf-lead {
+    font-size: var(--text-lead);
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    max-width: 26ch;
+    margin-block: var(--space-3);
+    color: var(--ink);
+  }
+
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .nf-fi {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .nf-fi .nf-lead {
+    color: var(--muted);
+    font-size: var(--text-h3);
+  }
+</style>
