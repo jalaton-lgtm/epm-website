@@ -5,7 +5,7 @@ lang: en
 category: raceday
 photo: true
 summary: "Placeholder demonstrating the photo-post treatment with race day category coloring."
-draft: false
+draft: true
 ---
 
 This is a sample **photo post** — note the "PHOTO" tag next to the category
