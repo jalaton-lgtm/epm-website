@@ -14,11 +14,40 @@ export interface Props {
   title: string;
   description?: string;
   lang: 'en' | 'fi';
+  /** Path to a social share image. Must be 1200x630 to match the
+      og:image dimension tags below. Defaults to the site-wide image. */
+  image?: string;
+  /** Open Graph type — pass "article" on blog post pages. */
+  type?: 'website' | 'article';
 }
 
-const { title, description, lang } = Astro.props;
+const {
+  title,
+  description,
+  lang,
+  image = '/images/og-default.jpg',
+  type = 'website',
+} = Astro.props;
+
 const siteName = 'Esa-Pekka Mattila';
 const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+
+// Canonical always points at the production domain (astro.config site),
+// with a trailing slash to match Cloudflare's auto-trailing-slash
+// handling. This also stops *.pages.dev from being indexed as the
+// canonical copy once the domain is live.
+const canonicalPath = Astro.url.pathname.endsWith('/')
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const canonicalURL = new URL(canonicalPath, Astro.site);
+const imageURL = new URL(image, Astro.site);
+const ogLocale = lang === 'fi' ? 'fi_FI' : 'en_US';
+
+// Cloudflare Web Analytics — paste the site token from the Cloudflare
+// dashboard (Analytics & Logs -> Web Analytics -> Add a site). The
+// beacon script is only rendered when a token is present, so an empty
+// string here ships nothing.
+const CF_ANALYTICS_TOKEN = '';
 ---
 
 <!doctype html>
@@ -30,6 +59,32 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     {description && <meta name="description" content={description} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0E0D0C" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={imageURL} />
+
+    {CF_ANALYTICS_TOKEN && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
+      ></script>
+    )}
   </head>
   <body>
     <span id="top"></span>
