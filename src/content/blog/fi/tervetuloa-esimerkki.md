@@ -5,7 +5,7 @@ lang: fi
 category: personal
 photo: false
 summary: "Testisisältöä blogin toiminnan varmistamiseksi. Ei oikeaa sisältöä."
-draft: false
+draft: true
 ---
 
 Tämä julkaisu on olemassa varmistaakseen, että blogimalli, kategoria-
