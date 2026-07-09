@@ -5,7 +5,7 @@ lang: en
 category: personal
 photo: false
 summary: "This is a placeholder post to verify the blog renders correctly. Not real content."
-draft: false
+draft: true
 ---
 
 This post exists to confirm the blog template, category badges, and dates
