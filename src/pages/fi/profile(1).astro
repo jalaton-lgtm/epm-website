@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
+
+// Teksti vahvistettu EP:n kanssa (heinäkuu 2026): koko sivusto
+// minämuodossa, Olympiakomitean urheilijavaliokunnan puheenjohtajuus +
+// hallituspaikka, Paralympiakomitean urheilijavaliokunnan puheenjohtajuus
+// päättyi syksyllä 2024. Suomennos Claude-luonnos EP:n rekisterissä —
+// EP tarkistaa ennen julkaisua.
+
+const stats = [
+  { label: 'HE · 100M', value: '14.08', unit: 's', accent: true },
+  { label: 'LUOKKA', value: 'T54', unit: '' },
+  { label: 'SYNTYNYT', value: '1989', unit: '' },
+  { label: 'HANDLE', value: '@mattilae', unit: '' },
+  { label: 'SEURA', value: 'Espoon Tapiot', unit: '', href: 'https://espoontapiot.fi/' },
+  { label: 'KOTIPAIKKA', value: 'Espoo', unit: '' },
+];
+---
+
+<BaseLayout title="Profiili" lang="fi" description="Esa-Pekka Mattila: T54-luokan kelaaja ja urheiluhallinnon ammattilainen. Ura, roolit ja tausta.">
+  <section class="profile-hero">
+    <div class="wrap">
+      <p class="kicker">Profiili</p>
+      <h1>Esa-Pekka Mattila</h1>
+    </div>
+  </section>
+
+  <section class="profile-body">
+    <div class="wrap profile-grid">
+      <div class="profile-photo reveal">
+        <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="LISÄÄ MUOTOKUVA" aspect="4/5" />
+      </div>
+      <div class="bio reveal">
+        <p class="lead">
+          Para-urheilija ja urheiluhallinnon ammattilainen.
+        </p>
+        <div class="rule-accent"></div>
+        <p>
+          Kaksikymmentä vuotta kansainvälistä T54-luokan
+          pyörätuolikelausta sekä hallitustason tehtäviä suomalaisissa
+          urheilujärjestöissä ja kansallisissa komiteoissa.
+        </p>
+
+        <div class="statgrid">
+          {stats.map((s) => (
+            <div class="stat-block">
+              <div class="k mono">{s.label}</div>
+              <div class={`stat-value ${s.accent ? 'accent-text' : ''}`}>
+                {s.href ? <a href={s.href} target="_blank" rel="noopener">{s.value}{s.unit}</a> : `${s.value}${s.unit}`}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">01</span><h2>Radalla</h2></div>
+      <div class="prose reveal">
+        <p>
+          Olen kilpaillut kansainvälisesti vuodesta 2005: kolmet
+          paralympialaiset (Lontoo 2012, Rio 2016, Tokio 2020) sekä MM-
+          ja EM-edustuksia koko uran ajan. Ennätykseni 100 metrillä on
+          14,08 sekuntia.
+        </p>
+        <p>
+          Viime vuosien tulokset: EM-pronssi 100 metrillä Bydgoszczissa
+          2021, viides sija MM-kisoissa Kobessa 2024 ja seitsemäs New
+          Delhissä 2025. Näin tasaisessa luokassa (T54:n 100 metrillä
+          erot ratkeavat usein sadasosiin) pysyminen maailman
+          kärkijoukossa useiden arvokisasyklien ajan on kovempi saavutus
+          kuin mikään yksittäinen tulos.
+        </p>
+        <p>
+          Valmentajani on Leo-Pekka Tähti, viisinkertainen
+          paralympiavoittaja ja 100 metrin T54-maailmanennätyksen
+          haltija. Kilpaileminen tällä tasolla näin pitkään on vähemmän
+          kiinni lahjakkuudesta kuin siitä, mikä kestää: harjoittelusta,
+          välinekehityksestä ja pikakelauksen fysiologiasta ilman
+          jalkojen työntövoimaa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">02</span><h2>Radan ulkopuolella</h2></div>
+      <div class="prose reveal">
+        <p>
+          Toimin Suomen Olympiakomitean urheilijavaliokunnan
+          puheenjohtajana ja Olympiakomitean hallituksen jäsenenä. Työ
+          on rakenteellista: urheilijoiden edustuksesta tehdään
+          todellinen ääni päätöksenteossa, ei muodollisuutta. Olin
+          rakentamassa Suomen Paralympiakomitean urheilijavaliokuntaa
+          alusta alkaen ja johdin sitä puheenjohtajana syksyyn 2024
+          saakka. Lisäksi minulla on hallitustehtäviä suomalaisessa
+          urheilussa ja vammaisalalla, joissa urheilijan näkökulma ja
+          talousosaaminen kohtaavat järjestöjen päätöksenteon.
+        </p>
+        <p>
+          Aiemmin toimin Aalto-yliopiston kauppatieteiden ylioppilaiden
+          (KY) pääsihteerinä. Käytännössä rooli vastasi
+          toimitusjohtajaa: vastuu toimistosta ja taloudesta, yhdeksän
+          työntekijää, vuosittain vaihtuva hallitus ja yli 500 000
+          euron vuosibudjetti. Siellä opin, ettei vaikuttaminen ilman
+          operatiivista uskottavuutta liikuta mitään.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Nyt</h2></div>
+      <div class="prose reveal">
+        <p>
+          Viimeistelen maisterintutkintoa yritysjuridiikasta,
+          sivuaineena taloustiede, ja teen asiantuntijatyötä
+          pyörätuoliteknologian parissa. Kotipaikka Espoo. Kirjoitan
+          suomeksi ja englanniksi, enimmäkseen urheilusta, hallinnosta
+          ja niitä ympäröivistä järjestelmistä.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="roles">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Roolit</h2></div>
+      <ul class="role-list reveal">
+        <li>Urheilija: T54 100m, MM- ja paralympiataso</li>
+        <li>Suomen Olympiakomitea: hallituksen jäsen; urheilijavaliokunnan puheenjohtaja</li>
+        <li>Hallituksen jäsen, Suomen Urheiluliitto</li>
+        <li>Hallituksen jäsen, Suomen Urheilijat ry</li>
+        <li>Hallituksen jäsen, Abilis-säätiö</li>
+        <li>Neuvonantaja, pyörätuoli- ja apuvälineteknologia</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .profile-hero {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-4);
+  }
+  .profile-hero h1 {
+    margin-top: var(--space-2);
+  }
+  .accent-text {
+    color: var(--accent);
+  }
+  .profile-body {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--rule);
+  }
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(32px, 6vw, 84px);
+    align-items: start;
+  }
+  .bio p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+    max-width: 36rem;
+  }
+  .bio p.lead {
+    font-size: var(--text-lead);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    max-width: none;
+  }
+  .bio .rule-accent {
+    margin: var(--space-3) 0;
+  }
+  .statgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-top: var(--space-3);
+    max-width: 28rem;
+  }
+  .stat-block {
+    background: var(--bg);
+    padding: 20px 20px 18px;
+  }
+  .narrative {
+    border-top: 1px solid var(--rule);
+  }
+  .narrative .prose p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+    max-width: 44rem;
+  }
+  .roles {
+    border-top: 1px solid var(--rule);
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: var(--space-3);
+  }
+  .sec-head .idx {
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  .role-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-width: var(--maxw);
+  }
+  .role-list li {
+    padding: var(--space-1) 0 var(--space-1) var(--space-2);
+    border-left: 2px solid var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .profile-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .statgrid { grid-template-columns: 1fr; }
+  }
+</style>
