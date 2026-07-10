@@ -2,25 +2,22 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 
-// NOTE — draft copy, written in your usual register (factual, no
-// motivational language). Review before publishing.
-//
-// Confirmed by EP: born 1989, club Espoon Tapiot (espoontapiot.fi),
-// home city Espoo (resolves the earlier Espoo-vs-elsewhere discrepancy
-// in the brand file in favor of Espoo). Photos still pending — added
-// in a follow-up once EP sends them.
+// Copy confirmed by EP (July 2026): first person site-wide, chair of the
+// NOC Athletes' Commission + NOC board seat, NPC Athletes' Commission
+// chaired until autumn 2024, board seats named per EP's list. "Finnish
+// Athletics Athletes" association deliberately omitted (dormant).
 
 const stats = [
   { label: 'PB · 100M', value: '14.08', unit: 's', accent: true },
   { label: 'CLASSIFICATION', value: 'T54', unit: '' },
-  { label: 'NATIONALITY', value: 'FIN', unit: '' },
+  { label: 'BORN', value: '1989', unit: '' },
   { label: 'HANDLE', value: '@mattilae', unit: '' },
   { label: 'CLUB', value: 'Espoon Tapiot', unit: '', href: 'https://espoontapiot.fi/' },
   { label: 'BASED', value: 'Espoo, FIN', unit: '' },
 ];
 ---
 
-<BaseLayout title="Profile" lang="en" description="Esa-Pekka Mattila — athlete profile, results, and background.">
+<BaseLayout title="Profile" lang="en" description="Esa-Pekka Mattila: T54 wheelchair racer and sports governance professional. Career, roles, and background.">
   <section class="profile-hero">
     <div class="wrap">
       <p class="kicker">Profile</p>
@@ -35,27 +32,13 @@ const stats = [
       </div>
       <div class="bio reveal">
         <p class="lead">
-          T54 wheelchair racer competing at World Championship and
-          Paralympic level.
+          Para-athlete and sports governance professional.
         </p>
         <div class="rule-accent"></div>
         <p>
-          Esa-Pekka Mattila (b. 1989) competes in wheelchair racing,
-          classification T54, at World Championship and Paralympic
-          level. Based in Espoo, Finland, racing for Espoon Tapiot. His
-          personal best over 100m is 14.08 seconds. He trains under
-          coach Leo-Pekka Tähti.
-        </p>
-        <p>
-          Alongside competing, he holds governance roles within Finnish
-          Olympic and athletics administration, including a seat on the
-          Athletes' Commission of the Finnish Olympic Committee, and
-          serves on two boards within the Abilis organisation.
-        </p>
-        <p>
-          He works as an advisor on wheelchair-related technology
-          development, including past work with Huawei on wearable
-          technology.
+          Twenty years of international T54 wheelchair racing, alongside
+          board-level roles across Finnish sport federations and national
+          committees.
         </p>
 
         <div class="statgrid">
@@ -72,14 +55,88 @@ const stats = [
     </div>
   </section>
 
+  <section class="narrative">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">01</span><h2>Racing</h2></div>
+      <div class="prose reveal">
+        <p>
+          I've raced internationally since 2005, with three Paralympic
+          Games (London 2012, Rio 2016, Tokyo 2020) and World and
+          European Championship selections throughout. My 100m personal
+          best is 14.08 seconds.
+        </p>
+        <p>
+          Recent form: bronze in the 100m at the 2021 European
+          Championships in Bydgoszcz, fifth at the 2024 World
+          Championships in Kobe, seventh at the 2025 World Championships
+          in New Delhi. In a class this deep (the T54 100m regularly
+          comes down to hundredths), staying inside the top handful in
+          the world across separate championship cycles is the harder
+          achievement than any single result.
+        </p>
+        <p>
+          I train under Leo-Pekka Tähti, five-time Paralympic champion
+          and the 100m T54 world record holder. Racing at this level for
+          this long is less about talent than about what survives it:
+          the training, the equipment iteration, and the physiology of
+          sprinting a chair with no leg drive.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">02</span><h2>Off the track</h2></div>
+      <div class="prose reveal">
+        <p>
+          I chair the Athletes' Commission of the Finnish Olympic
+          Committee and sit on the Committee's board. The work is
+          structural: making athlete representation a substantive voice
+          in decision-making rather than a formality. I helped build the
+          Finnish Paralympic Committee's Athletes' Commission from the
+          ground up and chaired it until autumn 2024. Today I hold board
+          roles across Finnish athletics and the disability sector,
+          where an athlete's perspective and a business-and-economics
+          lens meet institutional decisions.
+        </p>
+        <p>
+          Earlier, I served as Secretary General of KY, the Association
+          of Aalto University Business Students. In practice the role
+          was executive director: responsibility for the office and the
+          finances, nine employees, an annually elected board, and an
+          annual budget over €500,000. It's where I learned that
+          advocacy without operational credibility doesn't move
+          anything.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Now</h2></div>
+      <div class="prose reveal">
+        <p>
+          I'm completing a master's in Business Law with economics as a
+          minor, and I do advisory work in wheelchair-related
+          technology. Based in Espoo. I write, in Finnish and English,
+          mostly about sport, governance, and the systems around both.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="roles">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="idx mono">02</span><h2>Roles</h2></div>
+      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Roles</h2></div>
       <ul class="role-list reveal">
-        <li>Athlete — T54 100m, World Championship / Paralympic level</li>
-        <li>Athletes' Commission, Finnish Olympic Committee</li>
-        <li>Board member, Abilis (×2 boards)</li>
-        <li>Technology advisor / consultant</li>
+        <li>Athlete: T54 100m, World Championship and Paralympic level</li>
+        <li>Finnish Olympic Committee: Board member; Chair, Athletes' Commission</li>
+        <li>Board member, Suomen Urheiluliitto (Finnish Athletics Federation)</li>
+        <li>Board member, Suomen Urheilijat ry (Athletes of Finland)</li>
+        <li>Board member, Abilis Foundation</li>
+        <li>Advisor, wheelchair and assistive technology</li>
       </ul>
     </div>
   </section>
@@ -132,6 +189,14 @@ const stats = [
   .stat-block {
     background: var(--bg);
     padding: 20px 20px 18px;
+  }
+  .narrative {
+    border-top: 1px solid var(--rule);
+  }
+  .narrative .prose p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+    max-width: 44rem;
   }
   .roles {
     border-top: 1px solid var(--rule);
