@@ -5,6 +5,7 @@ lang: en
 category: personal
 photo: true
 summary: "Sixth in the world, a tenth of a second from the podium, and no European Championships this year. A season costs 20,000 euros. Two seasons left, probably. Where things stand in July 2026."
+image: /images/DSC_5475verkko.jpg
 draft: false
 ---
 
