@@ -3,7 +3,7 @@ title: "Where I Am"
 date: 2026-07-13
 lang: en
 category: personal
-photo: false
+photo: true
 summary: "Sixth in the world, a tenth of a second from the podium, and no European Championships this year. A season costs 20,000 euros. Two seasons left, probably. Where things stand in July 2026."
 draft: false
 ---
@@ -29,7 +29,8 @@ Last autumn, after the World Championships, I wrote a long reflection on the sea
 A tenth of a second, two seasons left in all likelihood, still training, still after the personal best. I do not know whether everything will work out. I do know what it would feel like to stop with the question still open, and I would rather not find out.
 
 
-![Alt text describing the image](/images/filename.jpg)
+![Esa-Pekka Mattila posing for the camere at Lahti Motonet GP](/images/DSC_5475.jpg)
+*Photo: [@Lightrayproduction](https://instagram.com/lightrayproduction)*
 ---
 
 Partnerships, speaking, governance — contact details on this site.
