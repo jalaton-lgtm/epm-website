@@ -28,6 +28,6 @@ Last autumn, after the World Championships, I wrote a long reflection on the sea
 
 A tenth of a second, two seasons left in all likelihood, still training, still after the personal best. I do not know whether everything will work out. I do know what it would feel like to stop with the question still open, and I would rather not find out.
 
-![Esa-Pekka Mattila at Lahti Motonet GP](/images/DSC_5475verkko.jpg)
+![Esa-Pekka Mattila posing for the camera at Lahti Motonet GP.](/images/DSC_5475verkko.jpg)
 
-*Esa-Pekka Mattila posing for the camera at Lahti Motonet GP. Photo: [@Lightrayproduction](https://instagram.com/lightrayproduction)*
+*Photo: [@Lightrayproduction](https://instagram.com/lightrayproduction)*
