@@ -4,18 +4,31 @@ export interface Props {
 }
 const { lang } = Astro.props;
 const year = new Date().getFullYear();
-
 const copy = {
-  en: { talk1: "Let's", talk2: 'talk', backTop: 'Back to top ↑' },
-  fi: { talk1: 'Ollaan', talk2: 'yhteydessä', backTop: 'Ylös ↑' },
+  en: {
+    l1: 'Sponsorship,',
+    l2: 'speaking,',
+    l3: 'press',
+    sub: 'Open to partners through LA28.',
+    backTop: 'Back to top ↑',
+  },
+  fi: {
+    l1: 'Sponsorointi,',
+    l2: 'puheenvuorot,',
+    l3: 'media',
+    sub: 'Kumppanuudet avoinna LA28:aan asti.',
+    backTop: 'Ylös ↑',
+  },
 };
 const c = copy[lang];
 ---
-
 <footer class="site-footer">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-mono reveal">{c.talk1}<br />{c.talk2}<span class="dot">.</span></div>
+      <div class="foot-cta reveal">
+        <div class="foot-mono">{c.l1}<br />{c.l2}<br />{c.l3}<span class="dot">.</span></div>
+        <p class="foot-sub">{c.sub}</p>
+      </div>
       <div class="foot-links reveal">
         <a href="mailto:jalaton@gmail.com">jalaton@gmail.com</a>
         <a href="https://instagram.com/mattilae" target="_blank" rel="noopener me">Instagram · @mattilae</a>
@@ -29,7 +42,6 @@ const c = copy[lang];
     </div>
   </div>
 </footer>
-
 <style>
   .site-footer {
     border-top: 1px solid var(--rule);
@@ -45,13 +57,21 @@ const c = copy[lang];
   .foot-mono {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-size: clamp(1.75rem, 5.5vw, 4rem);
     letter-spacing: -0.03em;
-    line-height: 0.9;
+    line-height: 0.95;
     text-transform: uppercase;
   }
   .foot-mono .dot {
     color: var(--accent);
+  }
+  .foot-sub {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
   .foot-links {
     display: flex;
