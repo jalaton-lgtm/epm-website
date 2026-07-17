@@ -1,5 +1,5 @@
 ---
-export interface Props {
+import Hud from './Hud.astro';
   lang: 'en' | 'fi';
 }
 const { lang } = Astro.props;
@@ -37,6 +37,7 @@ const nav = {
       {lang === 'en' ? 'FI' : 'EN'}
     </a>
     <a href="mailto:ep@esapekkamattila.com" class="cta">{lang === 'en' ? 'Contact' : 'Yhteystiedot'}</a>
+    <Hud />
   </nav>
 </header>
 
