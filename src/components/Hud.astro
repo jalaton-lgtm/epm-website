@@ -1,0 +1,38 @@
+---
+import { telemetry } from '../lib/telemetry';
+const { worldRank, seasonBest, targetLabel, targetDate } = telemetry;
+---
+<div class="hud" aria-hidden="true">
+  <span><span class="k">World rank</span> <span class="v">{String(worldRank).padStart(2, '0')}</span></span>
+  <span><span class="k">SB</span> <span class="v">{seasonBest}</span></span>
+  <span><span class="k">T-minus {targetLabel}</span> <span class="v"><span class="hud-days" data-target={targetDate}>—</span>d</span></span>
+</div>
+
+<style>
+  .hud {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .k { color: var(--muted); }
+  .v { color: var(--ink); }
+  @media (max-width: 1279px) {
+    .hud { display: none; }
+  }
+</style>
+
+<script>
+  const el = document.querySelector('.hud-days');
+  if (el instanceof HTMLElement && el.dataset.target) {
+    const target = new Date(el.dataset.target + 'T00:00:00+05:00').getTime(); // Tashkent UTC+5
+    const days = Math.max(0, Math.ceil((target - Date.now()) / 86400000));
+    el.textContent = String(days);
+  }
+</script>
