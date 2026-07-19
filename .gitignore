@@ -12,6 +12,7 @@ node_modules/
 # editor / OS
 .DS_Store
 .vscode/
+.claude/
 
 # Decap CMS local auth (if you ever run a local backend proxy)
 .netlify/

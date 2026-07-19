@@ -4,18 +4,27 @@ export interface Props {
 }
 const { lang } = Astro.props;
 const year = new Date().getFullYear();
+// The three big words link to their destination once that destination
+// exists. href: null renders plain text on purpose — the footer should
+// never point at a page that hasn't shipped. Fill in as they land:
+//   press  -> '/press'       (Session 4)
+//   FI set -> '/fi/partners' (Session 3), '/fi/press' (Session 4)
 const copy = {
   en: {
-    l1: 'Sponsorship,',
-    l2: 'speaking,',
-    l3: 'press',
+    words: [
+      { text: 'Sponsorship,', href: '/partners' },
+      { text: 'speaking,', href: '/partners#speaking' },
+      { text: 'press', href: null },
+    ],
     sub: 'Open to partners through LA28.',
     backTop: 'Back to top ↑',
   },
   fi: {
-    l1: 'Sponsorointi,',
-    l2: 'puheenvuorot,',
-    l3: 'media',
+    words: [
+      { text: 'Sponsorointi,', href: null },
+      { text: 'puheenvuorot,', href: null },
+      { text: 'media', href: null },
+    ],
     sub: 'Kumppanuudet avoinna LA28:aan asti.',
     backTop: 'Ylös ↑',
   },
@@ -26,7 +35,12 @@ const c = copy[lang];
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-cta reveal">
-        <div class="foot-mono">{c.l1}<br />{c.l2}<br />{c.l3}<span class="dot">.</span></div>
+        <div class="foot-mono">{c.words.map((w, i) => (
+          <Fragment>
+            {i > 0 && <br />}
+            {w.href ? <a href={w.href}>{w.text}</a> : w.text}
+          </Fragment>
+        ))}<span class="dot">.</span></div>
         <p class="foot-sub">{c.sub}</p>
       </div>
       <div class="foot-links reveal">
@@ -63,6 +77,14 @@ const c = copy[lang];
     text-transform: uppercase;
   }
   .foot-mono .dot {
+    color: var(--accent);
+  }
+  /* Global `a` is accent-coloured; the big words should stay ink and pick
+     up the accent on hover, matching .foot-links below. */
+  .foot-mono a {
+    color: inherit;
+  }
+  .foot-mono a:hover {
     color: var(--accent);
   }
   .foot-sub {

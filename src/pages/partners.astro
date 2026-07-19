@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Copy: EP's own edit pass, July 2026 — no longer the action-plan draft.
+// Huawei is named with permission on all three levels: naming them as a
+// client, describing the nature of the work, and citing the campaign's
+// reach. EP is running the final wording past them before this ships.
+// KY figures (Secretary General, €500k budget) match the profile page.
+---
+
+<BaseLayout
+  title="Partners"
+  lang="en"
+  description="Partnership, speaking and advisory work with Esa-Pekka Mattila, T54 wheelchair racer, through LA 2028. What a partnership involves and what a season costs."
+>
+  <section class="partners-hero">
+    <div class="wrap">
+      <p class="kicker">Partners</p>
+      <h1>Partnership,<br />speaking,<br />advisory<span class="accent-text">.</span></h1>
+      <p class="lead">
+        I am open to partners through LA 2028. This page sets out what
+        that means in practice and what it costs, so a conversation can
+        start from something concrete.
+      </p>
+    </div>
+  </section>
+
+  <section class="narrative" id="partnership">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">01</span><h2>Partnership</h2></div>
+      <div class="prose reveal">
+        <p>
+          A season at world level costs around €20,000 before living
+          costs: racing chairs, training camps, flights, physiotherapy,
+          competition entry fees, equipment that wears out and gets
+          replaced, and other costs such as coaching and expert help. My
+          competitive plan runs from the World Championships in Tashkent
+          in June 2027 through the European Championships in 2028, with
+          Los Angeles 2028 as the last highlight of my career.
+        </p>
+        <p>
+          My own channels are small and I won't pretend otherwise. They
+          are open to a partner as well, they are simply not where the
+          reach comes from. What I bring is the material: twenty years
+          of competing at world level, a governance career running
+          alongside it, and a track record of saying true things on
+          camera. What a partner brings is distribution. When Huawei
+          filmed the work we did together on wearable technology, the
+          film reached over eight million views on their channels rather
+          than mine. That is the division of labour I am proposing, and
+          it has worked once already.
+        </p>
+        <p>
+          Terms are defined case by case. I am looking for a small
+          number of meaningful partners, not a shirt full of logos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="speaking">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">02</span><h2>Speaking</h2></div>
+      <div class="prose reveal">
+        <p>
+          Keynotes, panels and workshops, in Finnish and English.
+        </p>
+        <p>
+          Athlete representation where it actually matters: selection
+          processes, funding disagreements, and balancing stakeholders
+          who want different things. A federation cannot also be the
+          athletes' representative in those rooms, however it is framed.
+          Disability inclusion approached the same way. In both, naming
+          the problem is the easy half; the work is building what
+          resolves it.
+        </p>
+        <p>
+          Alongside those: decision-making under constraint, and what
+          elite sport systems can teach everyday working life and
+          business.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="advisory">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Advisory</h2></div>
+      <div class="prose reveal">
+        <p>
+          Advisory work in wheelchair and assistive technology, such as
+          with Huawei, taking a product feature from athlete feedback to
+          shipped release. Also accessibility and governance questions,
+          where lived experience, board experience and a business-law
+          background merge. Earlier I was Secretary General of KY at
+          Aalto University, with an annual budget over €500,000, which
+          is where the operational understanding comes from.
+        </p>
+        <p>
+          Always open, from a sparring session to a clearly defined
+          project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="partners-cta">
+    <div class="wrap">
+      <div class="rule-accent"></div>
+      <p class="cta-line">Interested?</p>
+      <a href="mailto:ep@esapekkamattila.com" class="cta-mail">ep@esapekkamattila.com</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .partners-hero {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-5);
+  }
+  .partners-hero h1 {
+    margin-top: var(--space-2);
+  }
+  .accent-text {
+    color: var(--accent);
+  }
+  .partners-hero .lead {
+    margin-top: var(--space-4);
+    font-size: var(--text-lead);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    max-width: 32rem;
+  }
+
+  .narrative {
+    border-top: 1px solid var(--rule);
+    /* Clears the fixed nav when arriving via /partners#speaking */
+    scroll-margin-top: 90px;
+  }
+  .narrative .prose p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+    max-width: 44rem;
+  }
+  .narrative .prose p:last-child {
+    margin-bottom: 0;
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: var(--space-3);
+  }
+  .sec-head .idx {
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  .partners-cta {
+    border-top: 1px solid var(--rule);
+  }
+  .cta-line {
+    margin-top: var(--space-3);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-h2);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: var(--line-tight);
+  }
+  .cta-mail {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+  }
+</style>
