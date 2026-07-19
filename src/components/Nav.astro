@@ -5,12 +5,49 @@ export interface Props {
   lang: 'en' | 'fi';
 }
 const { lang } = Astro.props;
+const otherLang = lang === 'en' ? 'fi' : 'en';
 
-const path = Astro.url.pathname;
-const canonical = path.replace(/^\/fi\/?/, '/').replace(/\/+$/, '') || '/';
-const otherLangPath = lang === 'en'
-  ? (canonical === '/' ? '/fi/' : `/fi${canonical}`)
-  : canonical;
+// Every top-level page has a twin at the mirrored path, so the toggle maps
+// between them by lookup rather than by rewriting the URL and hoping the
+// target exists.
+const pageTwins: Record<string, Record<'en' | 'fi', string>> = {
+  '/': { en: '/', fi: '/fi/' },
+  '/profile': { en: '/profile', fi: '/fi/profile' },
+  '/blog': { en: '/blog', fi: '/fi/blog' },
+};
+
+// Blog posts only have a twin once they've actually been translated, so
+// they're listed explicitly — EN slug on the left, FI slug on the right.
+// Add a line when a translation goes up. Posts missing from the map fall
+// back to the other language's blog index rather than 404ing, and this is
+// the list to read from when we add hreflang tags.
+const postTwins: Record<string, string> = {
+  // 'where-i-am': 'missa-mennaan',
+};
+
+// Language-agnostic form of the current path: /fi/profile -> /profile.
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = (lang === 'fi' ? path.replace(/^\/fi(?=\/|$)/, '') : path) || '/';
+
+/** The current page in the other language, or the nearest page that exists. */
+function twinOf(canonicalPath: string): string {
+  const post = canonicalPath.match(/^\/blog\/(.+)$/);
+  if (!post) {
+    // Unmapped pages — the 404 page included — go to the other home page.
+    return (pageTwins[canonicalPath] ?? pageTwins['/'])[otherLang];
+  }
+  const slug = post[1];
+  const twinSlug = lang === 'en'
+    ? postTwins[slug]
+    : Object.keys(postTwins).find((enSlug) => postTwins[enSlug] === slug);
+  // An untranslated post falls back to the blog index, which exists in
+  // both languages.
+  return twinSlug
+    ? `${pageTwins['/blog'][otherLang]}/${twinSlug}`
+    : pageTwins['/blog'][otherLang];
+}
+
+const otherLangPath = twinOf(canonical);
 
 const nav = {
   en: [
@@ -35,7 +72,7 @@ const nav = {
     {nav[lang].map((item) => (
       <a href={item.href}>{item.label}</a>
     ))}
-    <a href={otherLangPath} class="lang-switch" hreflang={lang === 'en' ? 'fi' : 'en'}>
+    <a href={otherLangPath} class="lang-switch" hreflang={otherLang}>
       {lang === 'en' ? 'FI' : 'EN'}
     </a>
     <a href="mailto:ep@esapekkamattila.com" class="cta">{lang === 'en' ? 'Contact' : 'Yhteystiedot'}</a>
