@@ -11,7 +11,7 @@ draft: false
 
 I have a new webpage, so it seems worth laying out where things stand in July 2026.
 
-I am currently ranked sixth in the world with 14.10 seconds. Third on the list is 13.99 and fourth is 14.00, which means I am about a tenth of a second from the podium and 9 hundredths from fourth place. That is the scale my sport operates on. A tenth or two in either direction and the picture changes completely. I have been working on that gap for twenty years, and at 37 I am closer to it than I have ever been.
+I am currently ranked sixth in the world with 14.10 seconds. Third on the list is 13.99 and fourth is 14.00, which means I am about a tenth of a second from both fourth place and the podium. That is the scale my sport operates on. A tenth or two in either direction and the picture changes completely. I have been working on that gap for twenty years, and at 37 I am closer to it than I have ever been.
 
 I opened my season in Switzerland with three races and the best result from that trip was 14.10s. The Finnish summer since then has been reasonable without being what I was after. I came into it looking for a personal best and I am still looking. The season average is the best of my career so far, though, and I have usually been at my sharpest in August and September, so there is still a fair amount of season left to run and to improve.
 
