@@ -14,6 +14,7 @@ const pageTwins: Record<string, Record<'en' | 'fi', string>> = {
   '/': { en: '/', fi: '/fi/' },
   '/profile': { en: '/profile', fi: '/fi/profile' },
   '/blog': { en: '/blog', fi: '/fi/blog' },
+  '/partners': { en: '/partners', fi: '/fi/partners' },
 };
 
 // Blog posts only have a twin once they've actually been translated, so
@@ -22,7 +23,7 @@ const pageTwins: Record<string, Record<'en' | 'fi', string>> = {
 // back to the other language's blog index rather than 404ing, and this is
 // the list to read from when we add hreflang tags.
 const postTwins: Record<string, string> = {
-  // 'where-i-am': 'missa-mennaan',
+  'where-i-am': 'missa-mennaan',
 };
 
 // Language-agnostic form of the current path: /fi/profile -> /profile.
@@ -60,9 +61,7 @@ const nav = {
     { href: '/fi/', label: 'Etusivu' },
     { href: '/fi/profile', label: 'Profiili' },
     { href: '/fi/blog', label: 'Blogi' },
-    // Partners has no Finnish twin yet — add { href: '/fi/partners',
-    // label: 'Kumppanit' } here and the '/partners' entry to pageTwins
-    // above at the same time, so the nav and the toggle stay in step.
+    { href: '/fi/partners', label: 'Kumppanit' },
   ],
 };
 ---
