@@ -25,6 +25,9 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
         <span>IG <b>@mattilae</b></span>
       </div>
     </div>
+    <a class="photo-credit" href="https://tobil.ch/" target="_blank" rel="noopener">
+      Photo <span>Tobias Lackner</span>
+    </a>
     <div class="scrollcue">
       <span class="mono">SCROLL</span>
       <span class="line"></span>
@@ -156,6 +159,31 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
     color: var(--ink);
     font-weight: 500;
   }
+  /* Photo credit sits on the opaque end of the hero gradient, so muted mono
+     reads without extra scrim. Colour split (label muted, name in ink)
+     mirrors .hero-meta. Generous padding is the tap target, not spacing —
+     the visible text still lands on the scrollcue's baseline. */
+  .photo-credit {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 12px;
+    z-index: 3;
+    padding: 14px 0 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .photo-credit span {
+    color: var(--ink);
+  }
+  .photo-credit:hover,
+  .photo-credit:hover span {
+    color: var(--accent);
+  }
+
   .scrollcue {
     position: absolute;
     bottom: 26px;
@@ -311,5 +339,12 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
   @media (max-width: 520px) {
     .statgrid { grid-template-columns: 1fr; }
     .hero-meta { gap: 8px 18px; }
+    /* Narrow enough that a right-aligned credit crowds the centred scroll
+       cue, so move it to the gutter and let it sit under the hero copy. */
+    .photo-credit {
+      right: auto;
+      left: var(--gutter);
+      padding: 14px 16px 14px 0;
+    }
   }
 </style>
