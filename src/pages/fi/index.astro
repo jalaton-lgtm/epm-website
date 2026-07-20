@@ -21,7 +21,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
       <h1 class="hero-name">Esa-Pekka<br /><span class="accent-text">Mattila.</span></h1>
       <div class="hero-meta">
         <span>LUOKKA <b>T54</b></span>
-        <span>HE 100M <b>14.08s</b></span>
+        <span>HE 100M <b>14,08s</b></span>
         <span>IG <b>@mattilae</b></span>
       </div>
     </div>
@@ -37,7 +37,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
       <div class="sec-head reveal"><span class="idx mono">01</span><h2>Profiili</h2></div>
       <div class="profile-grid">
         <div class="profile-photo reveal">
-          <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="DROP A PORTRAIT" aspect="4/5" />
+          <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="LISÄÄ MUOTOKUVA" aspect="4/5" />
         </div>
         <div class="bio reveal">
           <p class="lead">T54-luokan pyörätuolikelaaja, kilpailee MM- ja paralympiatasolla.</p>
@@ -49,7 +49,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
             vammaisalalla.
           </p>
           <div class="statgrid">
-            <div class="stat-block"><div class="k mono">HE · 100m</div><div class="stat-value accent-text">14.08s</div></div>
+            <div class="stat-block"><div class="k mono">HE · 100m</div><div class="stat-value accent-text">14,08s</div></div>
             <div class="stat-block"><div class="k mono">Luokka</div><div class="stat-value">T54</div></div>
             <div class="stat-block"><div class="k mono">Kansallisuus</div><div class="stat-value">FIN</div></div>
             <div class="stat-block"><div class="k mono">Handle</div><div class="stat-value">@mattilae</div></div>
@@ -73,7 +73,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
           {posts.map((post) => (
             <a href={`/fi/blog/${cleanSlug(post.slug)}`} class="post reveal">
               <div class="post-thumb">
-                <PhotoSlot placeholder="JULKAISUN KUVA" aspect="16/10" />
+                <PhotoSlot src={post.data.image} alt={post.data.title} placeholder="JULKAISUN KUVA" aspect="16/10" />
                 <CategoryBadge category={post.data.category} photo={post.data.photo} lang="fi" variant="chip" />
               </div>
               <div class="post-body">

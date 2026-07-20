@@ -7,8 +7,8 @@ const year = new Date().getFullYear();
 // The three big words link to their destination once that destination
 // exists. href: null renders plain text on purpose — the footer should
 // never point at a page that hasn't shipped. Fill in as they land:
-//   press  -> '/press'       (Session 4)
-//   FI set -> '/fi/partners' (Session 3), '/fi/press' (Session 4)
+//   press  -> '/press'    (Session 4)
+//   media  -> '/fi/press' (Session 4)
 const copy = {
   en: {
     words: [
@@ -18,15 +18,17 @@ const copy = {
     ],
     sub: 'Open to partners through LA28.',
     backTop: 'Back to top ↑',
+    identity: 'Esa-Pekka Mattila · Wheelchair Racing · FIN',
   },
   fi: {
     words: [
-      { text: 'Sponsorointi,', href: null },
-      { text: 'puheenvuorot,', href: null },
+      { text: 'Sponsorointi,', href: '/fi/partners' },
+      { text: 'puheenvuorot,', href: '/fi/partners#speaking' },
       { text: 'media', href: null },
     ],
     sub: 'Kumppanuudet avoinna LA28:aan asti.',
     backTop: 'Ylös ↑',
+    identity: 'Esa-Pekka Mattila · Pyörätuolikelaus · FIN',
   },
 };
 const c = copy[lang];
@@ -51,7 +53,7 @@ const c = copy[lang];
       </div>
     </div>
     <div class="foot-base">
-      <span>Esa-Pekka Mattila · Wheelchair Racing · FIN</span>
+      <span>{c.identity}</span>
       <span>&copy; {year} EPM</span>
     </div>
   </div>
