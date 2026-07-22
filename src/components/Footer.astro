@@ -6,15 +6,13 @@ const { lang } = Astro.props;
 const year = new Date().getFullYear();
 // The three big words link to their destination once that destination
 // exists. href: null renders plain text on purpose — the footer should
-// never point at a page that hasn't shipped. Fill in as they land:
-//   press  -> '/press'    (Session 4)
-//   media  -> '/fi/press' (Session 4)
+// never point at a page that hasn't shipped. All three have now landed.
 const copy = {
   en: {
     words: [
       { text: 'Sponsorship,', href: '/partners' },
       { text: 'speaking,', href: '/partners#speaking' },
-      { text: 'press', href: null },
+      { text: 'press', href: '/press' },
     ],
     sub: 'Open to partners through LA28.',
     backTop: 'Back to top ↑',
@@ -24,7 +22,7 @@ const copy = {
     words: [
       { text: 'Sponsorointi,', href: '/fi/partners' },
       { text: 'puheenvuorot,', href: '/fi/partners#speaking' },
-      { text: 'media', href: null },
+      { text: 'media', href: '/fi/press' },
     ],
     sub: 'Kumppanuudet avoinna LA28:aan asti.',
     backTop: 'Ylös ↑',

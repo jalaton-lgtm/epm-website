@@ -1,0 +1,348 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+
+// Session 4. Bios are a Claude draft pending EP's voice pass — the Session 3
+// pattern, and its record says the pass changes them substantively.
+//
+// Two things are deliberate and should survive editing:
+//
+// 1. The Paralympic rows name the round. All three are heat placings and EP
+//    did not reach a final in any of them; dropping a bare "6th" into the same
+//    column as the Kobe 2024 fifth would read as an equivalent result. Sourced
+//    from the IPC athlete profile and Wikipedia's round-by-round articles,
+//    which agree on placing, time and qualification rule.
+// 2. No forward horizon anywhere on this page. If the stop-after-2026 decision
+//    ever goes that way, the three files listed in the plan's carry-overs
+//    change together and this page is not a fourth.
+//
+// Images: portrait.jpg only. It is the one image on the site with unambiguous
+// rights. hero.jpg (Lackner) and DSC_5475verkko.jpg (Lightray) must not be
+// offered here — a press kit invites redistribution, which neither has granted.
+
+const facts = [
+  { k: 'Born', v: '7 March 1989' },
+  { k: 'Class', v: 'T54' },
+  { k: 'Event', v: '100 m' },
+  { k: 'Personal best', v: '14.08' },
+  { k: 'Club', v: 'Espoon Tapiot', href: 'https://espoontapiot.fi/' },
+  { k: 'Coach', v: 'Leo-Pekka Tähti' },
+  { k: 'Based', v: 'Espoo, Finland' },
+  { k: 'Languages', v: 'Finnish, English' },
+];
+
+const results = [
+  { year: '2025', event: 'World Championships, New Delhi', result: '7th · 14.15' },
+  { year: '2024', event: 'World Championships, Kobe', result: '5th · 14.33' },
+  { year: '2023', event: 'World Championships, Paris', result: '8th' },
+  { year: '2021', event: 'European Championships, Bydgoszcz', result: 'Bronze', medal: true },
+  { year: '2020', event: 'Paralympic Games, Tokyo', result: 'Heat · 6th · 14.71' },
+  { year: '2016', event: 'Paralympic Games, Rio', result: 'Heat · 5th · 15.07' },
+  { year: '2012', event: 'Paralympic Games, London', result: 'Heat · 6th · 14.99' },
+];
+---
+
+<BaseLayout
+  title="Press"
+  lang="en"
+  description="Press resources for Esa-Pekka Mattila, Finnish T54 wheelchair racer: biographies, fact sheet, results and a downloadable portrait."
+>
+  <section class="press-hero">
+    <div class="wrap">
+      <p class="kicker">Press</p>
+      <h1>Bios, facts,<br />results<span class="accent-text">.</span></h1>
+      <p class="lead">
+        Everything here is free to use and quote. If you need something that
+        isn't on this page, write to <a href="mailto:press@esapekkamattila.com">press@esapekkamattila.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="narrative" id="bio">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">01</span><h2>Biography</h2></div>
+      <div class="bios reveal">
+        <div class="bio-block">
+          <p class="bio-label mono">Short · ~50 words</p>
+          <p>
+            Esa-Pekka Mattila (b. 7 March 1989) is a Finnish T54 wheelchair
+            racer over 100 m. A three-time Paralympian, in London 2012, Rio
+            2016 and Tokyo 2020, and 2021 European bronze medallist, he has
+            ranked in the world's top eight since 2023 and chairs the
+            Athletes' Commission of the Finnish Olympic Committee. His 100 m
+            best is 14.08.
+          </p>
+        </div>
+        <div class="bio-block">
+          <p class="bio-label mono">Long · ~100 words</p>
+          <p>
+            Esa-Pekka Mattila (b. 7 March 1989) is a Finnish T54 wheelchair
+            racer over 100 m, racing internationally since 2005. He is a
+            three-time Paralympian, in London 2012, Rio 2016 and Tokyo 2020,
+            and took European bronze over 100 m at Bydgoszcz in 2021. He has
+            ranked in the world's top eight since 2023, placing eighth at the
+            2023 World Championships in Paris, fifth at Kobe in 2024 and
+            seventh at New Delhi in 2025. His 100 m best is 14.08. He trains
+            under Leo-Pekka Tähti and races for Espoon Tapiot.
+          </p>
+          <p>
+            Away from the track he chairs the Athletes' Commission of the
+            Finnish Olympic Committee and sits on its board, with further board
+            roles at Finnish Athletics, Athletes of Finland and the Abilis
+            Foundation, where he is vice chair. He is completing a master's in
+            business law and advises on wheelchair and assistive technology.
+            Based in Espoo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="facts">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">02</span><h2>Fact sheet</h2></div>
+      <dl class="factsheet reveal">
+        {facts.map((f) => (
+          <div class="fact-row">
+            <dt class="mono">{f.k}</dt>
+            <dd>{f.href ? <a href={f.href} target="_blank" rel="noopener">{f.v}</a> : f.v}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="prose reveal classnote">
+        <p>
+          <strong>What T54 means.</strong> T54 is the para athletics class for
+          wheelchair racers with full arm and trunk function, and in some cases
+          partial leg function. Racing chairs are propelled by striking the
+          pushrims by hand. Over 100 m the event is a pure sprint.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="results">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Results</h2></div>
+      <div class="table-scroll reveal">
+        <table class="results">
+          <caption>All results 100 m, class T54.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Year</th>
+              <th scope="col">Event</th>
+              <th scope="col">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            {results.map((r) => (
+              <tr>
+                <td class="mono yr">{r.year}</td>
+                <td>{r.event}</td>
+                <td class={`mono res ${r.medal ? 'accent-text' : ''}`}>{r.result}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="prose reveal classnote">
+        <p>
+          Paralympic rows show the heat, which is as far as I went at those
+          three Games. Championship rows are final placings.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="images">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Image</h2></div>
+      <div class="image-grid">
+        <div class="image-item reveal">
+          <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" aspect="4/5" />
+          <p class="bio-label mono">esa-pekka-mattila-01-portrait.jpg</p>
+        </div>
+        <div class="prose reveal">
+          <p>
+            Free for editorial use. Other use:
+            <a href="mailto:press@esapekkamattila.com">press@esapekkamattila.com</a>.
+          </p>
+          <p>
+            <a href="/images/portrait.jpg" download="esa-pekka-mattila-01-portrait.jpg">Download the portrait</a>.
+          </p>
+          <p>
+            The other photographs on this site are not mine to license. If you
+            need an action shot, write and I will ask the photographer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="press-cta">
+    <div class="wrap">
+      <div class="rule-accent"></div>
+      <p class="cta-line">Press enquiries</p>
+      <a href="mailto:press@esapekkamattila.com" class="cta-mail">press@esapekkamattila.com</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .press-hero {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-5);
+  }
+  .press-hero h1 {
+    margin-top: var(--space-2);
+  }
+  .accent-text {
+    color: var(--accent);
+  }
+  .narrative {
+    border-top: 1px solid var(--rule);
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: var(--space-3);
+  }
+  .sec-head .idx {
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  .prose p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+    max-width: 44rem;
+  }
+
+  /* Bios sit in bordered blocks so a journalist can see where the quotable
+     text starts and stops before selecting it. */
+  .bios {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 44rem;
+  }
+  .bio-block {
+    border-left: 2px solid var(--accent);
+    padding-left: var(--space-2);
+  }
+  .bio-block p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+  }
+  .bio-block p:last-child {
+    margin-bottom: 0;
+  }
+  .bio-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: var(--space-1) !important;
+  }
+
+  .factsheet {
+    max-width: 34rem;
+    border-top: 1px solid var(--rule);
+  }
+  .fact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fact-row dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fact-row dd {
+    text-align: right;
+  }
+  .classnote {
+    margin-top: var(--space-3);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .results {
+    width: 100%;
+    min-width: 30rem;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .results th {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    padding: 0 var(--space-2) 12px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .results td {
+    padding: 14px var(--space-2) 14px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: baseline;
+  }
+  .results .yr,
+  .results .res {
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+  .results .res {
+    padding-right: 0;
+  }
+  /* Every row is the same distance and class, so it is stated once here
+     rather than repeated seven times down the event column. */
+  .results caption {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: var(--space-2);
+  }
+
+  .image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(32px, 6vw, 84px);
+    align-items: start;
+  }
+  .image-item .bio-label {
+    margin-top: var(--space-1);
+  }
+
+  .press-cta {
+    border-top: 1px solid var(--rule);
+  }
+  .cta-line {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: var(--space-3);
+  }
+  .cta-mail {
+    display: inline-block;
+    margin-top: var(--space-1);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 3.5vw, 2.25rem);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 860px) {
+    .image-grid { grid-template-columns: 1fr; }
+  }
+</style>

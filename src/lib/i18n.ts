@@ -18,6 +18,10 @@ export const pageTwins: Record<string, Record<Lang, string>> = {
   '/profile': { en: '/profile', fi: '/fi/profile' },
   '/blog': { en: '/blog', fi: '/fi/blog' },
   '/partners': { en: '/partners', fi: '/fi/partners' },
+  // The FI page is at /fi/press, not /fi/media, keeping the path convention
+  // English on the Finnish side as /fi/partners already does. Only the
+  // visible label is Finnish.
+  '/press': { en: '/press', fi: '/fi/press' },
 };
 
 // Blog posts only have a twin once they've actually been translated, so
