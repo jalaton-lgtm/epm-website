@@ -24,17 +24,20 @@ const facts = [
   { k: 'Seura', v: 'Espoon Tapiot', href: 'https://espoontapiot.fi/' },
   { k: 'Valmentaja', v: 'Leo-Pekka Tähti' },
   { k: 'Kotipaikka', v: 'Espoo' },
-  { k: 'Kielet', v: 'suomi, englanti' },
+  { k: 'Kielet', v: 'suomi, englanti · saksan ja ruotsin alkeet' },
 ];
 
+// Aika omassa sarakkeessaan, jotta kehitys luetaan sarakkeena alaspäin.
+// Jokaisella rivillä on aika, myös kolmella alkuerällä — aika on niissä
+// kisoissa rehellisin mittari, kun sijoitus vaatii tarkennuksen.
 const results = [
-  { year: '2025', event: 'MM-kisat, New Delhi', result: '7. · 14,15' },
-  { year: '2024', event: 'MM-kisat, Kobe', result: '5. · 14,33' },
-  { year: '2023', event: 'MM-kisat, Pariisi', result: '8.' },
-  { year: '2021', event: 'EM-kisat, Bydgoszcz', result: 'Pronssi', medal: true },
-  { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Alkuerä · 6. · 14,71' },
-  { year: '2016', event: 'Paralympialaiset, Rio', result: 'Alkuerä · 5. · 15,07' },
-  { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Alkuerä · 6. · 14,99' },
+  { year: '2025', event: 'MM-kisat, New Delhi', result: '7.', time: '14,15' },
+  { year: '2024', event: 'MM-kisat, Kobe', result: '5.', time: '14,33' },
+  { year: '2023', event: 'MM-kisat, Pariisi', result: '8.', time: '14,57' },
+  { year: '2021', event: 'EM-kisat, Bydgoszcz', result: 'Pronssi', time: '14,39', medal: true },
+  { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Alkuerä, 6.', time: '14,71' },
+  { year: '2016', event: 'Paralympialaiset, Rio', result: 'Alkuerä, 5.', time: '15,07' },
+  { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Alkuerä, 6.', time: '14,99' },
 ];
 ---
 
@@ -130,6 +133,7 @@ const results = [
               <th scope="col">Vuosi</th>
               <th scope="col">Kilpailu</th>
               <th scope="col">Tulos</th>
+              <th scope="col">Aika</th>
             </tr>
           </thead>
           <tbody>
@@ -138,6 +142,7 @@ const results = [
                 <td class="mono yr">{r.year}</td>
                 <td>{r.event}</td>
                 <td class={`mono res ${r.medal ? 'accent-text' : ''}`}>{r.result}</td>
+                <td class="mono time">{r.time}</td>
               </tr>
             ))}
           </tbody>
@@ -292,11 +297,15 @@ const results = [
     vertical-align: baseline;
   }
   .results .yr,
-  .results .res {
+  .results .res,
+  .results .time {
     font-size: 0.875rem;
     white-space: nowrap;
   }
-  .results .res {
+  /* Ajat oikeaan reunaan, jotta sarake luetaan yhtenä sarjana. */
+  .results th:last-child,
+  .results .time {
+    text-align: right;
     padding-right: 0;
   }
   /* Jokainen rivi on samaa matkaa ja luokkaa, joten se kerrotaan kerran

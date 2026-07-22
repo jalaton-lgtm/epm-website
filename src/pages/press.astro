@@ -28,17 +28,20 @@ const facts = [
   { k: 'Club', v: 'Espoon Tapiot', href: 'https://espoontapiot.fi/' },
   { k: 'Coach', v: 'Leo-Pekka Tähti' },
   { k: 'Based', v: 'Espoo, Finland' },
-  { k: 'Languages', v: 'Finnish, English' },
+  { k: 'Languages', v: 'Finnish, English · elementary German and Swedish' },
 ];
 
+// Time gets its own column so the progression reads down the page. Every row
+// carries one, including the three heats — the times are the honest measure of
+// those Games, where the placing needs a qualifier.
 const results = [
-  { year: '2025', event: 'World Championships, New Delhi', result: '7th · 14.15' },
-  { year: '2024', event: 'World Championships, Kobe', result: '5th · 14.33' },
-  { year: '2023', event: 'World Championships, Paris', result: '8th' },
-  { year: '2021', event: 'European Championships, Bydgoszcz', result: 'Bronze', medal: true },
-  { year: '2020', event: 'Paralympic Games, Tokyo', result: 'Heat · 6th · 14.71' },
-  { year: '2016', event: 'Paralympic Games, Rio', result: 'Heat · 5th · 15.07' },
-  { year: '2012', event: 'Paralympic Games, London', result: 'Heat · 6th · 14.99' },
+  { year: '2025', event: 'World Championships, New Delhi', result: '7th', time: '14.15' },
+  { year: '2024', event: 'World Championships, Kobe', result: '5th', time: '14.33' },
+  { year: '2023', event: 'World Championships, Paris', result: '8th', time: '14.57' },
+  { year: '2021', event: 'European Championships, Bydgoszcz', result: 'Bronze', time: '14.39', medal: true },
+  { year: '2020', event: 'Paralympic Games, Tokyo', result: 'Heat, 6th', time: '14.71' },
+  { year: '2016', event: 'Paralympic Games, Rio', result: 'Heat, 5th', time: '15.07' },
+  { year: '2012', event: 'Paralympic Games, London', result: 'Heat, 6th', time: '14.99' },
 ];
 ---
 
@@ -131,6 +134,7 @@ const results = [
               <th scope="col">Year</th>
               <th scope="col">Event</th>
               <th scope="col">Result</th>
+              <th scope="col">Time</th>
             </tr>
           </thead>
           <tbody>
@@ -139,6 +143,7 @@ const results = [
                 <td class="mono yr">{r.year}</td>
                 <td>{r.event}</td>
                 <td class={`mono res ${r.medal ? 'accent-text' : ''}`}>{r.result}</td>
+                <td class="mono time">{r.time}</td>
               </tr>
             ))}
           </tbody>
@@ -293,11 +298,15 @@ const results = [
     vertical-align: baseline;
   }
   .results .yr,
-  .results .res {
+  .results .res,
+  .results .time {
     font-size: 0.875rem;
     white-space: nowrap;
   }
-  .results .res {
+  /* Times align on the right so the column scans as a single sequence. */
+  .results th:last-child,
+  .results .time {
+    text-align: right;
     padding-right: 0;
   }
   /* Every row is the same distance and class, so it is stated once here
