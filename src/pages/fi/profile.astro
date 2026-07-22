@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import { telemetry } from '../../lib/telemetry';
+import { person } from '../../lib/schema';
 
 // Teksti vahvistettu EP:n kanssa (heinäkuu 2026): koko sivusto
 // minämuodossa, Olympiakomitean urheilijavaliokunnan puheenjohtajuus +
@@ -29,7 +30,7 @@ const stats = [
 ];
 ---
 
-<BaseLayout title="Profiili" lang="fi" description="Esa-Pekka Mattila: T54-luokan kelaaja ja urheiluhallinnon ammattilainen. Ura, roolit ja tausta.">
+<BaseLayout title="Profiili" lang="fi" description="Esa-Pekka Mattila: T54-luokan kelaaja ja urheiluhallinnon ammattilainen. Ura, roolit ja tausta." jsonLd={person}>
   <section class="profile-hero">
     <div class="wrap">
       <p class="kicker">Profiili</p>

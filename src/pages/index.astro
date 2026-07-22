@@ -4,13 +4,14 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 import CategoryBadge from '../components/CategoryBadge.astro';
 import { getCollection } from 'astro:content';
 import { cleanSlug } from '../lib/slug';
+import { person } from '../lib/schema';
 
 const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 ---
 
-<BaseLayout title="Esa-Pekka Mattila" lang="en" description="Esa-Pekka Mattila — T54 wheelchair racer, 100m. Profile, results, and blog.">
+<BaseLayout title="Esa-Pekka Mattila" lang="en" description="Esa-Pekka Mattila — T54 wheelchair racer, 100m. Profile, results, and blog." jsonLd={person}>
   <!-- HERO -->
   <section class="hero">
     <div class="hero-photo">
