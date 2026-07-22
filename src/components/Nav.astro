@@ -97,7 +97,11 @@ const nav = {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    /* 12px padding around the 22px bar stack makes the button 46x46. At the
+       previous 8px it measured 38x38 — past WCAG 2.5.8 (24px) but under the
+       44px touch guideline, and it is the one control a phone user cannot
+       avoid. */
+    padding: 12px;
   }
   .navtoggle span {
     display: block;
@@ -120,11 +124,18 @@ const nav = {
       background: var(--surface);
       padding: 40px;
       transform: translateX(100%);
-      transition: transform 0.3s;
+      /* The slide alone parks the links off-screen but leaves them in the tab
+         order — six invisible tab stops, confirmed with real Tab presses at
+         375px. visibility removes them from it; the 0.3s delay lets the slide
+         finish before it takes effect, so the animation is unchanged. */
+      visibility: hidden;
+      transition: transform 0.3s, visibility 0s linear 0.3s;
       z-index: 99;
     }
     .links.open {
       transform: none;
+      visibility: visible;
+      transition: transform 0.3s, visibility 0s;
     }
     .links a {
       font-size: 0.9375rem;
@@ -136,6 +147,16 @@ const nav = {
     .navtoggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .navtoggle.open span:nth-child(2) { opacity: 0; }
     .navtoggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  }
+
+  /* The global reduced-motion rule shortens transition-duration but not
+     transition-delay, which would leave the closed drawer focusable for
+     0.3s. Drop the delay too — with no slide to wait for, there is nothing
+     for it to protect. */
+  @media (max-width: 860px) and (prefers-reduced-motion: reduce) {
+    .links {
+      transition-delay: 0s;
+    }
   }
 </style>
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PhotoSlot from '../../components/PhotoSlot.astro';
+import { telemetry } from '../../lib/telemetry';
 
 // Teksti vahvistettu EP:n kanssa (heinäkuu 2026): koko sivusto
 // minämuodossa, Olympiakomitean urheilijavaliokunnan puheenjohtajuus +
@@ -8,8 +9,18 @@ import PhotoSlot from '../../components/PhotoSlot.astro';
 // päättyi syksyllä 2024. Suomennos Claude-luonnos EP:n rekisterissä —
 // EP tarkistaa ennen julkaisua.
 
+// Maailmanranking ja kauden ennätys tulevat telemetry.ts:stä, samasta
+// lähteestä kuin HUD. HUD on aria-hidden, joten nämä kaksi lukua eivät
+// tavoittaneet ruudunlukijaa missään ennen tätä.
+//
+// Desimaalipilkku vaihdetaan tässä: telemetry.ts pitää yhtä jaettua merkkijonoa
+// pisteellä, ja HUD näyttää sen pisteellisenä myös suomeksi tarkoituksella
+// (mittarinäyttö, englanninkieliset otsikot). Tämä ruudukko on sivun omaa
+// tekstiä suomenkielisin otsikoin, joten tässä pätee pilkkukäytäntö.
 const stats = [
   { label: 'HE · 100M', value: '14,08', unit: 's', accent: true },
+  { label: 'KE · 100M', value: telemetry.seasonBest.replace('.', ','), unit: 's' },
+  { label: 'MAAILMANLISTA', value: String(telemetry.worldRank), unit: '' },
   { label: 'LUOKKA', value: 'T54', unit: '' },
   { label: 'SYNTYNYT', value: '1989', unit: '' },
   { label: 'HANDLE', value: '@mattilae', unit: '' },

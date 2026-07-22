@@ -1,14 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
+import { telemetry } from '../lib/telemetry';
 
 // Copy confirmed by EP (July 2026): first person site-wide, chair of the
 // NOC Athletes' Commission + NOC board seat, NPC Athletes' Commission
 // chaired until autumn 2024, board seats named per EP's list. "Finnish
 // Athletics Athletes" association deliberately omitted (dormant).
 
+// World rank and season best come from telemetry.ts, the same source the HUD
+// reads. The HUD is aria-hidden by design, so those two numbers reached no
+// screen reader anywhere on the site until they appeared here. Sourcing them
+// rather than retyping them also keeps rule 5 true: one file to edit after a
+// race, and these cannot drift from the nav readout.
 const stats = [
   { label: 'PB · 100M', value: '14.08', unit: 's', accent: true },
+  { label: 'SB · 100M', value: telemetry.seasonBest, unit: 's' },
+  { label: 'WORLD RANK', value: String(telemetry.worldRank), unit: '' },
   { label: 'CLASSIFICATION', value: 'T54', unit: '' },
   { label: 'BORN', value: '1989', unit: '' },
   { label: 'HANDLE', value: '@mattilae', unit: '' },
