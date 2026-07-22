@@ -9,10 +9,11 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^4.16.0",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "3.2.1",
-    "@fontsource/space-grotesk": "^5.1.0",
     "@fontsource/inter-tight": "^5.1.0",
-    "@fontsource/jetbrains-mono": "^5.1.0"
+    "@fontsource/jetbrains-mono": "^5.1.0",
+    "@fontsource/space-grotesk": "^5.1.0",
+    "astro": "^4.16.0"
   }
 }
