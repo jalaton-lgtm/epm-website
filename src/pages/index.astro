@@ -28,7 +28,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
     <a class="photo-credit" href="https://tobil.ch/" target="_blank" rel="noopener">
       Photo <span>Tobias Lackner</span>
     </a>
-    <div class="scrollcue">
+    <div class="scrollcue" aria-hidden="true">
       <span class="mono">SCROLL</span>
       <span class="line"></span>
     </div>
@@ -76,7 +76,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
           {posts.map((post) => (
             <a href={`/blog/${cleanSlug(post.slug)}`} class="post reveal">
               <div class="post-thumb">
-             <PhotoSlot src={post.data.image} alt={post.data.title} placeholder="POST IMAGE" aspect="16/10" />
+             <PhotoSlot src={post.data.image} alt="" placeholder="POST IMAGE" aspect="16/10" />
                 <CategoryBadge category={post.data.category} photo={post.data.photo} lang="en" variant="chip" />
               </div>
               <div class="post-body">
