@@ -38,6 +38,38 @@ export function canonicalPathOf(pathname: string, lang: Lang): string {
   return (lang === 'fi' ? path.replace(/^\/fi(?=\/|$)/, '') : path) || '/';
 }
 
+/**
+ * hreflang alternates: the path of this page in each language.
+ *
+ * Returns null when there is no honest set to advertise — an untranslated
+ * blog post, or an unmapped page such as the 404 — because hreflang must
+ * point at a genuine equivalent, not a fallback. `twinOf` deliberately falls
+ * back to the blog index for navigation; that is the right answer for a
+ * language toggle and the wrong one for an alternate link, so this does not
+ * reuse it.
+ */
+export function localeAlternates(pathname: string, lang: Lang): Record<Lang, string> | null {
+  const canonical = canonicalPathOf(pathname, lang);
+
+  const post = canonical.match(/^\/blog\/(.+)$/);
+  if (post) {
+    const currentSlug = post[1];
+    // Resolve to the EN slug, which is the key side of postTwins.
+    const enSlug = lang === 'en'
+      ? currentSlug
+      : Object.keys(postTwins).find((s) => postTwins[s] === currentSlug);
+    const fiSlug = enSlug ? postTwins[enSlug] : undefined;
+    if (!enSlug || !fiSlug) return null; // untranslated — no honest alternate
+    return {
+      en: `${pageTwins['/blog'].en}/${enSlug}`,
+      fi: `${pageTwins['/blog'].fi}/${fiSlug}`,
+    };
+  }
+
+  const twins = pageTwins[canonical];
+  return twins ? { en: twins.en, fi: twins.fi } : null;
+}
+
 /** The given page in the other language, or the nearest page that exists. */
 export function twinOf(canonicalPath: string, lang: Lang): string {
   const otherLang = otherLangOf(lang);

@@ -9,6 +9,7 @@ import '@fontsource/jetbrains-mono/500.css';
 import '../styles/tokens.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { localeAlternates } from '../lib/i18n';
 
 export interface Props {
   title: string;
@@ -19,6 +20,10 @@ export interface Props {
   image?: string;
   /** Open Graph type — pass "article" on blog post pages. */
   type?: 'website' | 'article';
+  /** ISO timestamp for article:published_time. Blog posts only. */
+  publishedTime?: string;
+  /** JSON-LD object (or objects) injected into the head as ld+json. */
+  jsonLd?: object | object[];
 }
 
 const {
@@ -27,6 +32,8 @@ const {
   lang,
   image = '/images/og-default.jpg',
   type = 'website',
+  publishedTime,
+  jsonLd,
 } = Astro.props;
 
 const siteName = 'Esa-Pekka Mattila';
@@ -42,6 +49,20 @@ const canonicalPath = Astro.url.pathname.endsWith('/')
 const canonicalURL = new URL(canonicalPath, Astro.site);
 const imageURL = new URL(image, Astro.site);
 const ogLocale = lang === 'fi' ? 'fi_FI' : 'en_US';
+
+// hreflang alternates. localeAlternates returns absolute paths for both
+// languages, or null where there is no honest pair (404, or an untranslated
+// post). Trailing slash matches the canonical form above. x-default points at
+// the English version per the plan.
+const withSlash = (p: string) => (p.endsWith('/') ? p : `${p}/`);
+const alternates = localeAlternates(Astro.url.pathname, lang);
+const altLinks = alternates
+  ? [
+      { hreflang: 'en', href: new URL(withSlash(alternates.en), Astro.site) },
+      { hreflang: 'fi', href: new URL(withSlash(alternates.fi), Astro.site) },
+      { hreflang: 'x-default', href: new URL(withSlash(alternates.en), Astro.site) },
+    ]
+  : [];
 
 // Cloudflare Web Analytics — paste the site token from the Cloudflare
 // dashboard (Analytics & Logs -> Web Analytics -> Add a site). The
@@ -61,6 +82,9 @@ const CF_ANALYTICS_TOKEN = '12a75a1d8d8241a389a2eb8c79df9472';
     <meta name="theme-color" content="#0E0D0C" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {altLinks.map((a) => (
+      <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+    ))}
 
     <meta property="og:site_name" content={siteName} />
     <meta property="og:type" content={type} />
@@ -71,11 +95,16 @@ const CF_ANALYTICS_TOKEN = '12a75a1d8d8241a389a2eb8c79df9472';
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content={ogLocale} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={imageURL} />
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
 
     {CF_ANALYTICS_TOKEN && (
       <script
