@@ -1,0 +1,356 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoSlot from '../../components/PhotoSlot.astro';
+
+// Session 4. Suomennos on Claude-luonnos EP:n rekisterissä — EP tekee
+// kielitarkistuksen ennen julkaisua, kuten Sessiossa 3.
+//
+// Kaksi asiaa on tarkoituksellista ja niiden pitäisi säilyä muokkauksissa:
+//
+// 1. Paralympiarivit kertovat kierroksen. Kaikki kolme ovat alkueräsijoituksia
+//    eikä EP edennyt finaaliin yhdessäkään; pelkkä "6." samassa sarakkeessa
+//    Koben 2024 viidennen sijan kanssa lukisi vastaavana tuloksena.
+// 2. Sivulla ei ole tulevaisuuden aikajännettä. Jos ura päättyy kauteen 2026,
+//    suunnitelman carry-overit listaavat kolme tiedostoa jotka muuttuvat
+//    yhdessä — tämä sivu ei ole neljäs.
+//
+// Kuvat: vain portrait.jpg. Ks. suunnitelman liite G.
+
+const facts = [
+  { k: 'Syntynyt', v: '7.3.1989' },
+  { k: 'Luokka', v: 'T54' },
+  { k: 'Päämatka', v: '100 m' },
+  { k: 'Ennätys', v: '14,08' },
+  { k: 'Seura', v: 'Espoon Tapiot', href: 'https://espoontapiot.fi/' },
+  { k: 'Valmentaja', v: 'Leo-Pekka Tähti' },
+  { k: 'Kotipaikka', v: 'Espoo' },
+  { k: 'Kielet', v: 'suomi, englanti · saksa (B1) · ruotsin alkeet' },
+];
+
+// Aika omassa sarakkeessaan, jotta kehitys luetaan sarakkeena alaspäin.
+// Jokaisella rivillä on aika, myös kolmella alkuerällä — aika on niissä
+// kisoissa rehellisin mittari, kun sijoitus vaatii tarkennuksen.
+const results = [
+  { year: '2025', event: 'MM-kisat, New Delhi', result: '7.', time: '14,15' },
+  { year: '2024', event: 'MM-kisat, Kobe', result: '5.', time: '14,33' },
+  { year: '2023', event: 'MM-kisat, Pariisi', result: '8.', time: '14,57' },
+  { year: '2021', event: 'EM-kisat, Bydgoszcz', result: 'Pronssi', time: '14,39', medal: true },
+  { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Alkuerä, 6.', time: '14,71' },
+  { year: '2016', event: 'Paralympialaiset, Rio', result: 'Alkuerä, 5.', time: '15,07' },
+  { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Alkuerä, 6.', time: '14,99' },
+];
+---
+
+<BaseLayout
+  title="Media"
+  lang="fi"
+  description="Median aineistot Esa-Pekka Mattilasta, T54-luokan pyörätuolikelaajasta: esittelytekstit, perustiedot, tulokset ja ladattava muotokuva."
+>
+  <section class="press-hero">
+    <div class="wrap">
+      <p class="kicker">Media</p>
+      <h1>Esittely, faktat,<br />tulokset<span class="accent-text">.</span></h1>
+      <p class="lead">
+        Kaikki tällä sivulla on vapaasti käytettävissä ja lainattavissa. Jos
+        tarvitset jotain, mitä täältä ei löydy, kirjoita osoitteeseen <a href="mailto:press@esapekkamattila.com">press@esapekkamattila.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="narrative" id="bio">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">01</span><h2>Esittely</h2></div>
+      <div class="bios reveal">
+        <div class="bio-block">
+          <p class="bio-label mono">Lyhyt · ~50 sanaa</p>
+          <p>
+            Esa-Pekka Mattila (s. 7.3.1989) on suomalainen pyörätuolikelaaja,
+            päämatkanaan 100 metriä (luokka T54). Hän on kolminkertainen
+            paralympiaurheilija, Lontoo 2012, Rio 2016 ja Tokio 2020, ja vuoden
+            2021 EM-pronssimitalisti. Mattila on kuulunut maailmanlistan
+            kärkikahdeksikkoon vuodesta 2023 ja johtaa Suomen Olympiakomitean
+            urheilijavaliokuntaa. Ennätys 100 metrillä on 14,08.
+          </p>
+        </div>
+        <div class="bio-block">
+          <p class="bio-label mono">Pitkä · ~100 sanaa</p>
+          <p>
+            Esa-Pekka Mattila (s. 7.3.1989) on suomalainen pyörätuolikelaaja,
+            päämatkanaan 100 metriä (luokka T54). Hän on kilpaillut
+            kansainvälisesti vuodesta 2005. Mattila on kolminkertainen
+            paralympiaurheilija, Lontoo 2012, Rio 2016 ja Tokio 2020, ja voitti
+            EM-pronssia 100 metrillä Bydgoszczissa vuonna 2021. Hän on kuulunut
+            maailmanlistan kärkikahdeksikkoon vuodesta 2023: kahdeksas sija
+            MM-kisoissa Pariisissa 2023, viides Kobessa 2024 ja seitsemäs New
+            Delhissä 2025. Ennätys 100 metrillä on 14,08. Valmentajana toimii
+            Leo-Pekka Tähti, seurana Espoon Tapiot.
+          </p>
+          <p>
+            Radan ulkopuolella Mattila toimii Suomen Olympiakomitean
+            urheilijavaliokunnan puheenjohtajana ja Olympiakomitean hallituksen
+            jäsenenä. Lisäksi hänellä on hallituspaikat Suomen Urheiluliitossa
+            ja Suomen Urheilijat ry:ssä sekä varapuheenjohtajuus
+            Abilis-säätiössä. Hän viimeistelee maisterintutkintoa
+            yritysjuridiikasta ja tekee asiantuntijatyötä pyörätuoli- ja
+            apuvälineteknologian parissa. Kotipaikka Espoo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="facts">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">02</span><h2>Perustiedot</h2></div>
+      <dl class="factsheet reveal">
+        {facts.map((f) => (
+          <div class="fact-row">
+            <dt class="mono">{f.k}</dt>
+            <dd>{f.href ? <a href={f.href} target="_blank" rel="noopener">{f.v}</a> : f.v}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="prose reveal classnote">
+        <p>
+          <strong>Mitä T54 tarkoittaa.</strong> T54 on parayleisurheilun luokka
+          pyörätuolikelaajille, joilla on täysi käsien ja vartalon toiminta ja
+          joissakin tapauksissa osittainen jalkojen toiminta. Kelaustuolia
+          liikutetaan lyömällä kelausvanteita käsin. 100 metrillä laji on puhdas
+          pikamatka.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="results">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Tulokset</h2></div>
+      <div class="table-scroll reveal">
+        <table class="results">
+          <caption>Kaikki tulokset 100 m, luokka T54.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Vuosi</th>
+              <th scope="col">Kilpailu</th>
+              <th scope="col">Tulos</th>
+              <th scope="col">Aika</th>
+            </tr>
+          </thead>
+          <tbody>
+            {results.map((r) => (
+              <tr>
+                <td class="mono yr">{r.year}</td>
+                <td>{r.event}</td>
+                <td class={`mono res ${r.medal ? 'accent-text' : ''}`}>{r.result}</td>
+                <td class="mono time">{r.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="prose reveal classnote">
+        <p>
+          Paralympiariveillä näkyy alkuerä, sillä noissa kolmissa kisoissa en
+          edennyt sitä pidemmälle. MM- ja EM-rivit ovat finaalisijoituksia.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative" id="images">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Kuva</h2></div>
+      <div class="image-grid">
+        <div class="image-item reveal">
+          <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" aspect="4/5" />
+          <p class="bio-label mono">esa-pekka-mattila-01-portrait.jpg</p>
+        </div>
+        <div class="prose reveal">
+          <p>
+            Vapaasti käytettävissä toimituksellisessa yhteydessä. Muu käyttö:
+            <a href="mailto:press@esapekkamattila.com">press@esapekkamattila.com</a>.
+          </p>
+          <p>
+            <a href="/images/portrait.jpg" download="esa-pekka-mattila-01-portrait.jpg">Lataa muotokuva</a>.
+          </p>
+          <p>
+            Muut tämän sivuston valokuvat eivät ole minun lisensoitavissani. Jos
+            tarvitset kuvaa radalta, ota yhteyttä, niin kysyn valokuvaajalta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="press-cta">
+    <div class="wrap">
+      <div class="rule-accent"></div>
+      <p class="cta-line">Mediayhteydenotot</p>
+      <a href="mailto:press@esapekkamattila.com" class="cta-mail">press@esapekkamattila.com</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .press-hero {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-5);
+  }
+  .press-hero h1 {
+    margin-top: var(--space-2);
+  }
+  .accent-text {
+    color: var(--accent);
+  }
+  .narrative {
+    border-top: 1px solid var(--rule);
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: var(--space-3);
+  }
+  .sec-head .idx {
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  .prose p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+    max-width: 44rem;
+  }
+
+  /* Esittelytekstit omissa lohkoissaan, jotta toimittaja näkee mistä
+     lainattava teksti alkaa ja mihin se loppuu. */
+  .bios {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 44rem;
+  }
+  .bio-block {
+    border-left: 2px solid var(--accent);
+    padding-left: var(--space-2);
+  }
+  .bio-block p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    margin-bottom: var(--space-2);
+  }
+  .bio-block p:last-child {
+    margin-bottom: 0;
+  }
+  .bio-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: var(--space-1) !important;
+  }
+
+  .factsheet {
+    max-width: 34rem;
+    border-top: 1px solid var(--rule);
+  }
+  .fact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fact-row dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fact-row dd {
+    text-align: right;
+  }
+  .classnote {
+    margin-top: var(--space-3);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .results {
+    width: 100%;
+    min-width: 30rem;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .results th {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    padding: 0 var(--space-2) 12px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .results td {
+    padding: 14px var(--space-2) 14px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: baseline;
+  }
+  .results .yr,
+  .results .res,
+  .results .time {
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+  /* Ajat oikeaan reunaan, jotta sarake luetaan yhtenä sarjana. */
+  .results th:last-child,
+  .results .time {
+    text-align: right;
+    padding-right: 0;
+  }
+  /* Jokainen rivi on samaa matkaa ja luokkaa, joten se kerrotaan kerran
+     tässä eikä toisteta seitsemää kertaa kilpailusarakkeessa. */
+  .results caption {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: var(--space-2);
+  }
+
+  .image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(32px, 6vw, 84px);
+    align-items: start;
+  }
+  .image-item .bio-label {
+    margin-top: var(--space-1);
+  }
+
+  .press-cta {
+    border-top: 1px solid var(--rule);
+  }
+  .cta-line {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: var(--space-3);
+  }
+  .cta-mail {
+    display: inline-block;
+    margin-top: var(--space-1);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 3.5vw, 2.25rem);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 860px) {
+    .image-grid { grid-template-columns: 1fr; }
+  }
+</style>
