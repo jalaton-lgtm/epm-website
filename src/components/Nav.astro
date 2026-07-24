@@ -9,18 +9,29 @@ const { lang } = Astro.props;
 const otherLang = otherLangOf(lang);
 const otherLangPath = twinOf(canonicalPathOf(Astro.url.pathname, lang), lang);
 
+// Marks the nav link for the page you're on with aria-current. Compares
+// trailing-slash-agnostic paths so /profile and /profile/ both match the
+// /profile item. Exact match only — a blog post lights no item, which is
+// correct: the post is not the blog index.
+const stripSlash = (p: string) => p.replace(/\/+$/, '') || '/';
+const currentPath = stripSlash(Astro.url.pathname);
+
 const nav = {
   en: [
     { href: '/', label: 'Home' },
     { href: '/profile', label: 'Profile' },
     { href: '/blog', label: 'Blog' },
     { href: '/partners', label: 'Partners' },
+    { href: '/press', label: 'Press' },
   ],
   fi: [
     { href: '/fi/', label: 'Etusivu' },
     { href: '/fi/profile', label: 'Profiili' },
     { href: '/fi/blog', label: 'Blogi' },
     { href: '/fi/partners', label: 'Kumppanit' },
+    // Label matches the /press page's own FI title ("Media"); the path
+    // stays English (/fi/press) per the site's path convention.
+    { href: '/fi/press', label: 'Media' },
   ],
 };
 ---
@@ -32,7 +43,7 @@ const nav = {
   </button>
   <nav class="links" id="navlinks" aria-label="Primary">
     {nav[lang].map((item) => (
-      <a href={item.href}>{item.label}</a>
+      <a href={item.href} aria-current={stripSlash(item.href) === currentPath ? 'page' : undefined}>{item.label}</a>
     ))}
     <a href={otherLangPath} class="lang-switch" hreflang={otherLang}>
       {lang === 'en' ? 'FI' : 'EN'}
@@ -82,6 +93,11 @@ const nav = {
     padding: 8px 14px;
   }
   .links a:hover {
+    color: var(--ink);
+  }
+  /* "You are here": the current page's link sits in full ink against the
+     muted others. Accent stays reserved for the Contact CTA. */
+  .links a[aria-current="page"] {
     color: var(--ink);
   }
   .links a.cta {
