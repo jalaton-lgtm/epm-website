@@ -96,6 +96,17 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
       <p class="more all-posts"><a href="/fi/blog">Kaikki julkaisut →</a></p>
     </div>
   </section>
+
+  <!-- PARTNERS -->
+  <section id="partners-preview">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Kumppanit</h2></div>
+      <div class="partners-teaser reveal">
+        <p>Mitä kumppanuus pitää sisällään ja mitä kausi maailman huipulla maksaa, kaikki avattuna.</p>
+        <a href="/fi/partners" class="more">Tehdään yhteistyötä →</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -327,6 +338,22 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
   }
   .all-posts {
     margin-top: var(--space-4);
+  }
+
+  /* ---- Partners CTA ---- */
+  #partners-preview {
+    border-top: 1px solid var(--rule);
+  }
+  .partners-teaser p {
+    font-size: var(--text-lead);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    max-width: 34rem;
+    margin-bottom: var(--space-3);
+  }
+  .partners-teaser .more {
+    display: inline-block;
   }
 
   @media (max-width: 860px) {
