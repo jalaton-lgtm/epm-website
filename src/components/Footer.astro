@@ -49,7 +49,18 @@ const c = copy[lang];
         <p class="foot-sub">{c.sub.pre}<a href={la28} target="_blank" rel="noopener">{c.sub.link}</a>{c.sub.post}</p>
       </div>
       <div class="foot-links reveal">
-        <a href="mailto:ep@esapekkamattila.com">ep@esapekkamattila.com</a>
+        {/* Cloudflare's Email Obfuscation (Scrape Shield) rewrites every
+            mailto: on the site into /cdn-cgi/l/email-protection#… with a JS
+            decoder, so with JS off the site had no contact route at all. The
+            shield stays on — this pair restores one. The <style> hides the
+            obfuscated link when JS is off; the email_off comments tell
+            Cloudflare to leave the fallback alone, which is its documented
+            escape hatch. Verify on the live domain, not locally: the rewrite
+            happens at the edge, so a local build cannot reproduce it. */}
+        <noscript><style is:inline>.mail-js{display:none}</style></noscript>
+        <a class="mail-js" href="mailto:ep@esapekkamattila.com">ep@esapekkamattila.com</a>
+        <noscript set:html={'<!--email_off--><a href="mailto:ep@esapekkamattila.com">ep@esapekkamattila.com</a><!--/email_off-->'} />
+        <a href="https://fi.linkedin.com/in/epmattila" target="_blank" rel="noopener me">LinkedIn · @epmattila</a>
         <a href="https://instagram.com/mattilae" target="_blank" rel="noopener me">Instagram · @mattilae</a>
         <a href="https://x.com/epmattila" target="_blank" rel="noopener me">X · @epmattila</a>
         <a href="#top" class="back">{c.backTop}</a>
