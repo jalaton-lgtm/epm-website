@@ -11,7 +11,18 @@ Finnish posts: `src/content/blog/fi/`
 
 The filename becomes the URL: `kobe-race-report.md` publishes at `/blog/kobe-race-report` (or `/fi/blog/...` for Finnish). Use lowercase, hyphens, no spaces, no ä/ö. The languages are independent: a post can exist in one language only, and slugs do not need to match across languages.
 
-The three `draft: true` sample posts in these folders are reference copies. Leave them; they render nowhere.
+The live pair `en/where-i-am.md` and `fi/missa-mennaan.md` is the working reference for frontmatter. Copy its shape when in doubt. (Three `draft: true` sample posts used to sit in these folders as reference copies; they were deleted in July 2026, so ignore any instruction to leave them in place.)
+
+**If you publish a post in both languages, register the pair.** Add the slugs to `postTwins` in `src/lib/i18n.ts`, EN on the left and FI on the right:
+
+```ts
+export const postTwins: Record<string, string> = {
+  'where-i-am': 'missa-mennaan',
+  'your-en-slug': 'sinun-fi-slugisi',
+};
+```
+
+Without that line the language toggle falls back to the other blog index instead of the translation, and the post ships no `hreflang` alternates. One map drives both, so this is the only place it needs saying. A post that exists in one language only needs no entry.
 
 ### Steps
 

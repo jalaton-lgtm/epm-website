@@ -9,7 +9,8 @@ import '@fontsource/jetbrains-mono/500.css';
 import '../styles/tokens.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { localeAlternates } from '../lib/i18n';
+import { canonicalPathOf, localeAlternates } from '../lib/i18n';
+import { pageUpdated, webPage } from '../lib/schema';
 
 export interface Props {
   title: string;
@@ -64,6 +65,20 @@ const altLinks = alternates
     ]
   : [];
 
+// dateModified for the info pages, derived from the path so that no page has
+// to pass it and none can forget to. Blog posts are deliberately absent from
+// pageUpdated: they already carry a visible date and a BlogPosting with
+// datePublished, which is the honest signal for a dated piece of writing.
+// The info pages get the machine-readable version instead, because a visible
+// "written in" stamp on a press kit reads as "possibly out of date".
+const contentUpdated = pageUpdated[canonicalPathOf(Astro.url.pathname, lang)];
+const jsonLdBlocks = [
+  ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []),
+  ...(contentUpdated
+    ? [webPage({ url: canonicalURL.href, name: fullTitle, lang, dateModified: contentUpdated })]
+    : []),
+];
+
 // Cloudflare Web Analytics — paste the site token from the Cloudflare
 // dashboard (Analytics & Logs -> Web Analytics -> Add a site). The
 // beacon script is only rendered when a token is present, so an empty
@@ -108,9 +123,9 @@ const CF_ANALYTICS_TOKEN = '12a75a1d8d8241a389a2eb8c79df9472';
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={imageURL} />
 
-    {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-    )}
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
 
     {CF_ANALYTICS_TOKEN && (
       <script
