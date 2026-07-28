@@ -21,7 +21,7 @@ I finished fifth at the World Championships in 2024 and seventh in 2025, and I d
 
 My plan from here is the World Championships in Tashkent in June 2027 and Los Angeles in 2028 to end the career. There is also the possibility that I stop after this season. It would be dishonest to present it as anything other than a possibility. If my situation stays as it is, I have to call it quits at the end of this year, for financial reasons above all. That in itself feels hilarious, when I am at the same time in the best shape of my life.
 
-The governance work is the one part of my life that is not being postponed. I chair the athletes' commission at the Finnish Olympic Committee and hold board seats at the NOC and at Finnish Athletics. It is unpaid and it takes up time I could be selling elsewhere, but I hope it improves both my prospects after the career and Finnish sport itself.
+Alongside the racing, governance work is part of my life too. I chair the athletes' commission at the Finnish Olympic Committee and hold board seats at the NOC and at Finnish Athletics. It is unpaid and it takes up time I could be selling elsewhere, but I hope it improves both my prospects after the career and Finnish sport itself.
 
 If I stopped competing tomorrow, I would almost certainly be better at representing athletes. I would have more time, more energy, fewer conflicts of interest, and I could argue about athlete funding without quietly worrying about my own. I could be more critical still on grants, on Paralympic equality, and on the structural questions facing athletes, where there is no shortage of work.
 
