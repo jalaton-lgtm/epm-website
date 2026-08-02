@@ -15,7 +15,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
   <!-- HERO -->
   <section class="hero">
     <div class="hero-photo">
-     <PhotoSlot src="/images/hero.jpg" alt="Esa-Pekka Mattila at the start line" placeholder="DROP A HERO PHOTO" showLabel={false} objectPosition="50% 22%" />
+     <PhotoSlot src="/images/hero.jpg" alt="Esa-Pekka Mattila at the start line" placeholder="DROP A HERO PHOTO" showLabel={false} objectPosition="50% 22%" loading="eager" fetchpriority="high" />
     </div>
     <div class="hero-inner wrap">
       <p class="kicker">Wheelchair Racing · 100m T54 · FIN</p>
@@ -41,7 +41,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
       <div class="sec-head reveal"><span class="idx mono">01</span><h2>Profile</h2></div>
       <div class="profile-grid">
         <div class="profile-photo reveal">
-          <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="DROP A PORTRAIT" aspect="4/5" />
+          <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="DROP A PORTRAIT" aspect="4/5" loading="lazy" decoding="async" />
         </div>
         <div class="bio reveal">
           <p class="lead">T54 wheelchair racer competing at World Championship and Paralympic level.</p>
@@ -77,7 +77,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
           {posts.map((post) => (
             <a href={`/blog/${cleanSlug(post.slug)}`} class="post reveal">
               <div class="post-thumb">
-             <PhotoSlot src={post.data.image} alt="" placeholder="POST IMAGE" aspect="16/10" />
+             <PhotoSlot src={post.data.image} alt="" placeholder="POST IMAGE" aspect="16/10" loading="lazy" decoding="async" />
                 <CategoryBadge category={post.data.category} photo={post.data.photo} lang="en" variant="chip" />
               </div>
               <div class="post-body">
