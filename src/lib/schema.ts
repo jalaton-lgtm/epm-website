@@ -47,11 +47,17 @@ export const person = {
 // dependency bump. Keyed by language-agnostic path (canonicalPathOf), so an
 // EN page and its FI twin share a line — which is correct, because rule 10
 // means they change together anyway.
+// A prose-only session changes what a page SAYS without ever touching this
+// file, because prose goes straight to main and this is code. That is how '/'
+// and '/press' went stale: the 28 July voice pass rewrote the home Partners
+// CTA (cd4fb2e) and the press bios, labels, coach link and PB source
+// (48125ef, 81b6c8b, e772987) and bumped nothing here. Check this file at the
+// end of any sitting that changed page copy.
 export const pageUpdated: Record<string, string> = {
-  '/': '2026-07-24',
+  '/': '2026-07-28',
   '/profile': '2026-07-27',
   '/partners': '2026-07-24',
-  '/press': '2026-07-27',
+  '/press': '2026-07-28',
 };
 
 export interface WebPageInput {
