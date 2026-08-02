@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CategoryBadge from '../../components/CategoryBadge.astro';
 import { getCollection } from 'astro:content';
 import { cleanSlug } from '../../lib/slug';
-import { blogPosting } from '../../lib/schema';
+import { blogPosting, person } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
@@ -21,7 +21,11 @@ const publishedTime = post.data.date.toISOString();
 const jsonLd = blogPosting({
   title: post.data.title,
   description: post.data.summary,
-  datePublished: post.data.date.toISOString().slice(0, 10),
+  // Full ISO 8601, not a bare date. Google's Article guidance wants a time and
+  // a timezone; schema.org accepts either, which is why validator.schema.org
+  // passed the date-only form while the Rich Results Test flagged it twice.
+  // Reusing publishedTime also keeps the OG tag and the JSON-LD from drifting.
+  datePublished: publishedTime,
   url: postURL,
   lang: 'en',
 });
@@ -33,7 +37,7 @@ const jsonLd = blogPosting({
   description={post.data.summary}
   type="article"
   publishedTime={publishedTime}
-  jsonLd={jsonLd}
+  jsonLd={[jsonLd, person]}
 >
   <article>
     <div class="wrap post-header">
