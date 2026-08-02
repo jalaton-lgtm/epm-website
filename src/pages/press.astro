@@ -36,7 +36,11 @@ const facts = [
   { k: 'Club', v: 'Espoon Tapiot', href: 'https://espoontapiot.fi/' },
   { k: 'Coach', v: 'Leo-Pekka Tähti', href: 'https://leopekkatahti.fi/' },
   { k: 'Based', v: 'Espoo, Finland' },
-  { k: 'Languages', v: 'Finnish, English · German (B1) · elementary Swedish' },
+  // One separator throughout, and every stated level in the same parenthetical
+  // form. Finnish and English carry no qualifier because none is claimed —
+  // they are the two languages this site is written in. No CEFR level is
+  // invented for them: B1 is a real assessment, "C1" would not be.
+  { k: 'Languages', v: 'Finnish · English · German (B1) · Swedish (elementary)' },
 ];
 
 // Time gets its own column so the progression reads down the page. Every row
@@ -123,12 +127,15 @@ const results = [
       </dl>
       <div class="prose reveal classnote">
         <p>
-          <strong>What T54 means.</strong> T54 is the para athletics class for
-          wheelchair racers with full muscle power in the arms and some to full
-          muscle power in the trunk; some athletes also have a degree of leg
-          function. Racing chairs are propelled by striking the pushrims by
-          hand. Over 100 m the event is a pure sprint. Class definitions are set
-          by <a
+          <strong>What the class T54 means:</strong> T54 (Track 54) is the para
+          athletics class for wheelchair racers with full muscle power in the
+          arms and some to full muscle power in the trunk; some athletes also
+          have a degree of leg function. Racing chairs are propelled by striking
+          the pushrims by hand with either soft- or hard-gloves. Over 100 m the
+          event is a pure sprint, accelerating all the way to the finish line
+          unlike in running. T54 is the most populated wheelchair racing class.
+          Distances 1500 m and longer are raced with the class T53. Class
+          definitions are set by <a
             href="https://www.paralympic.org/news/sport-week-classification-para-athletics"
             target="_blank"
             rel="noopener">World Para Athletics</a>.

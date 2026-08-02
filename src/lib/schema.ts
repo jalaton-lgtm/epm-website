@@ -57,7 +57,7 @@ export const pageUpdated: Record<string, string> = {
   '/': '2026-07-28',
   '/profile': '2026-07-27',
   '/partners': '2026-07-24',
-  '/press': '2026-07-28',
+  '/press': '2026-08-02',
 };
 
 export interface WebPageInput {
