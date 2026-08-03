@@ -45,22 +45,34 @@ const facts = [
 // tänne. Kuvateksti kertoo rajauksen sen sijaan, että väittäisi "kaikki
 // tulokset" — muuten lähteistetty ennätyslinkki näyttäisi puuttuvalta riviltä.
 //
-// Tarkoituksella yhä poissa: neljät MM-kisat, joissa EP ei edennyt finaaliin —
-// 2011 Christchurch, 2013 Lyon, 2015 Doha, 2017 Lontoo. IPC:n tietokanta antaa
-// näistä sijoitukset muttei aikoja, ja jokaisella tämän taulukon rivillä on
-// aika. 2013 ja 2017 olivat kumpikin yksi karsintakierros suoraan finaaliin,
-// EP molemmissa 9. kokonaissijoituksella — kahdesti yhden sijan päässä MM-
-// finaalista, EP vahvisti 3.8.2026. Rivit tulevat mukaan, kun ajat on
-// lähteistetty, ja samalla "kaikki" voi palata kuvatekstiin.
+// Neljät MM-kisat, joissa EP ei edennyt finaaliin — 2011 Christchurch, 2013
+// Lyon, 2015 Doha, 2017 Lontoo — ovat nyt mukana. Ne odottivat, kunnes EP
+// toimitti ajat 3.8.2026: IPC:n tietokanta antaa sijoitukset muttei aikoja, ja
+// jokaisella tämän taulukon rivillä on aika.
+//
+// Tulossarakkeessa on KOLME eri perustetta, minkä vuoksi taulukon alla oleva
+// huomautus avaa ne. Finaaleissa lopullinen sijoitus. Paralympiariveillä
+// sijoitus OMASSA alkuerässä. Välieräriveillä KOKONAISsijoitus kyseisissä
+// kisoissa — ei sijoitus omassa erässä. Näitä ei pidä "siistiä" yhteen muotoon:
+// 9. kokonaissijoitus ja 9. omassa erässä ovat eri väitteitä, ja IPC nimeää
+// kierrokset epäjohdonmukaisesti ("Semifinal 2: 9th" Lyon, "Heat 1: 9th"
+// Lontoo). Välierässä ei ole yhdeksättä maaliintulijaa — siitä tiedämme, että
+// nuo yhdeksiköt olivat aina kokonaissijoituksia.
 //
 // Vuodelta 2018 EI puutu riviä: EP oli tauolla loppuvuodesta 2017 vuoteen 2019.
 // Kirjattu tähän, ettei tulevassa tarkistuksessa lähdetä etsimään sellaista.
+//
+// Kuvateksti ei vieläkään sano "kaikki". Vuodesta 2011 eteenpäin taulukko on
+// kattava, mutta EP on kilpaillut vuodesta 2005 eikä ole varmistettu, puuttuuko
+// ennen Christchurchia 2011 jokin arvokisa. Yksi kyllä EP:ltä, ja kuvatekstiin
+// palaa "Kaikki".
 const results = [
   { year: '2025', event: 'MM-kisat, New Delhi', result: '7.', time: '14,15' },
   { year: '2024', event: 'MM-kisat, Kobe', result: '5.', time: '14,33' },
   { year: '2023', event: 'MM-kisat, Pariisi', result: '8.', time: '14,57' },
   { year: '2021', event: 'EM-kisat, Bydgoszcz', result: 'Pronssi', time: '14,39', medal: true },
   { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Alkuerä, 6.', time: '14,71' },
+  { year: '2017', event: 'MM-kisat, Lontoo', result: 'Välierä, kokonaissijoitus 9.', time: '15,09' },
   { year: '2016', event: 'Paralympialaiset, Rio', result: 'Alkuerä, 5.', time: '15,07' },
   // EM-rivit ovat kaikki FINAALIsijoituksia, eivät alkueriä. Lähteinä itse
   // kisat: Grosseto IPC:n virallisesta tulospalvelusta (kahdeksan miehen
@@ -68,9 +80,12 @@ const results = [
   // (EP 5. ajalla 15,43). Stadskanaal (4., 15,21) on EP:n oma tieto ja vastaa
   // riippumatonta lähdettä. EP vahvisti kaikki kolme 3.8.2026.
   { year: '2016', event: 'EM-kisat, Grosseto', result: '8.', time: '16,30' },
+  { year: '2015', event: 'MM-kisat, Doha', result: 'Välierä, kokonaissijoitus 11.', time: '14,87' },
   { year: '2014', event: 'EM-kisat, Swansea', result: '5.', time: '15,43' },
+  { year: '2013', event: 'MM-kisat, Lyon', result: 'Välierä, kokonaissijoitus 9.', time: '14,71' },
   { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Alkuerä, 6.', time: '14,99' },
   { year: '2012', event: 'EM-kisat, Stadskanaal', result: '4.', time: '15,21' },
+  { year: '2011', event: 'MM-kisat, Christchurch', result: 'Välierä, kokonaissijoitus 15.', time: '15,53' },
 ];
 ---
 
@@ -192,8 +207,11 @@ const results = [
       </div>
       <div class="prose reveal classnote">
         <p>
-          Paralympiariveillä näkyy alkuerä, sillä noissa kolmissa kisoissa en
-          edennyt sitä pidemmälle. MM- ja EM-rivit ovat finaalisijoituksia.
+          Rivit ilman finaalia kertovat, kuinka pitkälle pääsin. Kolmella
+          paralympiarivillä on sijoitus omassa alkuerässä, neljällä
+          välierärivillä kokonaissijoitus kyseisissä kisoissa. Vuosina 2013 ja
+          2017 finaaliin pääsi kahdeksan ja olin yhdeksäs. Muut ovat
+          finaalisijoituksia.
         </p>
       </div>
     </div>
