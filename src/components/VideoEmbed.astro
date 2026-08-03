@@ -1,0 +1,148 @@
+---
+// A click-to-load YouTube embed. Nothing from a Google domain is requested
+// until the visitor presses play — no iframe, no player script, no cookie,
+// and no thumbnail.
+//
+// Three reasons it is built this way rather than as a plain <iframe>:
+//
+// 1. Performance. A YouTube iframe pulls roughly a megabyte of player code on
+//    page load and competes with the page's own LCP element. PR #18 bought
+//    the home pages 78/77 → 93/92 by controlling exactly this kind of
+//    competition; dropping a live player onto /partners would hand it back.
+// 2. Privacy. A live embed sets Google cookies for every visitor who never
+//    watches. On click we load youtube-nocookie.com, which defers them to
+//    people who actually chose to watch.
+// 3. Rights. The obvious facade is YouTube's own thumbnail from i.ytimg.com,
+//    but that is a third-party request on load AND a still frame from
+//    someone else's film. Appendix G tracks every image on this site with
+//    its photographer and its rights position. A typographic plate keeps
+//    that appendix untouched — there is no new image to clear.
+//
+// The control is a real <button>, so keyboard operation and screen-reader
+// semantics come for free rather than being reconstructed with ARIA.
+
+export interface Props {
+  id: string; // YouTube video id
+  title: string; // accessible name for the button and the iframe
+  label: string; // the plate's headline, e.g. the film's name
+  meta: string; // the small mono line under it, e.g. reach and credit
+  play: string; // visible button text, localised
+  fallback: string; // <noscript> link text, localised
+}
+const { id, title, label, meta, play, fallback } = Astro.props;
+const watchUrl = `https://www.youtube.com/watch?v=${id}`;
+---
+
+<div class="video-embed" data-video-id={id} data-video-title={title}>
+  <button type="button" class="plate" aria-label={title}>
+    <span class="plate-label">{label}</span>
+    <span class="plate-meta mono">{meta}</span>
+    <span class="plate-play mono" aria-hidden="true">▶ {play}</span>
+  </button>
+  {/* With JS off the button can never do anything, so the same discipline
+      the footer applies to the contact address applies here: leave a real
+      link behind. The <style> hides the dead button rather than showing a
+      control that does nothing when pressed. */}
+  <noscript>
+    <style is:inline>.video-embed .plate{display:none}</style>
+    <p class="video-fallback">
+      <a href={watchUrl} target="_blank" rel="noopener">{fallback}</a>
+    </p>
+  </noscript>
+</div>
+
+<script>
+  // Swap the plate for the real player on click. autoplay=1 is correct here
+  // and only here: the visitor pressed play, so the click is the consent
+  // that autoplay policies ask for, and without it they would have to press
+  // play twice.
+  document.querySelectorAll('.video-embed').forEach((wrap) => {
+    const button = wrap.querySelector('.plate');
+    if (!button) return;
+    button.addEventListener('click', () => {
+      const id = wrap.getAttribute('data-video-id');
+      const title = wrap.getAttribute('data-video-title') ?? '';
+      const frame = document.createElement('iframe');
+      frame.src =
+        `https://www.youtube-nocookie.com/embed/${id}` +
+        '?autoplay=1&rel=0&modestbranding=1';
+      frame.title = title;
+      frame.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.loading = 'lazy';
+      wrap.replaceChild(frame, button);
+      // Move focus into the player, so a keyboard user who just pressed the
+      // button is not dropped back at the top of the document when the
+      // element they were on disappears.
+      frame.focus();
+    });
+  });
+</script>
+
+<style>
+  .video-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+  }
+  .video-embed :global(iframe),
+  .plate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .plate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    text-align: left;
+    background: repeating-linear-gradient(
+      135deg,
+      var(--placeholder-a) 0 14px,
+      var(--placeholder-b) 14px 28px
+    );
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+  }
+  .plate-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: var(--line-tight);
+    text-transform: uppercase;
+  }
+  .plate-meta {
+    font-size: var(--text-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .plate-play {
+    margin-top: var(--space-1);
+    font-size: var(--text-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .plate:hover .plate-play {
+    color: var(--ink);
+  }
+  .video-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+    text-align: center;
+  }
+</style>

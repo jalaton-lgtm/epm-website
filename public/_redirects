@@ -39,4 +39,17 @@
 /tag/*        /  301
 /author/*     /  301
 /page/*       /  301
-/feed/*       /  301
+
+# The old site's feed. This has a real successor now, so it goes to the feed
+# rather than to the home page — anything still polling /feed is a reader
+# subscribed to EP, and sending it to / gives it HTML it cannot parse.
+# Both forms are listed because WordPress served both and the splat below
+# does not match the bare path: /feed 404'd in production while /feed/ 301'd.
+# The Finnish feed is not a redirect target: the old site was Finnish-only,
+# but /rss.xml is what the new site advertises to a subscriber arriving
+# without a language preference, and /fi/rss.xml is one click away from it.
+/feed         /rss.xml  301
+/feed/        /rss.xml  301
+/feed/*       /rss.xml  301
+/comments/feed    /rss.xml  301
+/comments/feed/   /rss.xml  301

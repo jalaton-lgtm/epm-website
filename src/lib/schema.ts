@@ -56,7 +56,7 @@ export const person = {
 export const pageUpdated: Record<string, string> = {
   '/': '2026-07-28',
   '/profile': '2026-07-27',
-  '/partners': '2026-07-24',
+  '/partners': '2026-08-03',
   '/press': '2026-08-02',
 };
 

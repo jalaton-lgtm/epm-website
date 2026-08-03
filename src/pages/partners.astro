@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
 
 // Copy: EP's own edit pass, July 2026 — no longer the action-plan draft.
 // Huawei is named with permission on all three levels: naming them as a
@@ -55,6 +56,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           their channels rather than mine. That is the division of
           labour I am proposing, and it has worked once already.
         </p>
+      </div>
+      {/* The paragraph above makes a claim about reach; the film is the
+          evidence for it, so it sits directly under that paragraph rather
+          than at the end of the section. Huawei's channel, Huawei's film —
+          this embeds it, it does not rehost it. */}
+      <div class="wheels reveal">
+        <VideoEmbed
+          id="zKV9IRRmU3U"
+          title="Wheels of Change — Huawei, featuring Esa-Pekka Mattila"
+          label="Wheels of Change"
+          meta="Huawei · 13M+ views · 7.7M on YouTube"
+          play="Play"
+          fallback="Watch Wheels of Change on YouTube"
+        />
+      </div>
+      <div class="prose reveal">
         <p>
           Terms are defined case by case. I am looking for a small
           number of meaningful partners, not a shirt full of logos.
@@ -147,6 +164,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
     margin-bottom: var(--space-2);
     max-width: 44rem;
+  }
+  /* Matches .narrative .prose p's measure so the film sits in the same
+     column as the paragraph it evidences. The section's prose is split
+     either side of it, so the block carries its own vertical rhythm. */
+  .wheels {
+    max-width: 44rem;
+    margin-block: var(--space-4);
   }
   .narrative .prose p:last-child {
     margin-bottom: 0;
