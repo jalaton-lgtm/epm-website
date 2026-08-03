@@ -46,6 +46,11 @@ const facts = [
 // Time gets its own column so the progression reads down the page. Every row
 // carries one, including the three heats — the times are the honest measure of
 // those Games, where the placing needs a qualifier.
+//
+// Scope is major championships only: Paralympics, Worlds, Europeans. The 14.08
+// PB in the fact sheet above was set at a Motonet GP meet, so it is deliberately
+// not here, and the caption states the scope rather than claiming "all results"
+// — otherwise the sourced PB link reads as a row the table is missing.
 const results = [
   { year: '2025', event: 'World Championships, New Delhi', result: '7th', time: '14.15' },
   { year: '2024', event: 'World Championships, Kobe', result: '5th', time: '14.33' },
@@ -149,7 +154,7 @@ const results = [
       <div class="sec-head reveal"><span class="idx mono">03</span><h2>Results</h2></div>
       <div class="table-scroll reveal">
         <table class="results">
-          <caption>All results 100 m, class T54.</caption>
+          <caption>Major championship results 100 m, class T54.</caption>
           <thead>
             <tr>
               <th scope="col">Year</th>
