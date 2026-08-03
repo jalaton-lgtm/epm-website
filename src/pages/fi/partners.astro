@@ -92,6 +92,13 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
         <p>
           Puheenvuoroja, paneeleja ja työpajoja suomeksi ja englanniksi.
         </p>
+      </div>
+      {/* Kaksi nimettyä tarjoamaa kolmen yhteen sulautetun kappaleen sijaan.
+          Teksti on lähes kokonaan sitä, mikä tässä jo oli — nimeäminen
+          erottaa sen, mitä vain EP voi myydä, siitä, mihin ostajalla on
+          monta vaihtoehtoa, ja antaa kummallekin paikan omille näytöille. */}
+      <div class="offer reveal">
+        <h3>Hallinto ja urheilijoiden edustus</h3>
         <p>
           Urheilijoiden edustusta siellä, missä sillä on oikeasti
           merkitystä: valintaprosessit, rahoituksesta syntyvät
@@ -102,11 +109,43 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
           ongelman nimeäminen on helpompi puoli; työ on sen rakentamista,
           mikä ongelman ratkaisee.
         </p>
+      </div>
+      <div class="offer reveal">
+        <h3>Urheilusta liike-elämään</h3>
         <p>
-          Näiden rinnalla: päätöksenteko rajallisten resurssien
-          puitteissa ja se, mitä huippu-urheilun järjestelmät voivat
-          opettaa tavalliselle työelämälle ja liiketoiminnalle.
+          Päätöksenteko rajallisten resurssien puitteissa ja se, mitä
+          huippu-urheilun järjestelmät voivat opettaa tavalliselle
+          työelämälle ja liiketoiminnalle.
         </p>
+        {/* Freyn suositus käsittelee valmentavaa johtamista, yhteistä
+            tavoitetta ja henkistä kanttia, joten se kuuluu tähän
+            tarjoamaan eikä yllä olevaan hallinto-osioon. Juha Frey antoi
+            julkaisuluvan 2.8.2026 (sääntö 29). Tämä on hänen oma
+            suomenkielinen tekstinsä sanatarkasti — englanninkielisellä
+            sivulla on siitä käännös. Ei muokata: rekisteri on Freyn. */}
+        <figure class="quote">
+          <blockquote>
+            <p>
+              Esa-Pekan pitämä puheenvuoro Netprofilen sisäisessä
+              koulutustilaisuudessa oli loistava. Puheenvuorossaan hän
+              rakensi erinomaisesti siltaa urheilun ja yritysmaailman
+              välille. Hän jakoi konkreettisia esimerkkejä urheilu-uransa
+              varrelta – tilanteita, joissa johtajuus, määrätietoisuus,
+              palautumisen merkitys ja paineensietokyky nousivat
+              ratkaiseviksi tekijöiksi. Näitä kokemuksia hän peilasi
+              taitavasti organisaatioiden arkeen ja liiketoiminnan
+              haasteisiin. Puheenvuoro oli käytännönläheinen,
+              samaistuttava ja innostava. Se herätti keskustelua ja antoi
+              konkreettisia eväitä siihen, miten urheilumaailmasta tuttuja
+              toimintamalleja – kuten valmentavaa johtamista, yhteisen
+              tavoitteen kirkastamista ja henkisen kantin vahvistamista –
+              voidaan hyödyntää organisaation kehittämisessä.
+            </p>
+          </blockquote>
+          <figcaption class="mono">
+            Juha Frey, toimitusjohtaja, Netprofile
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -180,6 +219,44 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
   }
   .narrative .prose p:last-child {
     margin-bottom: 0;
+  }
+  /* Nimetty tarjoama osiossa 02. Sama mitta kuin leipätekstillä, jotta ne
+     luetaan yhtenä palstana; erottelun tekee otsikko eikä viiva tai laatikko. */
+  .offer {
+    max-width: 44rem;
+    margin-top: var(--space-4);
+  }
+  .offer h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-1);
+  }
+  .offer p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  }
+  /* Aksenttipalkki hoitaa attribuoinnin visuaalisesti, joten sitaatti ei
+     tarvitse kursiivia eikä lainausmerkkejä erottuakseen toisen ääneksi. */
+  .quote {
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-2);
+    border-left: 2px solid var(--accent);
+  }
+  .quote blockquote {
+    margin: 0;
+  }
+  .quote blockquote p {
+    font-size: 1rem;
+    line-height: var(--line-body);
+    color: var(--muted);
+  }
+  .quote figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
   .sec-head {
     display: flex;

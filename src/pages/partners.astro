@@ -87,6 +87,13 @@ import VideoEmbed from '../components/VideoEmbed.astro';
         <p>
           Keynotes, panels and workshops, in Finnish and English.
         </p>
+      </div>
+      {/* Two named offers rather than three merged paragraphs. The copy is
+          almost entirely what was already here — naming it separates the
+          thing only EP can sell from the thing a buyer has many options
+          for, and gives each one somewhere to carry its own evidence. */}
+      <div class="offer reveal">
+        <h3>Governance and athlete representation</h3>
         <p>
           Athlete representation where it actually matters: selection
           processes, funding disagreements, and balancing stakeholders
@@ -96,11 +103,39 @@ import VideoEmbed from '../components/VideoEmbed.astro';
           the problem is the easy half; the work is building what
           resolves it.
         </p>
+      </div>
+      <div class="offer reveal">
+        <h3>Sport to business</h3>
         <p>
-          Alongside those: decision-making under constraint, and what
-          elite sport systems can teach everyday working life and
-          business.
+          Decision-making under constraint, and what elite sport systems
+          can teach everyday working life and business.
         </p>
+        {/* Frey's testimonial is about coaching leadership, shared goals and
+            mental resilience, so it belongs to this offer and not to the
+            governance one above. Cleared for publication by Juha Frey on
+            2.8.2026 (rule 29). The Finnish is his original and lives on the
+            FI page; this is a translation of it. */}
+        <figure class="quote">
+          <blockquote>
+            <p>
+              Esa-Pekka's talk at Netprofile's internal training event was
+              excellent. In it he built a superb bridge between sport and
+              the business world. He shared concrete examples from his
+              athletic career — situations where leadership, determination,
+              the importance of recovery and the capacity to withstand
+              pressure proved decisive. He reflected those experiences
+              skilfully against the daily reality of organisations and the
+              challenges of business. The talk was practical, relatable and
+              energising. It prompted discussion and gave us concrete means
+              of applying approaches familiar from sport — coaching
+              leadership, clarifying a shared goal, strengthening mental
+              resilience — to developing an organisation.
+            </p>
+          </blockquote>
+          <figcaption class="mono">
+            Juha Frey, CEO, Netprofile
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -174,6 +209,45 @@ import VideoEmbed from '../components/VideoEmbed.astro';
   }
   .narrative .prose p:last-child {
     margin-bottom: 0;
+  }
+  /* A named offer inside section 02. Same measure as the prose so the two
+     read as one column, with the heading carrying the separation rather
+     than a rule or a box. */
+  .offer {
+    max-width: 44rem;
+    margin-top: var(--space-4);
+  }
+  .offer h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-1);
+  }
+  .offer p {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  }
+  /* The accent bar does the attribution's work visually, so the quote does
+     not need italics or quote marks to read as someone else's voice. */
+  .quote {
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-2);
+    border-left: 2px solid var(--accent);
+  }
+  .quote blockquote {
+    margin: 0;
+  }
+  .quote blockquote p {
+    font-size: 1rem;
+    line-height: var(--line-body);
+    color: var(--muted);
+  }
+  .quote figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
   .sec-head {
     display: flex;
