@@ -12,9 +12,14 @@ import PhotoSlot from '../../components/PhotoSlot.astro';
 //
 // Kaksi asiaa on tarkoituksellista ja niiden pitäisi säilyä muokkauksissa:
 //
-// 1. Paralympiarivit kertovat kierroksen. Kaikki kolme ovat alkueräsijoituksia
-//    eikä EP edennyt finaaliin yhdessäkään; pelkkä "6." samassa sarakkeessa
-//    Koben 2024 viidennen sijan kanssa lukisi vastaavana tuloksena.
+// 1. Jokainen rivi, joka ei ole finaali, kertoo kierroksen ja KOKONAIS-
+//    sijoituksen, ei koskaan sijoitusta omassa erässä. Juuri siinä on koko
+//    idea: pelkkä "6." samassa sarakkeessa Koben 2024 viidennen sijan kanssa
+//    lukisi vastaavana tuloksena, vaikka toinen on viides maailmassa ja
+//    toinen kuudes kahdeksasta yhdessä välierässä. EP toimitti
+//    kokonaissijoitukset 3.8.2026; IPC:n urheilijaprofiili antaa vain
+//    eräkohtaiset sijoitukset ja on muutenkin puutteellinen — siitä puuttuvat
+//    EM-kisat kokonaan ja se päättyy ennen vuotta 2023.
 // 2. Sivulla ei ole tulevaisuuden aikajännettä. Jos ura päättyy kauteen 2026,
 //    suunnitelman carry-overit listaavat kolme tiedostoa jotka muuttuvat
 //    yhdessä — tämä sivu ei ole neljäs.
@@ -37,8 +42,8 @@ const facts = [
 ];
 
 // Aika omassa sarakkeessaan, jotta kehitys luetaan sarakkeena alaspäin.
-// Jokaisella rivillä on aika, myös kolmella alkuerällä — aika on niissä
-// kisoissa rehellisin mittari, kun sijoitus vaatii tarkennuksen.
+// Jokaisella rivillä on aika, myös välieräriveillä — aika on niinä vuosina
+// rehellisin mittari, kun sijoitus vaatii tarkennuksen.
 //
 // Taulukossa ovat vain arvokisat: paralympialaiset, MM- ja EM-kisat. Yllä
 // olevan faktalaatikon ennätys 14,08 on Motonet GP:stä, joten se ei kuulu
@@ -50,14 +55,24 @@ const facts = [
 // toimitti ajat 3.8.2026: IPC:n tietokanta antaa sijoitukset muttei aikoja, ja
 // jokaisella tämän taulukon rivillä on aika.
 //
-// Tulossarakkeessa on KOLME eri perustetta, minkä vuoksi taulukon alla oleva
-// huomautus avaa ne. Finaaleissa lopullinen sijoitus. Paralympiariveillä
-// sijoitus OMASSA alkuerässä. Välieräriveillä KOKONAISsijoitus kyseisissä
-// kisoissa — ei sijoitus omassa erässä. Näitä ei pidä "siistiä" yhteen muotoon:
-// 9. kokonaissijoitus ja 9. omassa erässä ovat eri väitteitä, ja IPC nimeää
-// kierrokset epäjohdonmukaisesti ("Semifinal 2: 9th" Lyon, "Heat 1: 9th"
-// Lontoo). Välierässä ei ole yhdeksättä maaliintulijaa — siitä tiedämme, että
-// nuo yhdeksiköt olivat aina kokonaissijoituksia.
+// Tulossarakkeessa on täsmälleen KAKSI perustetta, ja jokainen solu kertoo
+// kumpi on kyseessä. Finaalissa lopullinen sijoitus. Kaikissa muissa lukee
+// "Välierä, kokonaissijoitus N." — sijoitus koko kisoissa, ei koskaan sijoitus
+// omassa erässä. Koska jokainen solu selittää itsensä, taulukon alla ollut
+// huomautus on poistettu: se toisti sen, minkä solut jo kertovat. Pidetään se
+// näin. Jos joskus tulee rivi, joka ei pysty selittämään itseään solussa,
+// huomautus palaa — lukija ei jää arvaamaan.
+//
+// Näitä ei pidä "siistiä" eräkohtaisiksi: 9. kokonaissijoitus ja 9. omassa
+// erässä ovat eri väitteitä, ja IPC nimeää kierrokset epäjohdonmukaisesti
+// ("Semifinal 2: 9th" Lyon, "Heat 1: 9th" Lontoo). Välierässä ei ole
+// yhdeksättä maaliintulijaa — siitä tiedämme, että nuo yhdeksiköt olivat aina
+// kokonaissijoituksia, ja se vahvisti EP:n muistin tietokantaa vastaan.
+//
+// Myös paralympiarivit siirtyivät tähän muotoon 3.8.2026 EP:n luvuilla: Tokio
+// 15., Rio 11., Lontoo 15., kaikki välieristä. Aiemmin niissä luki "Alkuerä,
+// 6." ja vastaavaa, mikä oli eräkohtainen sijoitus eikä siis vertailukelpoinen
+// minkään muun sarakkeen rivin kanssa.
 //
 // Vuodelta 2018 EI puutu riviä: EP oli tauolla loppuvuodesta 2017 vuoteen 2019.
 // Kirjattu tähän, ettei tulevassa tarkistuksessa lähdetä etsimään sellaista.
@@ -71,9 +86,9 @@ const results = [
   { year: '2024', event: 'MM-kisat, Kobe', result: '5.', time: '14,33' },
   { year: '2023', event: 'MM-kisat, Pariisi', result: '8.', time: '14,57' },
   { year: '2021', event: 'EM-kisat, Bydgoszcz', result: 'Pronssi', time: '14,39', medal: true },
-  { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Alkuerä, 6.', time: '14,71' },
+  { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Välierä, kokonaissijoitus 15.', time: '14,71' },
   { year: '2017', event: 'MM-kisat, Lontoo', result: 'Välierä, kokonaissijoitus 9.', time: '15,09' },
-  { year: '2016', event: 'Paralympialaiset, Rio', result: 'Alkuerä, 5.', time: '15,07' },
+  { year: '2016', event: 'Paralympialaiset, Rio', result: 'Välierä, kokonaissijoitus 11.', time: '15,07' },
   // EM-rivit ovat kaikki FINAALIsijoituksia, eivät alkueriä. Lähteinä itse
   // kisat: Grosseto IPC:n virallisesta tulospalvelusta (kahdeksan miehen
   // finaali, EP 8. ajalla 16,30), Swansea täydestä kuuden miehen finaalista
@@ -83,7 +98,7 @@ const results = [
   { year: '2015', event: 'MM-kisat, Doha', result: 'Välierä, kokonaissijoitus 11.', time: '14,87' },
   { year: '2014', event: 'EM-kisat, Swansea', result: '5.', time: '15,43' },
   { year: '2013', event: 'MM-kisat, Lyon', result: 'Välierä, kokonaissijoitus 9.', time: '14,71' },
-  { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Alkuerä, 6.', time: '14,99' },
+  { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Välierä, kokonaissijoitus 15.', time: '14,99' },
   { year: '2012', event: 'EM-kisat, Stadskanaal', result: '4.', time: '15,21' },
   { year: '2011', event: 'MM-kisat, Christchurch', result: 'Välierä, kokonaissijoitus 15.', time: '15,53' },
 ];
@@ -204,15 +219,6 @@ const results = [
             ))}
           </tbody>
         </table>
-      </div>
-      <div class="prose reveal classnote">
-        <p>
-          Rivit ilman finaalia kertovat, kuinka pitkälle pääsin. Kolmella
-          paralympiarivillä on sijoitus omassa alkuerässä, neljällä
-          välierärivillä kokonaissijoitus kyseisissä kisoissa. Vuosina 2013 ja
-          2017 finaaliin pääsi kahdeksan ja olin yhdeksäs. Muut ovat
-          finaalisijoituksia.
-        </p>
       </div>
     </div>
   </section>

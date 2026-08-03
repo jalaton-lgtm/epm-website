@@ -12,11 +12,14 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 //
 // Two things are deliberate and should survive editing:
 //
-// 1. The Paralympic rows name the round. All three are heat placings and EP
-//    did not reach a final in any of them; dropping a bare "6th" into the same
-//    column as the Kobe 2024 fifth would read as an equivalent result. Sourced
-//    from the IPC athlete profile and Wikipedia's round-by-round articles,
-//    which agree on placing, time and qualification rule.
+// 1. Every row that is not a final names its round and gives an OVERALL
+//    placing, never a placing within a section. That is the whole point:
+//    dropping a bare "6th" into the same column as the Kobe 2024 fifth would
+//    read as an equivalent result, when one is fifth in the world and the
+//    other is sixth of eight in one semifinal. EP supplied the overall
+//    placings on 3.8.2026; the IPC athlete profile gives section placings
+//    only and is incomplete besides — it omits the European Championships
+//    entirely and stops before 2023.
 // 2. No forward horizon anywhere on this page. If the stop-after-2026 decision
 //    ever goes that way, the three files listed in the plan's carry-overs
 //    change together and this page is not a fourth.
@@ -44,8 +47,8 @@ const facts = [
 ];
 
 // Time gets its own column so the progression reads down the page. Every row
-// carries one, including the three heats — the times are the honest measure of
-// those Games, where the placing needs a qualifier.
+// carries one, including the semifinal exits — the times are the honest measure
+// of those years, where the placing needs a qualifier.
 //
 // Scope is major championships only: Paralympics, Worlds, Europeans. The 14.08
 // PB in the fact sheet above was set at a Motonet GP meet, so it is deliberately
@@ -57,15 +60,26 @@ const facts = [
 // held back until EP supplied the times on 3.8.2026, because the IPC database
 // gives placings but no times and every row in this table carries one.
 //
-// The result column has THREE bases, which is why the note under the table
-// spells them out. Finals give the finishing place. Paralympic rows give the
-// placing WITHIN the heat. Semifinal rows give the OVERALL placing at that
-// championship — not the position in the section. Do not "tidy" these into one
-// form: 9th overall and 9th in a section are different claims, and the IPC
-// database labels the rounds inconsistently enough ("Semifinal 2: 9th" for
-// Lyon, "Heat 1: 9th" for London) that the distinction is easy to lose. A
-// semifinal has no ninth finisher, which is how we know those 9s were always
-// overall ranks.
+// The result column has exactly TWO bases and every cell says which it is.
+// A final gives the finishing place. Everything else reads "Semifinal, Nth
+// overall" — the placing across the whole championship, never the position
+// within one section. Because each cell is self-describing, the explanatory
+// note that used to sit under the table is gone: it was restating what the
+// cells already say. Keep it that way. If a row is ever added that cannot
+// describe itself in the cell, the note comes back rather than the reader
+// guessing.
+//
+// Do not "tidy" these into section placings: Nth overall and Nth in a section
+// are different claims, and the IPC database labels rounds inconsistently
+// enough ("Semifinal 2: 9th" for Lyon, "Heat 1: 9th" for London) to make the
+// two easy to confuse. A semifinal has no ninth finisher, which is how we know
+// those 9s were always overall ranks — the check that confirmed EP's memory
+// against the database.
+//
+// The Paralympic rows moved to this form on 3.8.2026 too, on EP's figures:
+// Tokyo 15th, Rio 11th, London 15th, all semifinals. They previously read
+// "Heat, 6th" and the like, which was a section placing and so not comparable
+// with any other row in the column.
 //
 // There is NO missing row at 2018: EP was on hiatus from late 2017 to 2019.
 // Recorded here so a future pass does not go hunting for one.
@@ -79,9 +93,9 @@ const results = [
   { year: '2024', event: 'World Championships, Kobe', result: '5th', time: '14.33' },
   { year: '2023', event: 'World Championships, Paris', result: '8th', time: '14.57' },
   { year: '2021', event: 'European Championships, Bydgoszcz', result: 'Bronze', time: '14.39', medal: true },
-  { year: '2020', event: 'Paralympic Games, Tokyo', result: 'Heat, 6th', time: '14.71' },
+  { year: '2020', event: 'Paralympic Games, Tokyo', result: 'Semifinal, 15th overall', time: '14.71' },
   { year: '2017', event: 'World Championships, London', result: 'Semifinal, 9th overall', time: '15.09' },
-  { year: '2016', event: 'Paralympic Games, Rio', result: 'Heat, 5th', time: '15.07' },
+  { year: '2016', event: 'Paralympic Games, Rio', result: 'Semifinal, 11th overall', time: '15.07' },
   // The European rows are all FINAL placings, not heats. Sourced from the
   // races: Grosseto from the official IPC event results (eight-man final, EP
   // 8th in 16.30), Swansea from the full six-man final (EP 5th in 15.43).
@@ -91,7 +105,7 @@ const results = [
   { year: '2015', event: 'World Championships, Doha', result: 'Semifinal, 11th overall', time: '14.87' },
   { year: '2014', event: 'European Championships, Swansea', result: '5th', time: '15.43' },
   { year: '2013', event: 'World Championships, Lyon', result: 'Semifinal, 9th overall', time: '14.71' },
-  { year: '2012', event: 'Paralympic Games, London', result: 'Heat, 6th', time: '14.99' },
+  { year: '2012', event: 'Paralympic Games, London', result: 'Semifinal, 15th overall', time: '14.99' },
   { year: '2012', event: 'European Championships, Stadskanaal', result: '4th', time: '15.21' },
   { year: '2011', event: 'World Championships, Christchurch', result: 'Semifinal, 15th overall', time: '15.53' },
 ];
@@ -209,14 +223,6 @@ const results = [
             ))}
           </tbody>
         </table>
-      </div>
-      <div class="prose reveal classnote">
-        <p>
-          Rows without a final show how far I got. The three Paralympic rows
-          give my placing in the heat; the four semifinal rows give my overall
-          placing at that championship. In 2013 and 2017 the final took eight
-          and I was ninth. Everything else is a final placing.
-        </p>
       </div>
     </div>
   </section>
