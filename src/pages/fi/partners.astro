@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
 
 // Suomennos on Claude-luonnos EP:n rekisterissä — EP tarkistaa ennen
 // julkaisua, kuten fi/profile.astro. Sovitettu suoraan englanninkielisestä
@@ -60,6 +61,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           heidän kanavillaan eikä minun. Tätä työnjakoa ehdotan, ja se on
           toiminut jo kerran.
         </p>
+      </div>
+      {/* Edellinen kappale väittää jotakin tavoittavuudesta; filmi on sen
+          näyttö, joten se sijoittuu suoraan kappaleen alle eikä osion
+          loppuun. Huawein kanava, Huawein filmi — tämä upottaa sen, ei
+          siirrä sitä tänne. */}
+      <div class="wheels reveal">
+        <VideoEmbed
+          id="zKV9IRRmU3U"
+          title="Wheels of Change — Huawei, mukana Esa-Pekka Mattila"
+          label="Wheels of Change"
+          meta="Huawei · yli 13 milj. katselukertaa · 7,7 milj. YouTubessa"
+          play="Toista"
+          fallback="Katso Wheels of Change YouTubessa"
+        />
+      </div>
+      <div class="prose reveal">
         <p>
           Ehdoista sovitaan tapauskohtaisesti. Etsin pientä joukkoa
           merkityksellisiä kumppaneita, en paitaa täynnä logoja.
@@ -153,6 +170,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
     margin-bottom: var(--space-2);
     max-width: 44rem;
+  }
+  /* Sama mitta kuin .narrative .prose p:llä, jotta filmi asettuu samaan
+     palstaan kuin kappale, jonka näyttö se on. Osion leipäteksti jakautuu
+     sen molemmin puolin, joten lohko kantaa oman pystyrytminsä. */
+  .wheels {
+    max-width: 44rem;
+    margin-block: var(--space-4);
   }
   .narrative .prose p:last-child {
     margin-bottom: 0;
