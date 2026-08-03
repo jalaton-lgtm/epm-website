@@ -77,7 +77,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
           {posts.map((post) => (
             <a href={`/fi/blog/${cleanSlug(post.slug)}`} class="post reveal">
               <div class="post-thumb">
-                <PhotoSlot src={post.data.image} alt="" placeholder="JULKAISUN KUVA" aspect="16/10" loading="lazy" decoding="async" />
+                <PhotoSlot src={post.data.image} alt="" placeholder="JULKAISUN KUVA" aspect="16/10" objectPosition={post.data.imagePosition} loading="lazy" decoding="async" />
                 <CategoryBadge category={post.data.category} photo={post.data.photo} lang="fi" variant="chip" />
               </div>
               <div class="post-body">

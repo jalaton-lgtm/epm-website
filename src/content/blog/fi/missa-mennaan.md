@@ -6,6 +6,7 @@ category: personal
 photo: true
 summary: "Kuudes maailmassa, kymmenesosasekunti palkintokorokkeelta, eikä EM-kisoja tänä vuonna. Kausi maksaa 20 000 euroa. Kaksi kautta jäljellä, luultavasti. Missä mennään heinäkuussa 2026."
 image: /images/DSC_5475verkko.jpg
+imagePosition: "50% 5%"
 draft: false
 ---
 
