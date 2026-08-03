@@ -44,6 +44,17 @@ const facts = [
 // olevan faktalaatikon ennätys 14,08 on Motonet GP:stä, joten se ei kuulu
 // tänne. Kuvateksti kertoo rajauksen sen sijaan, että väittäisi "kaikki
 // tulokset" — muuten lähteistetty ennätyslinkki näyttäisi puuttuvalta riviltä.
+//
+// Tarkoituksella yhä poissa: neljät MM-kisat, joissa EP ei edennyt finaaliin —
+// 2011 Christchurch, 2013 Lyon, 2015 Doha, 2017 Lontoo. IPC:n tietokanta antaa
+// näistä sijoitukset muttei aikoja, ja jokaisella tämän taulukon rivillä on
+// aika. 2013 ja 2017 olivat kumpikin yksi karsintakierros suoraan finaaliin,
+// EP molemmissa 9. kokonaissijoituksella — kahdesti yhden sijan päässä MM-
+// finaalista, EP vahvisti 3.8.2026. Rivit tulevat mukaan, kun ajat on
+// lähteistetty, ja samalla "kaikki" voi palata kuvatekstiin.
+//
+// Vuodelta 2018 EI puutu riviä: EP oli tauolla loppuvuodesta 2017 vuoteen 2019.
+// Kirjattu tähän, ettei tulevassa tarkistuksessa lähdetä etsimään sellaista.
 const results = [
   { year: '2025', event: 'MM-kisat, New Delhi', result: '7.', time: '14,15' },
   { year: '2024', event: 'MM-kisat, Kobe', result: '5.', time: '14,33' },
@@ -51,6 +62,12 @@ const results = [
   { year: '2021', event: 'EM-kisat, Bydgoszcz', result: 'Pronssi', time: '14,39', medal: true },
   { year: '2020', event: 'Paralympialaiset, Tokio', result: 'Alkuerä, 6.', time: '14,71' },
   { year: '2016', event: 'Paralympialaiset, Rio', result: 'Alkuerä, 5.', time: '15,07' },
+  // Molemmat EM-rivit ovat FINAALIsijoituksia, eivät alkueriä. Lähteinä itse
+  // kisat: Grosseto IPC:n virallisesta tulospalvelusta (kahdeksan miehen
+  // finaali, EP 8. ajalla 16,30), Swansea täydestä kuuden miehen finaalista
+  // (EP 5. ajalla 15,43). EP vahvisti molemmat 3.8.2026.
+  { year: '2016', event: 'EM-kisat, Grosseto', result: '8.', time: '16,30' },
+  { year: '2014', event: 'EM-kisat, Swansea', result: '5.', time: '15,43' },
   { year: '2012', event: 'Paralympialaiset, Lontoo', result: 'Alkuerä, 6.', time: '14,99' },
 ];
 ---

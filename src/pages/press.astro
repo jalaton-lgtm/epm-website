@@ -51,6 +51,17 @@ const facts = [
 // PB in the fact sheet above was set at a Motonet GP meet, so it is deliberately
 // not here, and the caption states the scope rather than claiming "all results"
 // — otherwise the sourced PB link reads as a row the table is missing.
+//
+// Deliberately still absent: the four World Championships EP raced without
+// reaching a final — 2011 Christchurch, 2013 Lyon, 2015 Doha, 2017 London. The
+// IPC database gives placings for these but no times, and every row here
+// carries a time. 2013 and 2017 were each a single qualifying round straight
+// into the final, EP 9th overall in both — one place off a world final, twice,
+// confirmed by EP 3.8.2026. They join the table when the times are sourced,
+// and "all"/"kaikki" can return to the caption at the same time.
+//
+// There is NO missing row at 2018: EP was on hiatus from late 2017 to 2019.
+// Recorded here so a future pass does not go hunting for one.
 const results = [
   { year: '2025', event: 'World Championships, New Delhi', result: '7th', time: '14.15' },
   { year: '2024', event: 'World Championships, Kobe', result: '5th', time: '14.33' },
@@ -58,6 +69,12 @@ const results = [
   { year: '2021', event: 'European Championships, Bydgoszcz', result: 'Bronze', time: '14.39', medal: true },
   { year: '2020', event: 'Paralympic Games, Tokyo', result: 'Heat, 6th', time: '14.71' },
   { year: '2016', event: 'Paralympic Games, Rio', result: 'Heat, 5th', time: '15.07' },
+  // Both European rows are FINAL placings, not heats. Sourced from the races:
+  // Grosseto from the official IPC event results (eight-man final, EP 8th in
+  // 16.30), Swansea from the full six-man final (EP 5th in 15.43). EP
+  // confirmed both on 3.8.2026.
+  { year: '2016', event: 'European Championships, Grosseto', result: '8th', time: '16.30' },
+  { year: '2014', event: 'European Championships, Swansea', result: '5th', time: '15.43' },
   { year: '2012', event: 'Paralympic Games, London', result: 'Heat, 6th', time: '14.99' },
 ];
 ---
