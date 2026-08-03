@@ -39,6 +39,11 @@ const facts = [
 // Aika omassa sarakkeessaan, jotta kehitys luetaan sarakkeena alaspäin.
 // Jokaisella rivillä on aika, myös kolmella alkuerällä — aika on niissä
 // kisoissa rehellisin mittari, kun sijoitus vaatii tarkennuksen.
+//
+// Taulukossa ovat vain arvokisat: paralympialaiset, MM- ja EM-kisat. Yllä
+// olevan faktalaatikon ennätys 14,08 on Motonet GP:stä, joten se ei kuulu
+// tänne. Kuvateksti kertoo rajauksen sen sijaan, että väittäisi "kaikki
+// tulokset" — muuten lähteistetty ennätyslinkki näyttäisi puuttuvalta riviltä.
 const results = [
   { year: '2025', event: 'MM-kisat, New Delhi', result: '7.', time: '14,15' },
   { year: '2024', event: 'MM-kisat, Kobe', result: '5.', time: '14,33' },
@@ -145,7 +150,7 @@ const results = [
       <div class="sec-head reveal"><span class="idx mono">03</span><h2>Tulokset</h2></div>
       <div class="table-scroll reveal">
         <table class="results">
-          <caption>Kaikki tulokset 100 m, luokka T54.</caption>
+          <caption>Arvokisatulokset 100 m, luokka T54.</caption>
           <thead>
             <tr>
               <th scope="col">Vuosi</th>
