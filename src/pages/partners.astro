@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
+import { currentPartners as p } from '../lib/partners';
 
 // Copy: EP's own edit pass, July 2026 — no longer the action-plan draft.
 // Huawei is named with permission on all three levels: naming them as a
@@ -75,6 +76,22 @@ import VideoEmbed from '../components/VideoEmbed.astro';
         <p>
           Terms are defined case by case. I am looking for a small
           number of meaningful partners, not a shirt full of logos.
+        </p>
+        {/* This lands immediately after "not a shirt full of logos", which is
+            the point of putting it here: the naming becomes the evidence for
+            the claim directly above it rather than a separate boast. One full
+            paragraph of separation from the Huawei reach figures, so the two
+            are not read as one list of sponsors.
+
+            The English carries a gloss the Finnish does not — a Finnish
+            reader knows what Apteekki-tuotesarja is, a foreign one would read
+            it as a corner shop rather than the pharmacies' national trade
+            brand. Deliberate divergence, not a missing translation. */}
+        <p>
+          Current partners: <a href={p.apteekki.href} target="_blank" rel="noopener">{p.apteekki.name}</a>,
+          the Finnish pharmacies' own product range, and <a href={p.linjaaho.href} target="_blank" rel="noopener">{p.linjaaho.name}</a> in
+          Espoo. Both cover the parts of a season that never appear in a
+          results list.
         </p>
       </div>
     </div>

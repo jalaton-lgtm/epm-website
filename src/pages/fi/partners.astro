@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VideoEmbed from '../../components/VideoEmbed.astro';
+import { currentPartners as p } from '../../lib/partners';
 
 // Suomennos on Claude-luonnos EP:n rekisterissä — EP tarkistaa ennen
 // julkaisua, kuten fi/profile.astro. Sovitettu suoraan englanninkielisestä
@@ -80,6 +81,18 @@ import VideoEmbed from '../../components/VideoEmbed.astro';
         <p>
           Ehdoista sovitaan tapauskohtaisesti. Etsin pientä joukkoa
           merkityksellisiä kumppaneita, en paitaa täynnä logoja.
+        </p>
+        {/* Tulee heti "en paitaa täynnä logoja" -lauseen jälkeen, ja juuri
+            siinä on idea: nimeäminen toimii näyttönä yllä olevalle väitteelle
+            eikä erillisenä kehuna. Huawein tavoittavuusluvuista on kokonaisen
+            kappaleen väli, jottei näitä lueta yhtenä sponsorilistana.
+
+            Englanninkielisellä sivulla on selite, jota tässä ei ole: suomalainen
+            lukija tietää, mikä Apteekki-tuotesarja on. Tarkoituksellinen ero,
+            ei puuttuva käännös. */}
+        <p>
+          Nykyiset kumppanit: <a href={p.apteekki.href} target="_blank" rel="noopener">{p.apteekki.name}</a> ja <a href={p.linjaaho.href} target="_blank" rel="noopener">{p.linjaaho.name}</a> Espoossa.
+          Molemmat kattavat sen osan kaudesta, joka ei näy tulosluettelossa.
         </p>
       </div>
     </div>
