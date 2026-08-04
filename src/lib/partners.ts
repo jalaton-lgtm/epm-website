@@ -1,7 +1,8 @@
 // Current partners. One file so a name or a link cannot drift between the
 // English and Finnish pages — the same discipline as telemetry.ts.
 //
-// `name` is the exact brand form each partner confirmed (rule 29). Do not
+// `name` is the exact brand form each partner confirmed — the standing rule is
+// "name a third party only on their terms" (v18 §3, was rule 29). Do not
 // abbreviate it, restyle its capitalisation, or translate it: both names stay
 // Finnish on the English page because that is what they are called.
 //

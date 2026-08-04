@@ -12,8 +12,9 @@ import { person } from '../lib/schema';
 // World rank and season best come from telemetry.ts, the same source the HUD
 // reads. The HUD is aria-hidden by design, so those two numbers reached no
 // screen reader anywhere on the site until they appeared here. Sourcing them
-// rather than retyping them also keeps rule 5 true: one file to edit after a
-// race, and these cannot drift from the nav readout.
+// rather than retyping them also keeps "one number, one home" true (v18 §3,
+// was rule 5): one file to edit after a race, and these cannot drift from the
+// nav readout.
 const stats = [
   { label: 'PB · 100M', value: '14.08', unit: 's', accent: true },
   { label: 'SB · 100M', value: telemetry.seasonBest, unit: 's' },
