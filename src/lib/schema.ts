@@ -45,8 +45,8 @@ export const person = {
 //
 // Bump an entry when you change what the page SAYS. Not for CSS, not for a
 // dependency bump. Keyed by language-agnostic path (canonicalPathOf), so an
-// EN page and its FI twin share a line — which is correct, because rule 10
-// means they change together anyway.
+// EN page and its FI twin share a line — which is correct, because "a page
+// ships complete" (v18 §3, was rule 10) means they change together anyway.
 // A session that changes what a page SAYS can miss this file entirely: the
 // copy is in .astro pages and this is one lib file nobody had to open. That is
 // how '/' and '/press' went stale in July (the voice pass: cd4fb2e, 48125ef,
