@@ -20,9 +20,8 @@ import { currentPartners as p } from '../lib/partners';
       <p class="kicker">Partners</p>
       <h1>Partnership,<br />speaking,<br />advisory<span class="accent-text">.</span></h1>
       <p class="lead">
-        I am open to partners through <a href="https://la28.org/en.html" target="_blank" rel="noopener">LA28</a>. This page sets out what
-        that means in practice and what it costs, so a conversation can
-        start from something concrete.
+        I am looking for partners through <a href="https://la28.org/en.html" target="_blank" rel="noopener">LA28</a>. This page sets out what
+        a racing season costs and what a partnership includes.
       </p>
     </div>
   </section>
@@ -87,12 +86,18 @@ import { currentPartners as p } from '../lib/partners';
             reader knows what Apteekki-tuotesarja is, a foreign one would read
             it as a corner shop rather than the pharmacies' national trade
             brand. Deliberate divergence, not a missing translation. */}
-        <p>
-          Current partners: <a href={p.apteekki.href} target="_blank" rel="noopener">{p.apteekki.name}</a>,
-          the Finnish pharmacies' own product range, and <a href={p.linjaaho.href} target="_blank" rel="noopener">{p.linjaaho.name}</a> in
-          Espoo. Both cover the parts of a season that never appear in a
-          results list.
-        </p>
+        <p>My current partners are:</p>
+        <ul class="partner-list">
+          <li>
+            <a href={p.apteekki.href} target="_blank" rel="noopener">{p.apteekki.name}</a>,
+            the Finnish pharmacies' own product range, helping me with my
+            daily supplement needs
+          </li>
+          <li>
+            <a href={p.linjaaho.href} target="_blank" rel="noopener">{p.linjaaho.name}</a>,
+            helping my body handle daily training
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -112,20 +117,18 @@ import { currentPartners as p } from '../lib/partners';
       <div class="offer reveal">
         <h3>Governance and athlete representation</h3>
         <p>
-          Athlete representation where it actually matters: selection
-          processes, funding disagreements, and balancing stakeholders
-          who want different things. A federation cannot also be the
-          athletes' representative in those rooms, however it is framed.
-          Disability inclusion approached the same way. In both, naming
-          the problem is the easy half; the work is building what
-          resolves it.
+          Broad experience of how administration organises itself and of
+          athlete representation, above all where it actually matters:
+          selection processes, funding disagreements, and balancing
+          stakeholders who want different things. Finding the problems is
+          the easy part; resolving them takes real work.
         </p>
       </div>
       <div class="offer reveal">
         <h3>Sport to business</h3>
         <p>
-          Decision-making under constraint, and what elite sport systems
-          can teach everyday working life and business.
+          Decision-making under constraint, and what elite sport and the
+          systems around it can teach everyday working life and business.
         </p>
         {/* Frey's testimonial is about coaching leadership, shared goals and
             mental resilience, so it belongs to this offer and not to the
@@ -162,17 +165,17 @@ import { currentPartners as p } from '../lib/partners';
       <div class="sec-head reveal"><span class="idx mono">03</span><h2>Advisory</h2></div>
       <div class="prose reveal">
         <p>
-          Advisory work in wheelchair and assistive technology, such as
-          with Huawei, taking a product feature from athlete feedback to
-          shipped release. Also accessibility and governance questions,
-          where lived experience, board experience and a business-law
-          background merge. Earlier I was Secretary General of KY at
-          Aalto University, with an annual budget over €500,000, which
-          is where the operational understanding comes from.
+          I do advisory work in wheelchair and assistive technology. With
+          Huawei, a product feature went from athlete feedback all the way
+          to the finished product. I also advise on accessibility and
+          governance questions, where my own lived experience, board work
+          and a business-law student background come together. Earlier I
+          was Secretary General of KY at Aalto University, an organisation
+          with an annual budget over €500,000.
         </p>
         <p>
-          Always open, from a sparring session to a clearly defined
-          project.
+          An engagement can be a single sparring session just as easily as
+          a tightly scoped larger project.
         </p>
       </div>
     </div>
@@ -226,6 +229,23 @@ import { currentPartners as p } from '../lib/partners';
   }
   .narrative .prose p:last-child {
     margin-bottom: 0;
+  }
+  /* Same accent-bar idiom as .role-list on the profile page, so the two
+     partners read as named items rather than a sentence with an "and" in it.
+     Measure matches the prose it follows. */
+  .partner-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-width: 44rem;
+    margin: 0;
+    padding: 0;
+  }
+  .partner-list li {
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    padding: var(--space-1) 0 var(--space-1) var(--space-2);
+    border-left: 2px solid var(--accent);
   }
   /* A named offer inside section 02. Same measure as the prose so the two
      read as one column, with the heading carrying the separation rather
