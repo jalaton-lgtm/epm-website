@@ -47,16 +47,21 @@ export const person = {
 // dependency bump. Keyed by language-agnostic path (canonicalPathOf), so an
 // EN page and its FI twin share a line — which is correct, because rule 10
 // means they change together anyway.
-// A prose-only session changes what a page SAYS without ever touching this
-// file, because prose goes straight to main and this is code. That is how '/'
-// and '/press' went stale: the 28 July voice pass rewrote the home Partners
-// CTA (cd4fb2e) and the press bios, labels, coach link and PB source
-// (48125ef, 81b6c8b, e772987) and bumped nothing here. Check this file at the
-// end of any sitting that changed page copy.
+// A session that changes what a page SAYS can miss this file entirely: the
+// copy is in .astro pages and this is one lib file nobody had to open. That is
+// how '/' and '/press' went stale in July (the voice pass: cd4fb2e, 48125ef,
+// 81b6c8b, e772987) and how '/partners' went stale again on 4.8.2026 — PR #23
+// rewrote most of the page and shipped 2026-08-03 in the JSON-LD.
+//
+// Four sessions of "check this file at the end of the sitting" did not hold, so
+// it is no longer only a habit: `npm run check:dates` compares each entry
+// against the page files' git history and fails when one moved past its date.
+// It cannot tell copy from CSS, so it asks — see scripts/check-dates.mjs, and
+// tag a markup-only commit [no-copy].
 export const pageUpdated: Record<string, string> = {
   '/': '2026-07-28',
   '/profile': '2026-07-27',
-  '/partners': '2026-08-03',
+  '/partners': '2026-08-04',
   '/press': '2026-08-03',
 };
 
