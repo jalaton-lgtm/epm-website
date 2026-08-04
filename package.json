@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check:dates": "node scripts/check-dates.mjs",
+    "check": "astro build && node scripts/check-dates.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
