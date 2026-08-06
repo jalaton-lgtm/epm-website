@@ -121,7 +121,7 @@ import { currentPartners as p } from '../lib/partners';
           athlete representation, above all where it actually matters:
           selection processes, funding disagreements, and balancing
           stakeholders who want different things. Finding the problems is
-          the easy part; resolving them takes real work.
+          the easy part. Resolving them takes real work.
         </p>
       </div>
       <div class="offer reveal">
@@ -135,26 +135,48 @@ import { currentPartners as p } from '../lib/partners';
             governance one above. Cleared for publication by Juha Frey on
             2.8.2026 — a testimonial needs confirmation it was given for
             publication (v18 §3, was rule 29). The Finnish is his original and lives on the
-            FI page; this is a translation of it. */}
+            FI page; this is a translation of it.
+
+            Tier 0 does not exempt this block. The exemption covers verbatim
+            quotation, and a translation is authored text, so the floor applies
+            to it. Frey's Finnish uses spaced en dashes. The English had turned
+            them into em dashes, so they were introduced here rather than
+            inherited, and rebuilding them as a colon and a parenthetical on
+            6.8.2026 restores the original's punctuation rather than departing
+            from it.
+
+            "Excellent" and "superb" stay. They render loistava and
+            erinomaisesti, and they are Frey's judgement of EP, not EP's claim
+            about himself. Tier 0 rule 5 governs the second, not the first.
+            Editing a named person's assessment downward is its own kind of
+            wrong. Do not "clean" them.
+
+            OPEN: the 2.8.2026 clearance is recorded for the Finnish. Whether
+            it covered an English version is unconfirmed. The caption now
+            states that the English is a translation, which is the honest
+            minimum until EP checks with Frey. */}
         <figure class="quote">
           <blockquote>
             <p>
               Esa-Pekka's talk at Netprofile's internal training event was
               excellent. In it he built a superb bridge between sport and
               the business world. He shared concrete examples from his
-              athletic career — situations where leadership, determination,
+              athletic career: situations where leadership, determination,
               the importance of recovery and the capacity to withstand
               pressure proved decisive. He reflected those experiences
               skilfully against the daily reality of organisations and the
               challenges of business. The talk was practical, relatable and
               energising. It prompted discussion and gave us concrete means
-              of applying approaches familiar from sport — coaching
+              of applying approaches familiar from sport (coaching
               leadership, clarifying a shared goal, strengthening mental
-              resilience — to developing an organisation.
+              resilience) to developing an organisation.
             </p>
           </blockquote>
           <figcaption class="mono">
             Juha Frey, CEO, Netprofile
+            <span class="quote-note">
+              Translated from <a href="/fi/partners#speaking">the Finnish original</a>.
+            </span>
           </figcaption>
         </figure>
       </div>
@@ -286,6 +308,15 @@ import { currentPartners as p } from '../lib/partners';
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink);
+  }
+  /* The provenance line, not part of the attribution. Muted and lower case so
+     it reads as a note about the text rather than as more of Frey's name. */
+  .quote-note {
+    display: block;
+    margin-top: 8px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--muted);
   }
   .sec-head {
     display: flex;

@@ -9,6 +9,12 @@ import { person } from '../../lib/schema';
 // hallituspaikka, Paralympiakomitean urheilijavaliokunnan puheenjohtajuus
 // päättyi syksyllä 2024. Suomennos Claude-luonnos EP:n rekisterissä —
 // EP tarkistaa ennen julkaisua.
+//
+// Kielentarkastus 6.8.2026 (writing-coach 2026-08-06). Tämä sivu ja
+// fi/index.astro olivat ainoat, jotka jäivät heinäkuun tarkastuksen
+// ulkopuolelle, ja ne kantoivat sivuston kaikki "toimia + essiivi"
+// -osumat. Nyt suorat verbit: "johdan", "kuulun", "olin ... pääsihteeri",
+// kuten fi/press.astro:ssa ja blogissa jo oli.
 
 // Maailmanranking ja kauden ennätys tulevat telemetry.ts:stä, samasta
 // lähteestä kuin HUD. HUD on aria-hidden, joten nämä kaksi lukua eivät
@@ -30,7 +36,7 @@ const stats = [
 ];
 ---
 
-<BaseLayout title="Profiili" lang="fi" description="Esa-Pekka Mattila: T54-luokan kelaaja ja urheiluhallinnon ammattilainen. Ura, roolit ja tausta." jsonLd={person}>
+<BaseLayout title="Profiili" lang="fi" description="Esa-Pekka Mattila: T54-luokan pyörätuolikelaaja ja urheiluhallinnon ammattilainen. Ura, roolit ja tausta." jsonLd={person}>
   <section class="profile-hero">
     <div class="wrap">
       <p class="kicker">Profiili</p>
@@ -97,17 +103,18 @@ const stats = [
       <div class="sec-head reveal"><span class="idx mono">02</span><h2>Radan ulkopuolella</h2></div>
       <div class="prose reveal">
         <p>
-          Toimin Suomen Olympiakomitean urheilijavaliokunnan
-          puheenjohtajana ja Olympiakomitean hallituksen jäsenenä. Tavoitteenani on luoda urheilijoiden edustuksesta 
-          todellinen ääni päätöksenteossa, eikä puhtaasti vain muodollisuutta. Olin
+          Johdan Suomen Olympiakomitean urheilijavaliokuntaa ja kuulun
+          Olympiakomitean hallitukseen. Tavoitteenani on tehdä urheilijoiden
+          edustuksesta todellinen ääni päätöksenteossa eikä pelkkä
+          muodollisuus. Olin
           rakentamassa Suomen Paralympiakomitean urheilijavaliokuntaa
           alusta alkaen ja johdin sitä puheenjohtajana syksyyn 2024
           saakka. Lisäksi minulla on hallitustehtäviä eri urheilujärjestöissä sekä vammaisalalla, joissa urheilijan näkökulma ja
           talousosaaminen kohtaavat järjestöjen päätöksenteon.
         </p>
         <p>
-          Aiemmin toimin Aalto-yliopiston kauppatieteiden ylioppilaiden
-          (KY) pääsihteerinä. Käytännössä rooli vastasi
+          Olin aiemmin Aalto-yliopiston kauppatieteiden ylioppilaiden
+          (KY) pääsihteeri. Käytännössä rooli vastasi
           toimitusjohtajaa: vastuu toimistosta ja taloudesta, yhdeksän
           työntekijää, vuosittain vaihtuva hallitus ja yli 500 000
           euron vuosibudjetti. Siellä opin, että edunvalvonta ilman
@@ -123,8 +130,8 @@ const stats = [
       <div class="prose reveal">
         <p>
           Viimeistelen maisterintutkintoa yritysjuridiikasta,
-          sivuaineena taloustiede, ja teen asiantuntijatyötä
-          pyörätuoliteknologian parissa. Kotipaikkani on Espoo. Kirjoitan
+          sivuaineena taloustiede, ja teen asiantuntijatyötä pyörätuoli- ja
+          apuvälineteknologian parissa. Kotipaikkani on Espoo. Kirjoitan
           suomeksi ja englanniksi, enimmäkseen urheilusta, hallinnosta
           ja niitä ympäröivistä järjestelmistä.
         </p>
@@ -136,13 +143,13 @@ const stats = [
     <div class="wrap">
       <div class="sec-head reveal"><span class="idx mono">04</span><h2>Roolit</h2></div>
       <ul class="role-list reveal">
-        <li>Urheilija: T54 100m, MM- ja paralympiataso</li>
+        <li>Urheilija: 100 metriä T54-luokassa, MM- ja paralympiataso</li>
         <li>Urheilijavaliokunnan puheenjohtaja, Suomen Olympiakomitea</li>
         <li>Hallituksen jäsen, Suomen Olympiakomitea</li> 
         <li>Hallituksen jäsen, Suomen Urheiluliitto</li>
         <li>Hallituksen jäsen, Suomen Urheilijat ry</li>
         <li>Varapuheenjohtaja, Abilis-säätiö</li>
-        <li>Neuvonantaja, pyörätuoli- ja apuvälineteknologia sekä vammaissektori</li>
+        <li>Neuvonantaja, pyörätuoli- ja apuvälineteknologia sekä vammaisala</li>
       </ul>
     </div>
   </section>
