@@ -47,9 +47,9 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
           <p class="lead">T54-luokan pyörätuolikelaaja, kilpailee MM- ja paralympiatasolla.</p>
           <div class="rule-accent"></div>
           <p>
-            Kilpailen 100 metrillä, luokka T54, kotipaikkana Espoo. Radan
-            ulkopuolella johdan Suomen Olympiakomitean urheilijavaliokuntaa
-            ja toimin hallitustehtävissä suomalaisessa urheilussa ja
+            Kilpailen 100 metrillä, T54-luokassa, kotipaikkana Espoo. Radan
+            ulkopuolella johdan Suomen Olympiakomitean urheilijavaliokuntaa,
+            ja minulla on hallitustehtäviä suomalaisessa urheilussa ja
             vammaisalalla.
           </p>
           <div class="statgrid">
@@ -102,7 +102,16 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
     <div class="wrap">
       <div class="sec-head reveal"><span class="idx mono">03</span><h2>Kumppanit</h2></div>
       <div class="partners-teaser reveal">
-        <p>Kilpailu maailman huipulla on ammattiurheilua ja maksaa sen mukaan. Siksi etsin kumppaneita.</p>
+        {/* Deliberately not a rendering of the English teaser, which says the
+            sport costs more than it pays. EP's call on 6.8.2026: that claim
+            does not carry in Finnish prose, so the Finnish states the cost and
+            stops there. A future pass will read this as a missing translation.
+            It is not. Leave it.
+
+            "kustantaa" in the "olla hintana" sense is EP's own word here.
+            Kielitoimiston sanakirja marks that sense arkikielinen, which is
+            the register he wants, not an error to correct. */}
+        <p>Kilpailu maailman huipulla on ammattiurheilua ja kustantaa sen mukaisesti. Siksi etsin kumppaneita.</p>
         <a href="/fi/partners" class="more">Tehdään yhteistyötä →</a>
       </div>
     </div>
