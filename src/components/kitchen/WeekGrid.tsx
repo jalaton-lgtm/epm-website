@@ -279,37 +279,42 @@ function DayCard({
 
   return (
     <section class={`k-day${targets.sessions > 0 ? ' k-day-training' : ''}`}>
+      {/* Day, date and training all on one line. The training is a property of
+          the day in the same way the date is, and reading "Monday, athletics
+          and a gym session" as one sentence is the point of the row layout. */}
       <header class="k-day-head">
-        <h3>{day}</h3>
-        <span class="k-dim">{date.slice(8)}.{date.slice(5, 7)}.</span>
-      </header>
+        <h3 class="k-day-name">
+          {day} <span class="k-day-date">{date.slice(8)}.{date.slice(5, 7)}.</span>
+        </h3>
 
-      <div class="k-training">
-        {state.settings.sessionTypes.map((t) => (
-          <div class="k-training-row" key={t.id}>
-            <span class="k-training-name">
-              {t.name} <span class="k-dim">{t.kcal}</span>
-            </span>
-            <Stepper
-              value={training?.[t.id] ?? 0}
-              onChange={(_next, delta) =>
-                update((s) => {
-                  const current = s.training[week]?.[day]?.[t.id] ?? 0;
-                  return writeTraining(
-                    s,
-                    week,
-                    day,
-                    t.id,
-                    Math.min(3, Math.max(0, current + delta))
-                  );
-                })
-              }
-              min={0}
-              max={3}
-              label={`${t.name} sessions on ${day}`}
-            />
-          </div>
-        ))}
+        <div class="k-training">
+          {state.settings.sessionTypes.map((t) => (
+            <div class="k-training-row" key={t.id}>
+              <span class="k-training-name">
+                {t.name} <span class="k-dim">{t.kcal}</span>
+              </span>
+              <Stepper
+                value={training?.[t.id] ?? 0}
+                onChange={(_next, delta) =>
+                  update((s) => {
+                    const current = s.training[week]?.[day]?.[t.id] ?? 0;
+                    return writeTraining(
+                      s,
+                      week,
+                      day,
+                      t.id,
+                      Math.min(3, Math.max(0, current + delta))
+                    );
+                  })
+                }
+                min={0}
+                max={3}
+                label={`${t.name} sessions on ${day}`}
+              />
+            </div>
+          ))}
+        </div>
+
         <div class="k-training-sum">
           {targets.sessions === 0 ? (
             <span class="k-dim">Rest day</span>
@@ -320,7 +325,7 @@ function DayCard({
             </>
           )}
         </div>
-      </div>
+      </header>
 
       <div class="k-bars">
         <Bar label="Energy" current={totals.kcal} target={targets.kcal} unit=" kcal" />

@@ -1,7 +1,14 @@
 // The recipe library.
 
 import { useMemo, useState } from 'preact/hooks';
-import type { FoodItem, KitchenState, Recipe, RecipeLine, Unit } from '../../lib/kitchen/types';
+import type {
+  FoodItem,
+  KitchenState,
+  Recipe,
+  RecipeCategory,
+  RecipeLine,
+  Unit,
+} from '../../lib/kitchen/types';
 import {
   isFlexible,
   macrosOfLine,
@@ -105,6 +112,7 @@ function RecipeForm({
   initial,
   foods,
   slots,
+  categories,
   onSave,
   onCreateFood,
   onClose,
@@ -112,6 +120,7 @@ function RecipeForm({
   initial: Recipe;
   foods: FoodItem[];
   slots: { id: string; name: string }[];
+  categories: RecipeCategory[];
   onSave: (r: Recipe) => void;
   onCreateFood: (name: string, then: (f: FoodItem) => void) => void;
   onClose: () => void;
@@ -287,6 +296,25 @@ function RecipeForm({
         </div>
       )}
 
+      <Field
+        label="Category"
+        hint="How you find it later. Not what the generator reads — that is the row below."
+      >
+        <select
+          class="k-input"
+          value={r.category ?? ''}
+          onChange={(e) => {
+            const v = (e.target as HTMLSelectElement).value;
+            set('category', v === '' ? undefined : v);
+          }}
+        >
+          <option value="">Uncategorised</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.id}>{c.name}</option>
+          ))}
+        </select>
+      </Field>
+
       <Field label="Suits which meals" hint="Used by the week generator">
         <div class="k-chips">
           {slots.map((s) => {
@@ -343,6 +371,7 @@ function RecipeForm({
 
 export default function Recipes({ state, update }: { state: KitchenState; update: Update }) {
   const [q, setQ] = useState('');
+  const [cat, setCat] = useState<string>(''); // '' = every category
   const [editing, setEditing] = useState<Recipe | null>(null);
   const [markdown, setMarkdown] = useState<Recipe | null>(null);
   // A food being created from inside the recipe form, plus what to do with it
@@ -358,6 +387,7 @@ export default function Recipes({ state, update }: { state: KitchenState; update
   // One box, two jobs: matches recipe names and the foods inside them, so
   // "what can I make with the chicken in the fridge" is the same search.
   const filtered = state.recipes.filter((r) => {
+    if (cat && (r.category ?? '') !== cat) return false;
     if (!query) return true;
     if (r.name.toLowerCase().includes(query)) return true;
     return r.lines.some((l) => {
@@ -368,6 +398,36 @@ export default function Recipes({ state, update }: { state: KitchenState; update
       );
     });
   });
+
+  /**
+   * The list, split into its categories.
+   *
+   * Categories keep the settings' own order rather than being sorted, because
+   * that order is the user's and a kitchen has a rough sequence to it —
+   * breakfast before dinner. Empty ones are dropped; anything uncategorised
+   * collects at the bottom rather than being hidden, so a recipe cannot go
+   * missing by not having been filed.
+   */
+  const groups = useMemo(() => {
+    const cats = state.settings.recipeCategories;
+    const known = new Set(cats.map((c) => c.id));
+    const bucket = new Map<string, Recipe[]>();
+    for (const r of filtered) {
+      const key = r.category && known.has(r.category) ? r.category : '';
+      if (!bucket.has(key)) bucket.set(key, []);
+      bucket.get(key)!.push(r);
+    }
+    const out = cats
+      .filter((c) => bucket.has(c.id))
+      .map((c) => ({ id: c.id, name: c.name, recipes: bucket.get(c.id)! }));
+    if (bucket.has('')) {
+      out.push({ id: '', name: 'Uncategorised', recipes: bucket.get('')! });
+    }
+    return out;
+  }, [filtered, state.settings.recipeCategories]);
+
+  const countIn = (id: string) =>
+    state.recipes.filter((r) => (id === '' ? !r.category : r.category === id)).length;
 
   const save = (r: Recipe) => {
     update((s) => ({
@@ -404,6 +464,28 @@ export default function Recipes({ state, update }: { state: KitchenState; update
         )}
       </div>
 
+      <div class="k-chips k-catfilter">
+        <button
+          class={`k-chip${cat === '' ? ' k-chip-on' : ''}`}
+          onClick={() => setCat('')}
+        >
+          All <span class="k-dim">{state.recipes.length}</span>
+        </button>
+        {state.settings.recipeCategories.map((c) => {
+          const n = countIn(c.id);
+          if (n === 0) return null;
+          return (
+            <button
+              key={c.id}
+              class={`k-chip${cat === c.id ? ' k-chip-on' : ''}`}
+              onClick={() => setCat(cat === c.id ? '' : c.id)}
+            >
+              {c.name} <span class="k-dim">{n}</span>
+            </button>
+          );
+        })}
+      </div>
+
       {filtered.length === 0 && (
         <Empty>
           {state.recipes.length === 0
@@ -412,56 +494,64 @@ export default function Recipes({ state, update }: { state: KitchenState; update
         </Empty>
       )}
 
-      <div class="k-recipes">
-        {filtered.map((r) => {
-          const m = recipeMacros(r, state.foods);
-          return (
-            <article class="k-recipe" key={r.id}>
-              <div class="k-recipe-main">
-                <h3>
-                  {r.name}
-                  {r.example && <span class="k-tag">example</span>}
-                  {r.batchFriendly && <span class="k-tag">batch</span>}
-                  {r.macroSource === 'manual' && <span class="k-tag">manual macros</span>}
-                </h3>
-                <p class="k-recipe-macros">
-                  {Math.round(m.kcal)} kcal · {Math.round(m.protein)}g P ·{' '}
-                  {Math.round(m.carbs)}g C · {Math.round(m.fat)}g F{' '}
-                  <span class="k-dim">per serving</span>
-                </p>
-                <p class="k-dim k-recipe-meta">
-                  Serves {r.serves} · {r.prepMinutes} min
-                  {r.lines.length > 0 &&
-                    ` · ${r.lines
-                      .map((l) => {
-                        const f = foodIndex.get(l.foodId);
-                        return f ? `${l.qty}${l.unit} ${f.fi || f.name}` : '?';
-                      })
-                      .join(', ')}`}
-                </p>
-              </div>
-              <div class="k-recipe-actions">
-                <button class="k-link" onClick={() => setEditing(r)}>Edit</button>
-                <button class="k-link" onClick={() => setMarkdown(r)}>Text</button>
-                <button
-                  class="k-link k-danger"
-                  onClick={() =>
-                    update((s) => ({ ...s, recipes: s.recipes.filter((x) => x.id !== r.id) }))
-                  }
-                >
-                  Delete
-                </button>
-              </div>
-            </article>
-          );
-        })}
-      </div>
+      {groups.map((g) => (
+        <section class="k-catgroup" key={g.id}>
+          <h3 class="k-cathead">
+            {g.name} <span class="k-dim">{g.recipes.length}</span>
+          </h3>
+          <div class="k-recipes">
+            {g.recipes.map((r) => {
+              const m = recipeMacros(r, state.foods);
+              return (
+                <article class="k-recipe" key={r.id}>
+                  <div class="k-recipe-main">
+                    <h3>
+                      {r.name}
+                      {r.example && <span class="k-tag">example</span>}
+                      {r.batchFriendly && <span class="k-tag">batch</span>}
+                      {r.macroSource === 'manual' && <span class="k-tag">manual macros</span>}
+                    </h3>
+                    <p class="k-recipe-macros">
+                      {Math.round(m.kcal)} kcal · {Math.round(m.protein)}g P ·{' '}
+                      {Math.round(m.carbs)}g C · {Math.round(m.fat)}g F{' '}
+                      <span class="k-dim">per serving</span>
+                    </p>
+                    <p class="k-dim k-recipe-meta">
+                      Serves {r.serves} · {r.prepMinutes} min
+                      {r.lines.length > 0 &&
+                        ` · ${r.lines
+                          .map((l) => {
+                            const f = foodIndex.get(l.foodId);
+                            return f ? `${l.qty}${l.unit} ${f.fi || f.name}` : '?';
+                          })
+                          .join(', ')}`}
+                    </p>
+                  </div>
+                  <div class="k-recipe-actions">
+                    <button class="k-link" onClick={() => setEditing(r)}>Edit</button>
+                    <button class="k-link" onClick={() => setMarkdown(r)}>Text</button>
+                    <button
+                      class="k-link k-danger"
+                      onClick={() =>
+                        update((s) => ({ ...s, recipes: s.recipes.filter((x) => x.id !== r.id) }))
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
 
       {editing && (
         <RecipeForm
           initial={editing}
           foods={state.foods}
           slots={state.settings.mealSlots}
+          categories={state.settings.recipeCategories}
           onSave={save}
           onCreateFood={(name, then) => setNewFood({ food: blankFood(name), then })}
           onClose={() => setEditing(null)}

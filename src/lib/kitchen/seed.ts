@@ -45,6 +45,19 @@ export const defaultSettings: Settings = {
   ],
 
   tuneIngredients: true,
+
+  // A starting set, not a taxonomy. Rename them, delete the ones that do not
+  // describe your cooking, add the ones that do.
+  recipeCategories: [
+    { id: 'cat-breakfast', name: 'Breakfast' },
+    { id: 'cat-snacks', name: 'Snacks' },
+    { id: 'cat-pasta', name: 'Pasta' },
+    { id: 'cat-asian', name: 'Asian' },
+    { id: 'cat-meat', name: 'Meat' },
+    { id: 'cat-fish', name: 'Fish' },
+    { id: 'cat-veggie', name: 'Vegetarian' },
+    { id: 'cat-salad', name: 'Salads' },
+  ],
 };
 
 /** Written without macros, which are filled in below from the food library. */
@@ -54,6 +67,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-oatmeal',
     name: 'Protein oatmeal bowl',
+    category: 'cat-breakfast',
     macroSource: 'derived',
     serves: 1,
     prepMinutes: 10,
@@ -70,6 +84,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-yoghurt',
     name: 'Greek yoghurt with berries',
+    category: 'cat-breakfast',
     macroSource: 'derived',
     serves: 1,
     prepMinutes: 5,
@@ -86,6 +101,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-chicken-rice',
     name: 'Grilled chicken and rice',
+    category: 'cat-meat',
     macroSource: 'derived',
     serves: 4,
     prepMinutes: 25,
@@ -102,6 +118,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-salmon',
     name: 'Salmon with sweet potato',
+    category: 'cat-fish',
     macroSource: 'derived',
     serves: 2,
     prepMinutes: 30,
@@ -118,6 +135,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-smoothie',
     name: 'Protein smoothie',
+    category: 'cat-snacks',
     macroSource: 'derived',
     serves: 1,
     prepMinutes: 5,
@@ -134,6 +152,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-turkey-quinoa',
     name: 'Turkey and quinoa bowl',
+    category: 'cat-meat',
     macroSource: 'derived',
     serves: 3,
     prepMinutes: 20,
@@ -150,6 +169,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-eggwhite',
     name: 'Egg white scramble',
+    category: 'cat-breakfast',
     macroSource: 'derived',
     serves: 1,
     prepMinutes: 10,
@@ -165,6 +185,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-beef-stirfry',
     name: 'Lean beef stir-fry',
+    category: 'cat-asian',
     macroSource: 'derived',
     serves: 3,
     prepMinutes: 15,
@@ -186,6 +207,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-porridge',
     name: 'Porridge with berries and walnuts',
+    category: 'cat-breakfast',
     macroSource: 'derived',
     serves: 1,
     prepMinutes: 10,
@@ -202,6 +224,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-tomato-pasta',
     name: 'Tomato pasta',
+    category: 'cat-pasta',
     macroSource: 'derived',
     serves: 3,
     prepMinutes: 20,
@@ -219,6 +242,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-baked-potato',
     name: 'Baked potatoes with soured cream',
+    category: 'cat-veggie',
     macroSource: 'derived',
     serves: 2,
     prepMinutes: 45,
@@ -234,6 +258,7 @@ const drafts: RecipeDraft[] = [
   {
     id: 'ex-toast',
     name: 'Banana and peanut butter toast',
+    category: 'cat-snacks',
     macroSource: 'derived',
     serves: 1,
     prepMinutes: 5,

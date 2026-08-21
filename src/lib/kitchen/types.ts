@@ -150,9 +150,28 @@ export interface RecipeLine {
   flex?: boolean;
 }
 
+/**
+ * A kind of cooking, for finding things by hand.
+ *
+ * Deliberately NOT the same axis as `mealTypes`. mealTypes says which slot a
+ * recipe suits and is read by the generator; a category says what sort of
+ * thing it is and is read by a person scanning a list. They overlap on
+ * "breakfast" and diverge everywhere else — "pasta" and "asian" are not slots,
+ * and a curry is dinner whichever cuisine drawer it lives in.
+ *
+ * User-editable, like session types and meal slots, because nobody else's list
+ * of cuisines is the right one.
+ */
+export interface RecipeCategory {
+  id: Id;
+  name: string;
+}
+
 export interface Recipe {
   id: Id;
   name: string;
+  /** Which kind of cooking this is. Optional — uncategorised is a valid state. */
+  category?: Id;
   /**
    * Where the per-serving macros come from.
    *
@@ -270,6 +289,7 @@ export interface Settings {
 
   sessionTypes: SessionType[];
   mealSlots: MealSlotDef[];
+  recipeCategories: RecipeCategory[];
 
   /** Let the generator move flexible foods to close a day's energy gap. */
   tuneIngredients: boolean;
@@ -288,7 +308,7 @@ export interface WeightEntry {
 // Persisted state
 // ---------------------------------------------------------------------------
 
-export const STATE_VERSION = 2;
+export const STATE_VERSION = 3;
 
 export interface KitchenState {
   version: number;

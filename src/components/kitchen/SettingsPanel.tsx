@@ -323,6 +323,60 @@ export default function SettingsPanel({
       </section>
 
       <section class="k-panel">
+        <h3>Recipe categories</h3>
+        <p class="k-dim">
+          How the recipe library is filed — breakfast, pasta, asian, whatever your cooking
+          actually divides into. This is for finding things by hand and has nothing to do
+          with which slot the generator will put a recipe in; that is set on the recipe
+          itself. Deleting a category leaves its recipes uncategorised rather than deleting
+          them.
+        </p>
+        {s.recipeCategories.map((c, i) => (
+          <div class="k-inline" key={c.id}>
+            <Field label="Name">
+              <input
+                class="k-input"
+                value={c.name}
+                onInput={(e) =>
+                  setS(
+                    'recipeCategories',
+                    s.recipeCategories.map((x, j) =>
+                      j === i ? { ...x, name: (e.target as HTMLInputElement).value } : x
+                    )
+                  )
+                }
+              />
+            </Field>
+            <span class="k-dim">
+              {state.recipes.filter((r) => r.category === c.id).length} recipes
+            </span>
+            <button
+              class="k-link k-danger"
+              onClick={() =>
+                setS(
+                  'recipeCategories',
+                  s.recipeCategories.filter((_, j) => j !== i)
+                )
+              }
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          class="k-btn k-btn-quiet"
+          onClick={() =>
+            setS('recipeCategories', [
+              ...s.recipeCategories,
+              { id: newId('cat'), name: 'New category' },
+            ])
+          }
+        >
+          + Category
+        </button>
+      </section>
+
+      <section class="k-panel">
         <h3>Your data</h3>
         <p class="k-dim">
           All of this lives in this browser and nowhere else. Nothing is sent anywhere, which
