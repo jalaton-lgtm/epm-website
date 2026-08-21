@@ -1,0 +1,613 @@
+/*
+  Meal planner styles.
+
+  Global rather than scoped, because Astro's scoped styles cannot reach inside
+  a framework island. Everything is prefixed `k-` so it cannot collide with the
+  rest of the site, and every colour comes from tokens.css — the planner is a
+  tool, but it is a tool on this site and it should not look borrowed.
+
+  The prototype was Tailwind on a white ground with six accent hues. None of
+  that comes across: this site is fixed dark, one accent, and the category
+  colours are spoken for. Protein/carbs/fat get the three category colours that
+  are otherwise unused on this page, in their on-dark variants.
+*/
+
+.k {
+  --k-line: var(--rule);
+  --k-panel: var(--surface);
+  --k-protein: var(--accent-commercial-ondark);
+  --k-carbs: var(--accent-training-ondark);
+  --k-fat: var(--accent-personal-ondark);
+  font-size: var(--text-small);
+}
+
+/* ---- tabs ---- */
+
+.k-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--k-line);
+  margin-bottom: var(--space-3);
+}
+.k-tab {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+.k-tab:hover { color: var(--ink); }
+.k-tab-on {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* ---- week bar ---- */
+
+.k-weekbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+.k-weekbar-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* ---- controls ---- */
+
+.k-input {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--k-line);
+  border-radius: 3px;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  min-width: 0;
+  width: 100%;
+}
+.k-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.k-block { margin-bottom: var(--space-2); }
+.k-code { font-family: var(--font-mono); font-size: 0.75rem; white-space: pre; }
+.k-hidden { display: none; }
+
+.k-numwrap { display: flex; align-items: center; gap: 6px; }
+.k-suffix { color: var(--muted); font-size: var(--text-micro); }
+
+.k-btn {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 9px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.k-btn:hover { background: transparent; color: var(--accent); }
+.k-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.k-btn-quiet {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--k-line);
+}
+.k-btn-quiet:hover { color: var(--ink); border-color: var(--ink); background: transparent; }
+
+.k-link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px 0;
+  font-size: var(--text-micro);
+  font-family: var(--font-body);
+}
+.k-link:hover { color: var(--ink); }
+.k-danger { color: var(--accent-competition); }
+.k-danger:hover { color: var(--accent-competition); }
+.k-btn.k-danger { background: transparent; border-color: var(--accent-competition); }
+
+.k-icon {
+  background: none;
+  border: 1px solid var(--k-line);
+  border-radius: 3px;
+  color: var(--muted);
+  cursor: pointer;
+  /* 40px square: the guideline is 44 and these sit in a row with real spacing
+     around them, but nothing here is smaller than a comfortable thumb. */
+  width: 40px;
+  height: 40px;
+  font-size: 0.9rem;
+}
+.k-icon:hover { color: var(--ink); border-color: var(--ink); }
+
+.k-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--k-line);
+  border-radius: 3px;
+}
+.k-stepper button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  line-height: 1;
+}
+.k-stepper button:hover:not(:disabled) { color: var(--ink); }
+.k-stepper button:disabled { opacity: 0.3; cursor: not-allowed; }
+.k-stepper-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  min-width: 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+  On a touch screen the steppers grow to the 44px guideline. 30px clears the
+  WCAG 2.5.8 floor of 24px, but these are the most-tapped controls in the
+  planner — three per day per training type, plus one per meal — and a phone
+  in a kitchen is the setting they were built for. The nav toggle was widened
+  for the same reason. Keyed to pointer rather than width so the seven-column
+  desktop grid keeps the compact version.
+*/
+@media (pointer: coarse) {
+  .k-stepper button { width: 44px; height: 44px; }
+  .k-stepper-value { min-width: 30px; }
+  .k-cell input[type='checkbox'],
+  .k-shoplist input[type='checkbox'] {
+    width: 22px;
+    height: 22px;
+  }
+  .k-shoplist label { padding-block: 4px; }
+}
+
+.k-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: var(--space-2); }
+.k-field-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.k-field-hint { font-size: var(--text-micro); color: var(--muted); }
+
+.k-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.k-chip {
+  background: none;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 5px 12px;
+  font-size: var(--text-micro);
+  cursor: pointer;
+}
+.k-chip-on { border-color: var(--accent); color: var(--accent); }
+
+.k-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.k-dim { color: var(--muted); }
+.k-over { color: var(--accent-competition); }
+.k-empty { color: var(--muted); padding: var(--space-3) 0; }
+.k-loading { color: var(--muted); padding: var(--space-4) 0; }
+.k-note { color: var(--muted); margin-bottom: var(--space-3); max-width: 70ch; }
+.k-formnote { color: var(--muted); font-size: var(--text-micro); margin-bottom: var(--space-2); }
+.k-warn {
+  color: var(--ink);
+  background: rgba(200, 57, 46, 0.12);
+  border-left: 2px solid var(--accent-competition);
+  padding: 10px 12px;
+  margin: var(--space-2) 0;
+  font-size: var(--text-micro);
+}
+.k-subhead {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: var(--space-3) 0 var(--space-1);
+}
+
+/* ---- progress bars ---- */
+
+.k-bar { margin-bottom: 6px; }
+.k-bar-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.k-bar-track { height: 3px; background: rgba(244, 241, 236, 0.1); border-radius: 2px; }
+.k-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+.k-tone-protein .k-bar-fill { background: var(--k-protein); }
+.k-tone-carbs .k-bar-fill { background: var(--k-carbs); }
+.k-tone-fat .k-bar-fill { background: var(--k-fat); }
+.k-bar-fill.k-bar-over { background: var(--accent-competition); }
+
+/* ---- the week grid ---- */
+
+.k-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+@media (min-width: 720px) {
+  .k-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1100px) {
+  /* Seven abreast only where seven abreast is legible. Below this the days
+     stack, which is the right shape on a phone anyway: you cook one day at a
+     time. */
+  .k-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+}
+
+.k-day {
+  border: 1px solid var(--k-line);
+  border-radius: 4px;
+  padding: 12px;
+  background: var(--k-panel);
+}
+.k-day-training { border-color: rgba(226, 94, 31, 0.35); }
+.k-day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-1);
+}
+.k-day-head h3 { font-size: 0.9375rem; text-transform: none; }
+
+.k-training {
+  border: 1px solid var(--k-line);
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: var(--space-2);
+}
+.k-training-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.k-training-name { font-size: var(--text-micro); }
+.k-training-sum {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--accent);
+  border-top: 1px solid var(--k-line);
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+.k-bars { margin-bottom: var(--space-2); }
+.k-cells { display: flex; flex-direction: column; gap: 6px; }
+
+.k-cell {
+  border: 1px solid var(--k-line);
+  border-radius: 3px;
+  padding: 8px;
+  min-height: 76px;
+}
+.k-cell-done { border-color: var(--accent-commercial-ondark); }
+.k-cell-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.k-cell-slot { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
+.k-cell-name {
+  background: none;
+  border: none;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  display: block;
+}
+.k-cell-name:hover { color: var(--accent); }
+.k-cell-macros { font-family: var(--font-mono); font-size: 0.625rem; color: var(--muted); margin: 3px 0 6px; }
+.k-cell-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.k-cell-add {
+  width: 100%;
+  background: none;
+  border: 1px dashed var(--k-line);
+  border-radius: 3px;
+  color: var(--muted);
+  padding: 10px;
+  cursor: pointer;
+  font-size: var(--text-micro);
+}
+.k-cell-add:hover { color: var(--accent); border-color: var(--accent); }
+.k-cell-missing { font-size: var(--text-micro); color: var(--accent-competition); }
+
+/* ---- modal ---- */
+
+.k-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+  z-index: 200;
+}
+.k-modal {
+  background: var(--k-panel);
+  border: 1px solid var(--k-line);
+  border-radius: 4px;
+  width: min(540px, 100%);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+.k-modal-wide { width: min(820px, 100%); }
+.k-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--k-line);
+}
+.k-modal-head h3 { font-size: 1rem; text-transform: none; }
+.k-modal-body { padding: var(--space-2); overflow-y: auto; }
+.k-modal-actions { display: flex; gap: var(--space-1); margin-top: var(--space-3); }
+
+.k-picker { display: flex; flex-direction: column; gap: 4px; }
+.k-pick {
+  text-align: left;
+  background: none;
+  border: 1px solid var(--k-line);
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.k-pick:hover { border-color: var(--accent); }
+.k-pick-name { display: block; font-weight: 600; font-size: var(--text-small); }
+.k-pick-meta { display: block; font-size: var(--text-micro); color: var(--muted); margin-top: 2px; }
+
+/* ---- forms ---- */
+
+.k-row4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-2);
+}
+.k-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+/* ---- recipes ---- */
+
+.k-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+.k-toolbar .k-input { width: auto; flex: 1 1 240px; }
+
+.k-recipes { display: flex; flex-direction: column; gap: var(--space-1); }
+.k-recipe {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+  border: 1px solid var(--k-line);
+  border-radius: 4px;
+  padding: var(--space-2);
+  background: var(--k-panel);
+}
+.k-recipe h3 { font-size: 1rem; text-transform: none; }
+.k-recipe-macros { font-family: var(--font-mono); font-size: var(--text-micro); margin-top: 4px; }
+.k-recipe-meta { font-size: var(--text-micro); margin-top: 4px; }
+.k-recipe-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+
+/* ---- shopping ---- */
+
+.k-shopcols { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+@media (min-width: 900px) {
+  .k-shopcols { grid-template-columns: 2fr 1fr; }
+}
+.k-aisle { margin-bottom: var(--space-3); }
+.k-aisle h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--k-line);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.k-shoplist { list-style: none; }
+.k-shoplist li { padding: 5px 0; }
+.k-shoplist label { display: flex; align-items: baseline; gap: 10px; cursor: pointer; }
+.k-shop-amount {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--accent);
+  min-width: 72px;
+  font-variant-numeric: tabular-nums;
+}
+.k-shop-en { font-size: var(--text-micro); }
+.k-shop-done { opacity: 0.4; }
+.k-shop-done .k-shop-name { text-decoration: line-through; }
+.k-cooklist { border-left: 1px solid var(--k-line); padding-left: var(--space-2); }
+.k-cooklist h3 { font-size: 1rem; text-transform: none; margin-bottom: var(--space-1); }
+.k-cooklist ul { list-style: none; margin-top: var(--space-2); }
+.k-cooklist li { padding: 6px 0; border-bottom: 1px solid var(--k-line); font-size: var(--text-micro); }
+
+/* ---- stats and setup ---- */
+
+.k-stats { display: flex; flex-direction: column; gap: var(--space-2); }
+.k-panel {
+  border: 1px solid var(--k-line);
+  border-radius: 4px;
+  padding: var(--space-3);
+  background: var(--k-panel);
+}
+.k-panel h3 { font-size: 1rem; text-transform: none; margin-bottom: var(--space-2); }
+.k-panel > .k-dim { max-width: 72ch; margin-bottom: var(--space-2); }
+
+.k-figures { display: flex; flex-wrap: wrap; gap: var(--space-4); margin: var(--space-2) 0; }
+.k-figures > div { display: flex; flex-direction: column; gap: 2px; }
+.k-fig {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-stat);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.k-figures .k-dim { font-size: var(--text-micro); max-width: 22ch; }
+
+.k-spark { width: 100%; height: auto; color: var(--accent); margin-top: var(--space-2); }
+
+.k-table { width: 100%; border-collapse: collapse; font-size: var(--text-micro); }
+.k-table th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--k-line);
+  padding: 6px 8px 6px 0;
+}
+.k-table td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--k-line); }
+
+/* ---- print: the shopping list, and nothing else ---- */
+
+@media print {
+  .k-tabs,
+  .k-weekbar,
+  .k-noprint,
+  .k-cooklist,
+  .nav,
+  footer { display: none !important; }
+  .k, .k-input { color: #000; }
+  .k-aisle h3 { color: #000; }
+  .k-shop-amount { color: #000; }
+}
+
+/* ---- recipe line editor, food picker, food table ---- */
+
+.k-lines { display: flex; flex-direction: column; gap: 6px; }
+.k-line {
+  display: grid;
+  grid-template-columns: 96px 72px 1fr auto auto 40px;
+  gap: 8px;
+  align-items: center;
+}
+.k-line-unit { width: 100%; }
+.k-line-name { font-size: var(--text-micro); }
+.k-line-macros { font-family: var(--font-mono); font-size: 0.625rem; white-space: nowrap; }
+.k-line-flex {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.625rem;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  /* Quantity, unit and name stay on the first row; the readout and the flex
+     toggle drop below rather than squeezing the name to nothing — but they
+     share that second row rather than taking one each. Stacked, an ingredient
+     row came to 133px, so a four-ingredient recipe was over 500px of scrolling
+     before you reached the save button. */
+  .k-line { grid-template-columns: 84px 68px 1fr 40px; }
+  .k-line-macros { grid-column: 1 / 3; }
+  .k-line-flex { grid-column: 3 / -1; }
+}
+
+.k-foodpicker { position: relative; margin-top: var(--space-2); }
+.k-foodresults {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.k-pick-new { border-style: dashed; color: var(--accent); }
+
+.k-livemacros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  border-block: 1px solid var(--k-line);
+  padding-block: var(--space-2);
+  margin-block: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+}
+.k-livemacros-label { color: var(--muted); }
+.k-livemacros .k-fig { font-size: 1.75rem; }
+
+.k-cell-adjust {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.k-foodtable td { vertical-align: top; }
+.k-nums { font-family: var(--font-mono); font-size: 0.625rem; white-space: nowrap; }
+.k-right { text-align: right; white-space: nowrap; }
+.k-link:disabled { opacity: 0.3; cursor: not-allowed; text-decoration: none; }
+
+@media (max-width: 760px) {
+  .k-foodtable, .k-foodtable thead, .k-foodtable tbody, .k-foodtable tr, .k-foodtable td {
+    display: block;
+    width: 100%;
+  }
+  .k-foodtable thead { display: none; }
+  .k-foodtable tr { border-bottom: 1px solid var(--k-line); padding-block: 8px; }
+  .k-foodtable td { border: none; padding: 2px 0; }
+  .k-right { text-align: left; }
+}

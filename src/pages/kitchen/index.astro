@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Planner from '../../components/kitchen/Planner';
+import '../../styles/kitchen.css';
+
+// The meal planner. A tool, not a page — which is why three of the site's
+// usual conventions are deliberately not applied here:
+//
+//   pageUpdated   Nothing. The check:dates gate scans top-level .astro files
+//                 in src/pages, so living in a directory keeps this out of it
+//                 by structure rather than by exception. That is the right
+//                 answer: dateModified describes when a page's copy last
+//                 changed, and this page's content is whatever the reader has
+//                 in their own browser. There is no honest date to give.
+//
+//   pageTwins     Absent, so the language toggle falls back to the other home
+//                 page and localeAlternates returns null — no hreflang. The
+//                 interface is English; the ingredient names carry Finnish,
+//                 because the shopping happens in a Finnish shop.
+//
+//   Nav           Not linked. Reachable from the blog post that introduces it
+//                 and by anyone holding the URL. noindex keeps it out of
+//                 search without hiding it from a person you send it to.
+//
+// The island is client:load rather than client:only so the page still
+// server-renders its shell. Planner starts with null state and reads
+// localStorage in an effect, which is the only way the server's markup and the
+// client's first render can agree on a page whose entire content lives in the
+// browser.
+---
+
+<BaseLayout
+  title="Kitchen"
+  lang="en"
+  noindex={true}
+  description="A weekly meal planner built around training load: day-type targets, a recipe library, and a grocery list that adds itself up."
+>
+  <section class="kitchen-hero">
+    <div class="wrap">
+      <p class="kicker">Kitchen</p>
+      <h1>Meal planner</h1>
+      <p class="lead">
+        A week of meals planned against the training that week actually
+        holds. Rest days, gym days and track days do not cost the same, so
+        they do not get the same targets.
+      </p>
+      <div class="rule-accent"></div>
+      <p class="note">
+        Everything you enter stays in this browser. No account, no server,
+        nothing sent anywhere — which also means the export file in Setup is
+        the only backup there is. The numbers it starts with are placeholders,
+        not advice: set your own under Setup before you plan a week around them.
+      </p>
+    </div>
+  </section>
+
+  <section class="kitchen-app">
+    <div class="wrap">
+      <Planner client:load />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .kitchen-hero {
+    padding-top: clamp(140px, 20vh, 200px);
+    padding-bottom: var(--space-3);
+  }
+  .kitchen-hero h1 {
+    margin-top: var(--space-2);
+  }
+  .kitchen-hero .lead {
+    font-size: var(--text-lead);
+    line-height: 1.3;
+    max-width: 34ch;
+    margin-top: var(--space-3);
+  }
+  .kitchen-hero .rule-accent {
+    margin-block: var(--space-3);
+  }
+  .note {
+    color: var(--muted);
+    font-size: var(--text-small);
+    max-width: 60ch;
+  }
+  .kitchen-app {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-6);
+  }
+
+  @media print {
+    .kitchen-hero {
+      display: none;
+    }
+    .kitchen-app {
+      padding-top: 0;
+    }
+  }
+</style>

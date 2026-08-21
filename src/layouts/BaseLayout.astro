@@ -25,6 +25,18 @@ export interface Props {
   publishedTime?: string;
   /** JSON-LD object (or objects) injected into the head as ld+json. */
   jsonLd?: object | object[];
+  /** Keep the page out of search results while leaving it reachable by
+      link. For tools and experiments that are shareable but are not part
+      of what the site is about.
+
+      A meta tag rather than a robots.txt line on purpose: Cloudflare
+      rewrites robots.txt at the edge, so the repo is not the last word on
+      that file. A page using this must also be excluded from the sitemap
+      in astro.config.mjs — advertising a URL and then telling the crawler
+      to ignore it is a contradiction Search Console reports back as an
+      error. "follow" is deliberate: the page may still link somewhere
+      worth crawling. */
+  noindex?: boolean;
 }
 
 const {
@@ -35,6 +47,7 @@ const {
   type = 'website',
   publishedTime,
   jsonLd,
+  noindex = false,
 } = Astro.props;
 
 const siteName = 'Esa-Pekka Mattila';
@@ -96,6 +109,7 @@ const CF_ANALYTICS_TOKEN = '12a75a1d8d8241a389a2eb8c79df9472';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0E0D0C" />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link
       rel="alternate"
