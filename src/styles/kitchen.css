@@ -259,61 +259,93 @@
 
 /* ---- the week grid ---- */
 
+/*
+  Days are ROWS, not columns.
+
+  Seven abreast fitted on a wide screen and was still the wrong shape: each day
+  got about 130px, which forced the training controls into a vertical stack,
+  squeezed the meal names, and made a week something you read by scanning
+  sideways across seven narrow strips. A day is a unit you read in one go —
+  what training it holds, what that makes the targets, what you are eating —
+  so it gets a full-width band and the eye moves down the week instead.
+*/
 .k-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-2);
 }
-@media (min-width: 720px) {
-  .k-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1100px) {
-  /* Seven abreast only where seven abreast is legible. Below this the days
-     stack, which is the right shape on a phone anyway: you cook one day at a
-     time. */
-  .k-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
-}
 
 .k-day {
   border: 1px solid var(--k-line);
   border-radius: 4px;
-  padding: 12px;
+  padding: var(--space-2);
   background: var(--k-panel);
 }
 .k-day-training { border-color: rgba(226, 94, 31, 0.35); }
+
+/* Day, date and training read as one line: "Monday 17.08., athletics and gym". */
 .k-day-head {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--space-1);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--k-line);
 }
-.k-day-head h3 { font-size: 0.9375rem; text-transform: none; }
+.k-day-name {
+  font-size: 1.0625rem;
+  text-transform: none;
+  min-width: 8.5rem;
+  flex-shrink: 0;
+}
+.k-day-date {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
 
 .k-training {
-  border: 1px solid var(--k-line);
-  border-radius: 3px;
-  padding: 8px;
-  margin-bottom: var(--space-2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
 }
 .k-training-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 6px;
-  margin-bottom: 4px;
 }
-.k-training-name { font-size: var(--text-micro); }
+.k-training-name { font-size: var(--text-micro); white-space: nowrap; }
 .k-training-sum {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   color: var(--accent);
-  border-top: 1px solid var(--k-line);
-  padding-top: 6px;
-  margin-top: 4px;
+  margin-left: auto;
+  white-space: nowrap;
 }
 
-.k-bars { margin-bottom: var(--space-2); }
-.k-cells { display: flex; flex-direction: column; gap: 6px; }
+/* Four bars across, rather than four stacked. */
+.k-bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+@media (max-width: 700px) {
+  .k-bars { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* The meals sit across the width of the day. auto-fit rather than a fixed
+   count because the slot list is user-editable — five today, seven if a
+   pre-training feed and a second snack get added. */
+.k-cells {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+}
 
 .k-cell {
   border: 1px solid var(--k-line);
@@ -610,4 +642,53 @@
   .k-foodtable tr { border-bottom: 1px solid var(--k-line); padding-block: 8px; }
   .k-foodtable td { border: none; padding: 2px 0; }
   .k-right { text-align: left; }
+}
+
+/* ---- category grouping (recipes by category, foods by aisle) ---- */
+
+.k-catgroup { margin-bottom: var(--space-3); }
+.k-cathead {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--k-line);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+/* The count sits quietly after the name rather than competing with it. */
+.k-cathead .k-dim {
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+}
+.k-catfilter { margin-bottom: var(--space-3); }
+.k-catfilter .k-chip { text-transform: capitalize; }
+
+/*
+  On a phone the day header cannot stay on one line, so it becomes a small
+  block instead: name across the top, training in two columns beneath it.
+  Left to wrap naturally each training type claimed a full row — with 44px
+  touch steppers that made the header 252px before a single meal appeared.
+*/
+@media (max-width: 700px) {
+  .k-day-head {
+    gap: var(--space-1);
+  }
+  .k-day-name {
+    min-width: 0;
+    width: 100%;
+  }
+  .k-training {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+  .k-training-row {
+    justify-content: space-between;
+  }
+  .k-training-sum {
+    margin-left: 0;
+  }
 }

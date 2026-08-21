@@ -4,7 +4,7 @@
 // bought. Editing one value here corrects every recipe that uses it, which is
 // the whole reason ingredients were pulled out of recipes in the first place.
 
-import { useState } from 'preact/hooks';
+import { useMemo, useState } from 'preact/hooks';
 import type { Aisle, FoodItem, FoodRole, KitchenState } from '../../lib/kitchen/types';
 import { AISLES, AISLE_LABELS, FOOD_ROLES } from '../../lib/kitchen/types';
 import { newId, refreshDerivedMacros } from '../../lib/kitchen/store';
@@ -198,14 +198,27 @@ export function FoodForm({
 
 export default function Foods({ state, update }: { state: KitchenState; update: Update }) {
   const [q, setQ] = useState('');
+  const [role, setRole] = useState<FoodRole | ''>('');
   const [editing, setEditing] = useState<FoodItem | null>(null);
 
   const query = q.trim().toLowerCase();
   const filtered = state.foods.filter(
     (f) =>
-      !query ||
-      f.name.toLowerCase().includes(query) ||
-      (f.fi ?? '').toLowerCase().includes(query)
+      (!role || f.role === role) &&
+      (!query ||
+        f.name.toLowerCase().includes(query) ||
+        (f.fi ?? '').toLowerCase().includes(query))
+  );
+
+  const groups = useMemo(
+    () =>
+      AISLES.map((aisle) => ({
+        aisle,
+        foods: filtered
+          .filter((f) => f.aisle === aisle)
+          .sort((a, b) => (a.fi || a.name).localeCompare(b.fi || b.name)),
+      })).filter((g) => g.foods.length > 0),
+    [filtered]
   );
 
   const save = (food: FoodItem) => {
@@ -247,56 +260,79 @@ export default function Foods({ state, update }: { state: KitchenState; update: 
         <span class="k-dim">{state.foods.length} foods</span>
       </div>
 
+      {/*
+        Filed by aisle, which is the categorisation foods already carry and the
+        one the shopping list uses — so the library reads in the same order you
+        walk the shop. Role gets a filter rather than a second set of headings,
+        because two grids over the same fifty rows is one more than helps.
+      */}
+      <div class="k-chips k-catfilter">
+        <button class={`k-chip${role === '' ? ' k-chip-on' : ''}`} onClick={() => setRole('')}>
+          All <span class="k-dim">{state.foods.length}</span>
+        </button>
+        {FOOD_ROLES.map((r) => {
+          const n = state.foods.filter((f) => f.role === r).length;
+          if (n === 0) return null;
+          return (
+            <button
+              key={r}
+              class={`k-chip${role === r ? ' k-chip-on' : ''}`}
+              onClick={() => setRole(role === r ? '' : r)}
+            >
+              {r} <span class="k-dim">{n}</span>
+            </button>
+          );
+        })}
+      </div>
+
       {filtered.length === 0 && <Empty>Nothing matches that.</Empty>}
 
-      <table class="k-table k-foodtable">
-        <thead>
-          <tr>
-            <th>Food</th>
-            <th>Role</th>
-            <th>Per 100</th>
-            <th>Used in</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {filtered.map((f) => {
-            const uses = usedBy(f.id);
-            return (
-              <tr key={f.id}>
-                <td>
-                  {f.fi || f.name}
-                  {f.fi && <span class="k-dim"> · {f.name}</span>}
-                  {f.state && <span class="k-tag">{f.state}</span>}
-                </td>
-                <td class="k-dim">{f.role}</td>
-                <td class="k-nums">
-                  {f.per100.kcal} kcal · {f.per100.protein}P · {f.per100.carbs}C ·{' '}
-                  {f.per100.fat}F
-                </td>
-                <td class="k-dim">{uses.length || '—'}</td>
-                <td class="k-right">
-                  <button class="k-link" onClick={() => setEditing(f)}>
-                    Edit
-                  </button>{' '}
-                  <button
-                    class="k-link k-danger"
-                    // Deleting a food that recipes depend on would leave them
-                    // quietly miscounting, so the count is the guard.
-                    disabled={uses.length > 0}
-                    title={uses.length ? `Used in ${uses.length} recipe(s)` : 'Delete'}
-                    onClick={() =>
-                      update((s) => ({ ...s, foods: s.foods.filter((x) => x.id !== f.id) }))
-                    }
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {groups.map((g) => (
+        <section class="k-catgroup" key={g.aisle}>
+          <h3 class="k-cathead">
+            {AISLE_LABELS[g.aisle]} <span class="k-dim">{g.foods.length}</span>
+          </h3>
+          <table class="k-table k-foodtable">
+            <tbody>
+              {g.foods.map((f) => {
+                const uses = usedBy(f.id);
+                return (
+                  <tr key={f.id}>
+                    <td>
+                      {f.fi || f.name}
+                      {f.fi && <span class="k-dim"> · {f.name}</span>}
+                      {f.state && <span class="k-tag">{f.state}</span>}
+                    </td>
+                    <td class="k-dim">{f.role}</td>
+                    <td class="k-nums">
+                      {f.per100.kcal} kcal · {f.per100.protein}P · {f.per100.carbs}C ·{' '}
+                      {f.per100.fat}F <span class="k-dim">/100 {f.base}</span>
+                    </td>
+                    <td class="k-dim">{uses.length ? `in ${uses.length}` : '—'}</td>
+                    <td class="k-right">
+                      <button class="k-link" onClick={() => setEditing(f)}>
+                        Edit
+                      </button>{' '}
+                      <button
+                        class="k-link k-danger"
+                        // Deleting a food that recipes depend on would leave
+                        // them quietly miscounting, so the count is the guard.
+                        disabled={uses.length > 0}
+                        title={uses.length ? `Used in ${uses.length} recipe(s)` : 'Delete'}
+                        onClick={() =>
+                          update((s) => ({ ...s, foods: s.foods.filter((x) => x.id !== f.id) }))
+                        }
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </section>
+      ))}
 
       {editing && (
         <FoodForm initial={editing} onSave={save} onClose={() => setEditing(null)} />
