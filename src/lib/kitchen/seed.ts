@@ -48,6 +48,9 @@ export const defaultSettings: Settings = {
 
   // A starting set, not a taxonomy. Rename them, delete the ones that do not
   // describe your cooking, add the ones that do.
+  //
+  // The last three mirror the drawers the recipe library was already filed
+  // into — Haudutettavat, Preppaus, and everything that fits nowhere else.
   recipeCategories: [
     { id: 'cat-breakfast', name: 'Breakfast' },
     { id: 'cat-snacks', name: 'Snacks' },
@@ -57,6 +60,9 @@ export const defaultSettings: Settings = {
     { id: 'cat-fish', name: 'Fish' },
     { id: 'cat-veggie', name: 'Vegetarian' },
     { id: 'cat-salad', name: 'Salads' },
+    { id: 'cat-braise', name: 'Braises and stews' },
+    { id: 'cat-prep', name: 'Prep and sauces' },
+    { id: 'cat-general', name: 'General' },
   ],
 };
 

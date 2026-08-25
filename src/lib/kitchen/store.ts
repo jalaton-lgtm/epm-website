@@ -12,8 +12,9 @@
 
 import type { FoodItem, KitchenState, Recipe } from './types';
 import { STATE_VERSION } from './types';
-import { recipeMacros, seedFoods } from './foods';
+import { allFoods, recipeMacros } from './foods';
 import { defaultSettings, exampleRecipes } from './seed';
+import { libraryRecipes } from './library';
 
 const KEY = 'epm.kitchen.v1';
 
@@ -34,8 +35,11 @@ export function defaultState(): KitchenState {
   return {
     version: STATE_VERSION,
     settings: structuredClone(defaultSettings),
-    foods: structuredClone(seedFoods),
-    recipes: structuredClone(exampleRecipes),
+    foods: structuredClone(allFoods),
+    // The real library first, the twelve neutral examples after it. The
+    // examples stay because they are one click to remove and the library is
+    // not; a page opened by somebody else still has something to plan with.
+    recipes: structuredClone([...libraryRecipes, ...exampleRecipes]),
     plans: {},
     training: {},
     weights: [],
