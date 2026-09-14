@@ -59,8 +59,8 @@ export const person = {
 // It cannot tell copy from CSS, so it asks — see scripts/check-dates.mjs, and
 // tag a markup-only commit [no-copy].
 export const pageUpdated: Record<string, string> = {
-  '/': '2026-08-06',
-  '/profile': '2026-08-06',
+  '/': '2026-09-14',
+  '/profile': '2026-09-14',
   '/partners': '2026-08-06',
   '/press': '2026-08-06',
 };
