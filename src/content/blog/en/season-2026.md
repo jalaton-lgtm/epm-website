@@ -25,6 +25,6 @@ I have been in the world top eight for the past four years, and the goal is to m
 
 ![Esa-Pekka Mattila and Leo-Pekka Tähti analysing on a tablet beside the track.](/images/season-2026-trackside.jpg)
 
-Osteopatiaklinikka Jere Linja-aho, Medifon Oy (Apteekki-tuotesarja) and my own club, Espoon Tapiot, were among those who made the 2026 season possible. I am glad to say we are continuing together this season as well! And of course, special thanks for last season go to my coach, Leo-Pekka Tähti.
+[Osteopatiaklinikka Jere Linja-aho](https://www.jerelinjaaho.com/), Medifon Oy ([Apteekki-tuotesarja](https://www.apteekki.fi/apteekki-tuotesarja.html)) and my own club, [Espoon Tapiot](https://espoontapiot.fi/), were among those who made the 2026 season possible. I am glad to say we are continuing together this season as well! And of course, special thanks for last season go to my coach, Leo-Pekka Tähti.
 
 *Photos: [@Lightrayproduction](https://instagram.com/lightrayproduction)*
