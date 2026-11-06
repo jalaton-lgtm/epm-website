@@ -15,7 +15,7 @@ By the numbers, the season was close to excellent. My best time was 14.10, the s
 
 Even so, the feeling the season leaves behind is mostly frustration. My personal best did not improve, close as I came.
 
-![Two wheelchair racers in their racing chairs on a rain-soaked blue track.](/images/season-2026-race.jpg)
+![Esa-Pekka Mattila and Leo-Pekka Tähti racing in the rain on a blue track.](/images/season-2026-race.jpg)
 
 The other thing that added to the frustration was that the season had no clear main target. The European Championships were cancelled in early spring, and there were no other championships this year. I am still second in the European rankings, though.
 
@@ -23,7 +23,7 @@ Over the season it has also become concrete that my career is nearing its end. T
 
 I have been in the world top eight for the past four years, and the goal is to move into the top three. So the chase for a new personal best, and for a World Championship and Paralympic medal, goes on.
 
-![Two athletes look at a tablet beside the track. One wears a shirt that reads Jalostaja Para Team.](/images/season-2026-trackside.jpg)
+![Esa-Pekka Mattila and Leo-Pekka Tähti analysing on a tablet beside the track.](/images/season-2026-trackside.jpg)
 
 Osteopatiaklinikka Jere Linja-aho, Medifon Oy (Apteekki-tuotesarja) and my own club, Espoon Tapiot, were among those who made the 2026 season possible. I am glad to say we are continuing together this season as well! And of course, special thanks for last season go to my coach, Leo-Pekka Tähti.
 
