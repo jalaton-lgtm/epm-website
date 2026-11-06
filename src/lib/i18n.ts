@@ -30,6 +30,7 @@ export const pageTwins: Record<string, Record<Lang, string>> = {
 // back to the other language's blog index rather than 404ing.
 export const postTwins: Record<string, string> = {
   'where-i-am': 'missa-mennaan',
+  'season-2026': 'kausi-2026',
 };
 
 /** Language-agnostic form of a path: /fi/profile -> /profile. */
