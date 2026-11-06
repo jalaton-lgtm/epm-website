@@ -11,7 +11,7 @@ draft: false
 
 Kausi 2027 on jo hyvän matkaa käynnissä, joten lienee paikallaan käydä vielä läpi edeltävä kausi 2026.
 
-Numeroiden puolesta kausi oli oikeastaan lähellä erinomaista. Paras aikani oli 14,10, ja se on urani toiseksi nopein suoritus. Ero ennätykseeni oli vain kaksi sadasosaa. Kolmen parhaan suorituksen keskiarvo 14,13 oli paras koskaan, ja koko kauden keskiarvokin oli vain kuusi tuhannesosaa huonompi kuin parhaana kautenani 2024. Myös huippunopeuteni 35,79 km/h oli kovin kolmeen vuoteen. Maailmanrankingissa ollaan kirjoitushetkellä kasina.
+Numeroiden puolesta kausi oli oikeastaan lähellä erinomaista. Paras aikani oli 14,10, ja se on urani toiseksi nopein suoritus. Ero ennätykseeni oli vain kaksi sadasosaa. Kolmen parhaan suorituksen keskiarvo 14,13 oli paras koskaan, ja koko kauden keskiarvokin oli vain kuusi tuhannesosaa huonompi kuin parhaana kautenani 2024. Myös huippunopeuteni 35,79 km/h oli kovin kolmeen vuoteen. Maailmanrankingissa ollaan kirjoitushetkellä seiskana.
 
 Silti päällimmäisenä tunteena kaudesta on turhautuminen. Ennätykseni ei parantunut, vaikka lähelle pääsinkin.
 
@@ -26,3 +26,5 @@ Viimeiset neljä vuotta olen ollut maailman top 8:ssa, ja tavoitteena on nousta 
 ![Kaksi urheilijaa katsoo tablettia radan vieressä. Toisen paidassa lukee Jalostaja Para Team.](/images/season-2026-trackside.jpg)
 
 Kauden 2026 mahdollistivat mm. Osteopatiaklinikka Jere Linja-aho, Medifon Oy (Apteekki-tuotesarja) sekä oma seurani Espoon Tapiot. Ilokseni voin ilmoittaa, että yhteistyö heidän kanssaan jatkuu myös nykyisellä kaudella! Erityiskiitos toki viime kaudesta kuuluu myös valmentajalleni Leo-Pekka Tähdelle.
+
+*Kuvat: [@Lightrayproduction](https://instagram.com/lightrayproduction)*

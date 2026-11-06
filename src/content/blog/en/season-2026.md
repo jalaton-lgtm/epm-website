@@ -11,7 +11,7 @@ draft: false
 
 The 2027 season is already well under way, so it seems worth going back over 2026 one more time.
 
-By the numbers, the season was close to excellent. My best time was 14.10, the second fastest of my career and only two hundredths of a second off my personal best. The average of my three best races, 14.13, was the best I have ever had, and my average across the whole season was only six thousandths slower than in 2024, my best season so far. My top speed of 35.79 km/h was also my fastest in three years. At the time of writing I am eighth in the world rankings.
+By the numbers, the season was close to excellent. My best time was 14.10, the second fastest of my career and only two hundredths of a second off my personal best. The average of my three best races, 14.13, was the best I have ever had, and my average across the whole season was only six thousandths slower than in 2024, my best season so far. My top speed of 35.79 km/h was also my fastest in three years. At the time of writing I am seventh in the world rankings.
 
 Even so, the feeling the season leaves behind is mostly frustration. My personal best did not improve, close as I came.
 
@@ -26,3 +26,5 @@ I have been in the world top eight for the past four years, and the goal is to m
 ![Two athletes look at a tablet beside the track. One wears a shirt that reads Jalostaja Para Team.](/images/season-2026-trackside.jpg)
 
 Osteopatiaklinikka Jere Linja-aho, Medifon Oy (Apteekki-tuotesarja) and my own club, Espoon Tapiot, were among those who made the 2026 season possible. I am glad to say we are continuing together this season as well! And of course, special thanks for last season go to my coach, Leo-Pekka Tähti.
+
+*Photos: [@Lightrayproduction](https://instagram.com/lightrayproduction)*
