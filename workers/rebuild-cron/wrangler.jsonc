@@ -1,0 +1,14 @@
+{
+  // Separate Worker from the site. Deploy it by hand from this folder
+  // (see README.md); the site's Workers Build never touches it.
+  "name": "epm-rebuild-cron",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-08",
+  // No public URL: this Worker only runs on its schedule.
+  "workers_dev": false,
+  "triggers": {
+    // 04:00 UTC daily (06:00 or 07:00 in Finland). Behold refreshes the feed
+    // once a day, so one rebuild a day is enough.
+    "crons": ["0 4 * * *"]
+  }
+}

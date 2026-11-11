@@ -1,0 +1,125 @@
+---
+// Homepage Instagram strip: the latest @mattilae posts as image tiles that
+// link out to Instagram.
+//
+// Data comes from src/data/instagram.json, written at build time by
+// scripts/fetch-instagram.mjs. That file is gitignored build output, so it is
+// read with node:fs behind existsSync rather than imported: an import of a
+// missing file would fail the build.
+//
+// No posts → the whole section renders nothing, heading included. That is
+// why the <section> lives here and not on the page.
+//
+// Images only, no captions or dates: captions are single-language on a
+// bilingual site, and dates make quiet spells look like inactivity.
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import PhotoSlot from './PhotoSlot.astro';
+
+export interface Props {
+  lang: 'en' | 'fi';
+}
+const { lang } = Astro.props;
+
+interface InstagramPost {
+  id: string;
+  href: string;
+  src: string;
+  width: number | null;
+  height: number | null;
+  alt: string;
+}
+
+const dataFile = join(process.cwd(), 'src/data/instagram.json');
+let posts: InstagramPost[] = [];
+if (existsSync(dataFile)) {
+  try {
+    const parsed = JSON.parse(readFileSync(dataFile, 'utf8'));
+    if (Array.isArray(parsed)) posts = parsed;
+  } catch {
+    posts = [];
+  }
+}
+
+const follow = lang === 'fi' ? 'Seuraa @mattilae →' : 'Follow @mattilae →';
+---
+
+{posts.length > 0 && (
+  <section id="instagram-preview">
+    <div class="wrap">
+      <div class="sec-head blog-head reveal">
+        <div class="idx-row"><span class="idx mono">03</span><h2>Instagram</h2></div>
+        <span class="mono">@mattilae</span>
+      </div>
+
+      <div class="ig-grid reveal">
+        {posts.map((post) => (
+          <a href={post.href} class="ig-tile" target="_blank" rel="noopener">
+            <PhotoSlot src={post.src} alt={post.alt} placeholder="INSTAGRAM" aspect="4/5" loading="lazy" decoding="async" />
+          </a>
+        ))}
+      </div>
+
+      <p class="more ig-more"><a href="https://instagram.com/mattilae" target="_blank" rel="noopener">{follow}</a></p>
+    </div>
+  </section>
+)}
+
+<style>
+  /* The section-head rules repeat the homepage's because Astro scopes styles
+     per file: the page's .sec-head / .idx-row / .more do not reach markup
+     rendered by this component. */
+  #instagram-preview {
+    border-top: 1px solid var(--rule);
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 52px;
+  }
+  .sec-head .idx {
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  .blog-head {
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .idx-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .more {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .ig-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .ig-tile {
+    display: block;
+    border: 1px solid var(--rule);
+    transition: border-color 0.22s ease;
+  }
+  /* Same hover border as the blog cards on this page. */
+  .ig-tile:hover {
+    border-color: rgba(226, 94, 31, 0.5);
+  }
+  .ig-more {
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 860px) {
+    .ig-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

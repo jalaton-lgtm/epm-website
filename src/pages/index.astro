@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PhotoSlot from '../components/PhotoSlot.astro';
 import CategoryBadge from '../components/CategoryBadge.astro';
+import InstagramStrip from '../components/InstagramStrip.astro';
 import { getCollection } from 'astro:content';
 import { cleanSlug } from '../lib/slug';
 import { person } from '../lib/schema';
@@ -97,10 +98,13 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
     </div>
   </section>
 
+  <!-- INSTAGRAM (renders nothing when the build-time feed is empty) -->
+  <InstagramStrip lang="en" />
+
   <!-- PARTNERS -->
   <section id="partners-preview">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Partners</h2></div>
+      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Partners</h2></div>
       <div class="partners-teaser reveal">
         <p>Racing at world level is a full-time job that costs more than it pays. That's why I'm looking for partners.</p>
         <a href="/partners" class="more">Work with me →</a>

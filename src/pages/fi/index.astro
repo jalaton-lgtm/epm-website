@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import CategoryBadge from '../../components/CategoryBadge.astro';
+import InstagramStrip from '../../components/InstagramStrip.astro';
 import { getCollection } from 'astro:content';
 import { cleanSlug } from '../../lib/slug';
 import { person } from '../../lib/schema';
@@ -97,10 +98,13 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'fi' && !
     </div>
   </section>
 
+  <!-- INSTAGRAM (renders nothing when the build-time feed is empty) -->
+  <InstagramStrip lang="fi" />
+
   <!-- PARTNERS -->
   <section id="partners-preview">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="idx mono">03</span><h2>Kumppanit</h2></div>
+      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Kumppanit</h2></div>
       <div class="partners-teaser reveal">
         {/* Deliberately not a rendering of the English teaser, which says the
             sport costs more than it pays. EP's call on 6.8.2026: that claim
