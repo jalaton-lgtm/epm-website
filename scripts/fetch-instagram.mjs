@@ -4,7 +4,7 @@
 // Cloudflare Workers Builds) starts from fresh posts. Output is build output,
 // not source, and both paths are gitignored:
 //
-//   public/instagram/<id>.webp   the images, served from esapekkamattila.com
+//   public/instagram/<id>.<ext>  the images, served from esapekkamattila.com
 //   src/data/instagram.json      [{ id, href, src, width, height, alt }]
 //
 // WHY BUILD TIME AND SELF-HOSTED. Visitors' browsers never talk to Behold or
@@ -75,13 +75,29 @@ function altFrom(caption) {
   return (space > ALT_MAX * 0.6 ? cut.slice(0, space) : cut).replace(/[\s.,;:!?–—-]+$/, '') + '…';
 }
 
-async function download(url, dest) {
+/**
+ * File extension from the image's first bytes. Behold's sizes.medium turned
+ * out to be JPEG, not the webp the plan expected, and Cloudflare picks the
+ * Content-Type from the extension, so the name has to match the bytes.
+ */
+function extensionOf(buf) {
+  if (buf.length > 3 && buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return 'jpg';
+  if (buf.length > 11 && buf.toString('latin1', 0, 4) === 'RIFF' && buf.toString('latin1', 8, 12) === 'WEBP') return 'webp';
+  if (buf.length > 7 && buf.toString('latin1', 1, 4) === 'PNG') return 'png';
+  if (buf.length > 11 && buf.toString('latin1', 4, 12) === 'ftypavif') return 'avif';
+  return null;
+}
+
+/** Download one image into IMG_DIR as <id>.<ext>; returns the file name. */
+async function download(url, id) {
   const res = await fetch(url, { signal: AbortSignal.timeout(IMAGE_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const type = res.headers.get('content-type') ?? '';
-  // Reject error pages served with 200, without demanding an exact image type.
-  if (/^text\/|json/.test(type)) throw new Error(`not an image (${type})`);
-  writeFileSync(dest, Buffer.from(await res.arrayBuffer()));
+  const buf = Buffer.from(await res.arrayBuffer());
+  const ext = extensionOf(buf);
+  if (!ext) throw new Error(`not a JPEG, WebP, PNG or AVIF (${res.headers.get('content-type') ?? 'no content-type'})`);
+  const name = `${id}.${ext}`;
+  writeFileSync(join(IMG_DIR, name), buf);
+  return name;
 }
 
 async function main() {
@@ -100,13 +116,17 @@ async function main() {
   if (!res.ok) throw new Error(`feed returned HTTP ${res.status}`);
   const feed = await res.json();
 
-  // Field names below are from the plan, not yet checked against a live
-  // response: posts[], id, permalink, prunedCaption/caption, sizes.medium.
+  // Field names checked against the live @mattilae feed on 11.11.2026:
+  // posts[] with id, permalink, prunedCaption, visibility and sizes.medium
+  // (JPEG on behold.pictures, 700 px on the long side). Every post
+  // then read visibility "visible"; anything else is taken to mean hidden
+  // in Behold's dashboard, which is an assumption, not documented.
   const raw = Array.isArray(feed?.posts) ? feed.posts : null;
   if (!raw) throw new Error('feed has no posts array');
 
   const candidates = raw
     .filter((p) => p && !EXCLUDED_POST_IDS.has(String(p.id)))
+    .filter((p) => p.visibility === undefined || p.visibility === 'visible')
     .map((p) => ({
       id: String(p.id ?? '').replace(/[^A-Za-z0-9_-]/g, ''),
       href: p.permalink,
@@ -125,11 +145,11 @@ async function main() {
   // One bad image drops that post, not the whole strip.
   const results = await Promise.allSettled(
     candidates.map(async (p) => {
-      await download(p.size.mediaUrl, join(IMG_DIR, `${p.id}.webp`));
+      const file = await download(p.size.mediaUrl, p.id);
       return {
         id: p.id,
         href: p.href,
-        src: `/instagram/${p.id}.webp`,
+        src: `/instagram/${file}`,
         width: Number(p.size.width) || null,
         height: Number(p.size.height) || null,
         alt: altFrom(p.caption),

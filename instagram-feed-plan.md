@@ -29,7 +29,7 @@ Port the build-time fetch from the Next Lap project where it fits, and write it 
 - Read `process.env.BEHOLD_FEED_URL`. If it's missing, log one line and exit 0.
 - GET the feed with a timeout of about 10 s. The response has a `posts` array. Each post has a `sizes` object with `small`, `medium`, `large` and `full`, and each size has `mediaUrl`, `width` and `height`. The `sizes` images are Behold-optimised webp. Use them, not the raw `mediaUrl`. For carousels and videos, the post-level `sizes` still holds a cover image.
 - Before writing the mapping, inspect one real response and confirm the field names for the post link (`permalink`) and the caption (`prunedCaption`). Check also whether the pinned post from 27 Aug 2024 comes through. If it does, exclude it (see Step 5).
-- For each post, download `sizes.medium` into `public/instagram/<post-id>.webp`. Write `src/data/instagram.json` as an array of `{ id, href, src, width, height, alt }`:
+- For each post, download `sizes.medium` into `public/instagram/<post-id>.<ext>`, with the extension taken from the file's bytes. (Checked 11.11.2026: Behold serves these as JPEG, not webp.) Write `src/data/instagram.json` as an array of `{ id, href, src, width, height, alt }`:
   - `href` is the Instagram permalink.
   - `src` is `/instagram/<id>.webp`.
   - `alt` is the caption trimmed to about 120 characters at a word boundary. If there's no caption, use `Instagram post by Esa-Pekka Mattila`.
