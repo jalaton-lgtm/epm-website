@@ -6,10 +6,15 @@ import InstagramStrip from '../components/InstagramStrip.astro';
 import { getCollection } from 'astro:content';
 import { cleanSlug } from '../lib/slug';
 import { person } from '../lib/schema';
+import { getInstagramPosts } from '../lib/instagram';
 
 const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+
+// Partners follows the Instagram strip, which only renders when the
+// build-time feed has posts.
+const partnersIdx = getInstagramPosts().length > 0 ? '04' : '03';
 ---
 
 <BaseLayout title="Esa-Pekka Mattila" lang="en" description="Esa-Pekka Mattila: Finnish T54 wheelchair racer and sports governance professional. Three-time Paralympian. Racing, board roles, advisory work and partnerships." jsonLd={person}>
@@ -104,7 +109,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
   <!-- PARTNERS -->
   <section id="partners-preview">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="idx mono">04</span><h2>Partners</h2></div>
+      <div class="sec-head reveal"><span class="idx mono">{partnersIdx}</span><h2>Partners</h2></div>
       <div class="partners-teaser reveal">
         <p>Racing at world level is a full-time job that costs more than it pays. That's why I'm looking for partners.</p>
         <a href="/partners" class="more">Work with me →</a>

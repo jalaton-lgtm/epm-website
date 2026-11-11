@@ -2,44 +2,22 @@
 // Homepage Instagram strip: the latest @mattilae posts as image tiles that
 // link out to Instagram.
 //
-// Data comes from src/data/instagram.json, written at build time by
-// scripts/fetch-instagram.mjs. That file is gitignored build output, so it is
-// read with node:fs behind existsSync rather than imported: an import of a
-// missing file would fail the build.
+// Data comes from src/lib/instagram.ts, which reads the build-time output of
+// scripts/fetch-instagram.mjs.
 //
 // No posts → the whole section renders nothing, heading included. That is
 // why the <section> lives here and not on the page.
 //
 // Images only, no captions or dates: captions are single-language on a
 // bilingual site, and dates make quiet spells look like inactivity.
-import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import PhotoSlot from './PhotoSlot.astro';
+import { getInstagramPosts } from '../lib/instagram';
 
 export interface Props {
   lang: 'en' | 'fi';
 }
 const { lang } = Astro.props;
-
-interface InstagramPost {
-  id: string;
-  href: string;
-  src: string;
-  width: number | null;
-  height: number | null;
-  alt: string;
-}
-
-const dataFile = join(process.cwd(), 'src/data/instagram.json');
-let posts: InstagramPost[] = [];
-if (existsSync(dataFile)) {
-  try {
-    const parsed = JSON.parse(readFileSync(dataFile, 'utf8'));
-    if (Array.isArray(parsed)) posts = parsed;
-  } catch {
-    posts = [];
-  }
-}
+const posts = getInstagramPosts();
 
 const follow = lang === 'fi' ? 'Seuraa @mattilae →' : 'Follow @mattilae →';
 ---

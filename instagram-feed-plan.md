@@ -55,7 +55,7 @@ Port the build-time fetch from the Next Lap project where it fits, and write it 
 ## Step 3: Wire into the homepage
 
 - `src/pages/index.astro` and `src/pages/fi/index.astro`: insert `<InstagramStrip lang="en" />` (or `"fi"`) between the Blog and Partners sections.
-- Renumber Partners from `03` to `04` on both pages.
+- Renumber Partners from `03` to `04` on both pages when the strip renders, and keep `03` when it does not (EP's call, 11.11.2026). Both read `src/lib/instagram.ts`.
 - Add a `border-top` for `#instagram-preview`, matching the other sections.
 - Bump `pageUpdated['/']` in `src/lib/schema.ts`, because the new section changes what the page shows. Run `npm run check:dates` before committing. The daily feed refreshes are not copy changes and must not bump the date.
 
@@ -74,7 +74,7 @@ If the pinned 2024 post appears in the feed, first check whether Behold's dashbo
 ## Acceptance checks
 
 1. `npm run build` with `BEHOLD_FEED_URL` set: the section renders on `/` and `/fi/` with up to 6 tiles, and each tile links to the right post.
-2. `npm run build` with the variable unset, and with a deliberately wrong URL: the build succeeds and neither homepage contains the section or its heading. Partners is still `04`.
+2. `npm run build` with the variable unset, and with a deliberately wrong URL: the build succeeds and neither homepage contains the section or its heading. Partners shows `03`.
 3. `grep -r "behold.pictures\|cdninstagram\|feeds.behold" dist/` returns nothing. No third-party URL ships to visitors.
 4. The built homepage has no new `<script>` tags.
 5. `npm run check:dates` passes after the `pageUpdated` bump.
