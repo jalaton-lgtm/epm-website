@@ -11,12 +11,13 @@ const la28 = 'https://la28.org/en.html';
 // exists. href: null renders plain text on purpose — the footer should
 // never point at a page that hasn't shipped. All three have now landed.
 // `sub` is split so "LA28" can carry the la28.org link while the rest stays
-// plain text.
+// plain text. The commas between the words are rendered by the template, in
+// accent like the closing dot, so they are not part of `text`.
 const copy = {
   en: {
     words: [
-      { text: 'Partnership,', href: '/partners' },
-      { text: 'speaking,', href: '/partners#speaking' },
+      { text: 'Partnership', href: '/partners' },
+      { text: 'speaking', href: '/partners#speaking' },
       { text: 'press', href: '/press' },
     ],
     sub: { pre: 'Open to partners through ', link: 'LA28', post: '.' },
@@ -25,8 +26,8 @@ const copy = {
   },
   fi: {
     words: [
-      { text: 'Kumppanuudet,', href: '/fi/partners' },
-      { text: 'puheenvuorot,', href: '/fi/partners#speaking' },
+      { text: 'Kumppanuudet', href: '/fi/partners' },
+      { text: 'puheenvuorot', href: '/fi/partners#speaking' },
       { text: 'media', href: '/fi/press' },
     ],
     sub: { pre: 'Kumppanuudet avoinna ', link: 'LA28', post: ':aan asti.' },
@@ -35,6 +36,13 @@ const copy = {
   },
 };
 const c = copy[lang];
+// Label and handle sit in two aligned columns (see .foot-links), so the
+// handles line up instead of ending wherever each label happens to end.
+const socials = [
+  { label: 'LinkedIn', handle: '@epmattila', href: 'https://fi.linkedin.com/in/epmattila' },
+  { label: 'Instagram', handle: '@mattilae', href: 'https://instagram.com/mattilae' },
+  { label: 'X', handle: '@epmattila', href: 'https://x.com/epmattila' },
+];
 ---
 <footer class="site-footer">
   <div class="wrap">
@@ -44,6 +52,7 @@ const c = copy[lang];
           <Fragment>
             {i > 0 && <br />}
             {w.href ? <a href={w.href}>{w.text}</a> : w.text}
+            {i < c.words.length - 1 && <span class="dot">,</span>}
           </Fragment>
         ))}<span class="dot">.</span></div>
         <p class="foot-sub">{c.sub.pre}<a href={la28} target="_blank" rel="noopener">{c.sub.link}</a>{c.sub.post}</p>
@@ -60,9 +69,11 @@ const c = copy[lang];
         <noscript><style is:inline>.mail-js{display:none}</style></noscript>
         <a class="mail-js" href="mailto:ep@esapekkamattila.com">ep@esapekkamattila.com</a>
         <noscript set:html={'<!--email_off--><a href="mailto:ep@esapekkamattila.com">ep@esapekkamattila.com</a><!--/email_off-->'} />
-        <a href="https://fi.linkedin.com/in/epmattila" target="_blank" rel="noopener me">LinkedIn · @epmattila</a>
-        <a href="https://instagram.com/mattilae" target="_blank" rel="noopener me">Instagram · @mattilae</a>
-        <a href="https://x.com/epmattila" target="_blank" rel="noopener me">X · @epmattila</a>
+        {socials.map((s) => (
+          <a class="social" href={s.href} target="_blank" rel="noopener me">
+            <span class="label">{s.label}</span><span>{s.handle}</span>
+          </a>
+        ))}
         <a href="#top" class="back">{c.backTop}</a>
       </div>
     </div>
@@ -121,20 +132,33 @@ const c = copy[lang];
   .foot-sub a:hover {
     color: var(--accent);
   }
+  /* Two columns, shared by every row through subgrid: labels on the left,
+     handles on the right, both starting on one edge. Email and back-to-top
+     span the full width. */
   .foot-links {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+    display: grid;
+    grid-template-columns: max-content max-content;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     letter-spacing: 0.05em;
-    text-align: right;
+  }
+  .foot-links > * {
+    grid-column: 1 / -1;
+  }
+  .foot-links .social {
+    display: grid;
+    grid-template-columns: subgrid;
   }
   .foot-links a {
     color: var(--muted);
   }
   .foot-links a:hover {
     color: var(--accent);
+  }
+  .foot-links .back {
+    margin-top: var(--space-1);
   }
   .foot-base {
     margin-top: var(--space-4);
