@@ -5,10 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/fetch-instagram.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check:dates": "node scripts/check-dates.mjs",
-    "check": "astro build && node scripts/check-dates.mjs"
+    "check": "npm run build && node scripts/check-dates.mjs",
+    "fetch:instagram": "node scripts/fetch-instagram.mjs"
   },
   "dependencies": {
     "@astrojs/preact": "^3.5.3",

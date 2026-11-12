@@ -16,3 +16,10 @@ node_modules/
 
 # Decap CMS local auth (if you ever run a local backend proxy)
 .netlify/
+
+# Instagram strip: written by scripts/fetch-instagram.mjs on every build
+public/instagram/
+src/data/instagram.json
+
+# rebuild-cron local secrets
+.dev.vars
