@@ -3,10 +3,13 @@
 //
 // `name` is the exact brand form each partner confirmed — the standing rule is
 // "name a third party only on their terms" (v18 §3, was rule 29). Do not
-// abbreviate it, restyle its capitalisation, or translate it: both names stay
+// abbreviate it, restyle its capitalisation, or translate it: the names stay
 // Finnish on the English page because that is what they are called.
 //
-// Naming permission for both was confirmed by EP on 3.8.2026.
+// Naming permission for Apteekki-tuotesarja and Jere Linja-aho was confirmed
+// by EP on 3.8.2026. Espoon Tapiot is EP's own club. EP added it as a partner
+// on 12.11.2026 because the club supports him financially. Its name and link
+// match the club entries on /profile and /press.
 //
 // `contribution` is still NOT rendered. It is recorded here so the commercial
 // nature of each relationship lives next to the name rather than only in the
@@ -40,5 +43,10 @@ export const currentPartners = {
     name: 'Osteopatiaklinikka Jere Linja-aho',
     href: 'https://www.jerelinjaaho.com/',
     contribution: 'treatment in kind',
+  },
+  tapiot: {
+    name: 'Espoon Tapiot',
+    href: 'https://espoontapiot.fi/',
+    contribution: 'funding, as EP\'s own club',
   },
 } satisfies Record<string, Partner>;
