@@ -29,7 +29,6 @@ const partnersIdx = getInstagramPosts().length > 0 ? '04' : '03';
       <div class="hero-meta">
         <span>CLASS <b>T54</b></span>
         <span>PB 100M <b>14.08s</b></span>
-        <span>IG <b>@mattilae</b></span>
       </div>
     </div>
     <a class="photo-credit" href="https://tobil.ch/" target="_blank" rel="noopener">
@@ -156,6 +155,9 @@ const partnersIdx = getInstagramPosts().length > 0 ? '04' : '03';
   }
   .hero .kicker {
     margin-bottom: 22px;
+    /* Small dark shadow so the kicker holds up where it sits over the
+       brighter parts of the hero photo. */
+    text-shadow: 0 1px 3px rgba(14, 13, 12, 0.9);
   }
   .hero-name {
     font-size: var(--text-hero);

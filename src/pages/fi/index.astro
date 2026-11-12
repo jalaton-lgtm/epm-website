@@ -29,7 +29,6 @@ const partnersIdx = getInstagramPosts().length > 0 ? '04' : '03';
       <div class="hero-meta">
         <span>LUOKKA <b>T54</b></span>
         <span>HE 100M <b>14,08s</b></span>
-        <span>IG <b>@mattilae</b></span>
       </div>
     </div>
     <a class="photo-credit" href="https://tobil.ch/" target="_blank" rel="noopener">
@@ -50,11 +49,11 @@ const partnersIdx = getInstagramPosts().length > 0 ? '04' : '03';
           <PhotoSlot src="/images/portrait.jpg" alt="Esa-Pekka Mattila" placeholder="LISÄÄ MUOTOKUVA" aspect="4/5" loading="lazy" decoding="async" />
         </div>
         <div class="bio reveal">
-          <p class="lead">T54-luokan pyörätuolikelaaja, kilpailee MM- ja paralympiatasolla.</p>
+          <p class="lead">MM- ja paralympiatason T54-luokan pyörätuolikelaaja</p>
           <div class="rule-accent"></div>
           <p>
-            Kilpailen 100 metrillä, T54-luokassa, kotipaikkana Espoo. Radan
-            ulkopuolella johdan Suomen Olympiakomitean urheilijavaliokuntaa,
+            Olen espoolainen 100m pyörätuolikelaaja. Radan ulkopuolella
+            johdan Suomen Olympiakomitean urheilijavaliokuntaa,
             ja minulla on hallitustehtäviä suomalaisessa urheilussa ja
             vammaisalalla.
           </p>
@@ -164,6 +163,9 @@ const partnersIdx = getInstagramPosts().length > 0 ? '04' : '03';
   }
   .hero .kicker {
     margin-bottom: 22px;
+    /* Small dark shadow so the kicker holds up where it sits over the
+       brighter parts of the hero photo. */
+    text-shadow: 0 1px 3px rgba(14, 13, 12, 0.9);
   }
   .hero-name {
     font-size: var(--text-hero);
